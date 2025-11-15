@@ -232,7 +232,7 @@ const GameViewInfo = ({
       </div> : null}
       <div style={{display: 'flex', flexDirection: left ? 'row' : 'row-reverse'}}>
         {!hasPlayerNames ? counterElem : null}{timerElem}
-      </div> :
+      </div>
     </div>
   )
 }
