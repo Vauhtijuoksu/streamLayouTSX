@@ -13,7 +13,7 @@ export default function Layout() {
   return (
     <StyleProvider>
       <MaskProvider>
-        {layoutComponent()}
+        {layoutComponent(undefined)}
       </MaskProvider>
     </StyleProvider>
   )
