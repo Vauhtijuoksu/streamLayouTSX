@@ -4,6 +4,7 @@ import {useCurrentGameData, useGames, usePeople} from "@/DataHandler/DataProvide
 import {Game} from "@/DataHandler/api";
 import {useStyle} from "@/themes/ThemeContext";
 import {GameIcon} from "@/components/Display/GameInfo";
+import {Fit2Box} from "@/util/TextSize";
 
 type ScheduleDisplayProps = {
   count?: number,
@@ -52,21 +53,23 @@ const ScheduleRow = ({...game}:Game) => {
   const players = game.participants.filter((p) => p.role == 'PLAYER').map((p) => people[p.id]?.displayName)
   return (
     <div className={[style.row, style.scheduleRow].join(" ")}>
-      <div className={[style.row, style.scheduleTime].join(" ")} style={{width: '2.6em', alignItems: 'center'}}>
-        {hours.map((h, i) => <div key={"h"+i} style={{width: '25%', textAlign: 'center'}}>{h}</div>)}
-        <div>
-          :
+      <div>
+        <div className={[style.row, style.scheduleTime].join(" ")} style={{width: '2.6em', height:"100%", alignItems: 'center'}}>
+          {hours.map((h, i) => <div key={"h"+i} style={{width: '25%', textAlign: 'center'}}>{h}</div>)}
+          <div>
+            :
+          </div>
+          {minutes.map((m, i) => <div key={"m"+i} style={{width: '25%', textAlign: 'center'}}>{m}</div>)}
         </div>
-        {minutes.map((m, i) => <div key={"m"+i} style={{width: '25%', textAlign: 'center'}}>{m}</div>)}
       </div>
       <div className={style.scheduleIcon}>
         <GameIcon.icon icon={game.imgFileName}/>
       </div>
       <div className={style.column}>
-        <div className={style.scheduleGame}>
+        <Fit2Box className={style.scheduleGame}>
           {game.game}
-        </div>
-        <div className={style.row}>
+        </Fit2Box>
+        <div className={style.row} style={{lineHeight: 1}}>
           <div className={style.scheduleCategory}>
             {game.category}
           </div>
