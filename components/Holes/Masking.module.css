@@ -1,0 +1,12 @@
+.masked {
+    mask: url(#HOLES);
+    .overlay {
+        visibility: hidden;
+    }
+}
+.unmasked {
+    visibility: hidden;
+    .overlay {
+        visibility: visible;
+    }
+}

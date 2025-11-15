@@ -1,0 +1,39 @@
+
+.root {
+    --borderWidth: 4px;
+    --borderStyle: solid;
+    --borderColor: Red;
+}
+.leftBar {
+    background-color: blue;
+}
+.gameView {
+    background-color: yellow;
+}
+.bottomBar {
+    background-color: #8c00ff;
+}
+.donateBar {
+    background-color: #00ff95;
+}
+.camera {
+    background-color: #9c5252;
+}
+.overCamInfo {
+    background-color: #39ac7c;
+}
+.donoCorner {
+    background-color: #d3a922;
+}
+.donoMid {
+    background-color: #34d322;
+}
+.mainTimer {
+    background-color: #d32222;
+}
+.gameInfo {
+    background-color: #34d322;
+}
+.deviceInfo {
+    background-color: #fffb00;
+}

@@ -1,0 +1,670 @@
+
+.root {
+    --lightOrange: #EDC1C5;
+    --orange: #CE8A81;
+    --lightPurple: #F5ECF3;
+    --purple: #A3448D;
+    --darkerPurple: #320A45;
+    --darkestPurple: #16031b;
+    --LightBlue: #B7F0F3;
+    --blue: #6FC4DF;
+    --DarkBlue: #5197BF;
+    --forest: #31757E;
+    --darkForest: #345F65;
+    --darkerForest: #123E3A;
+    --lightGreen: #EBF6E6;
+    --green: #CDF5BA;
+    --darkGreen: #5CBB72;
+    --darkestGreen: #0A130C;
+
+    --borderWidth: 2px;
+    --borderStyle: solid;
+    --borderColor: var(--darkestPurple);
+    --background-image: url("img/bg.png");
+    --background-image-faded: url("img/bgFaded.png");
+    --background-purple: var(--purple) fixed var(--background-image) -20px -50px;
+    --background-orange: var(--orange) fixed var(--background-image) -100px -240px;
+    --background-darkForest: var(--darkForest) fixed var(--background-image-faded) -10px -170px;
+    --background-green: var(--darkGreen) fixed var(--background-image-faded) -10px -170px;
+    --mainFont: ubuntu;
+    --titleFont: mezmerize;
+    --textStroke: var(--darkerPurple);
+    --primary: var(--darkestPurple);
+    --secondary: var(--darkestGreen);
+
+    font-family: var(--mainFont);
+    color: var(--primary);
+
+    font-size: 28px;
+
+    --donateBarFill: var(--darkGreen) fixed var(--background-image-faded) -10px -170px;
+    --donateBarFillLoad: var(--green) fixed var(--background-image-faded) -10px -170px;
+    --fontMinScale: 0.7;
+
+    --clockIcon: url("./img/icon/timer.png");
+    --donationDivider: url("./img/icon.png");
+    --divider: url("./img/icon.png");
+    --smallDivider: url("./img/icon.png");
+    --scheduleFallBackIcon: none
+}
+
+@font-face {
+    font-family: 'ubuntu';
+    src: url('./UbuntuTitling-Bold.ttf') format('truetype');
+    ascent-override: 102%;
+}
+
+@font-face {
+    font-family: 'mezmerize';
+    src: url('./Mesmerize_Sb.otf') format('opentype');
+}
+
+.sixteenNine {
+    .logoHolder {
+        height: 100px;
+        margin-left: var(--paddings);
+        margin-right: var(--paddings);
+        .logo {
+            background: url("./img/logo.png") center/contain no-repeat;
+        }
+    }
+}
+.sixteenNineDuoSplitCam, .sixteenNineDuo {
+    --fontMinScale: 0.75;
+    .logoHolder{
+        height: calc(100% - 0.8em);
+        margin: 0.4em;
+        .logo {
+            background: url("./img/logo.png") center/contain no-repeat;
+        }
+    }
+
+    .gameInfo {
+        .gameData {
+            max-width: 460px;
+            min-width: 400px;
+        }
+        .gameName {
+            max-height: 80px;
+        }
+    }
+    .bottomBar{
+        padding-top: 0.5em;
+        margin-bottom: -2px;
+    }
+}
+
+.sixteenNineDuoCornered{
+    .logoHolder{
+        flex-grow: 1;
+        height: 2.5em;
+        margin: 0.4em;
+        .logo {
+            background: url("./img/logo.png") center/contain no-repeat;
+        }
+    }
+}
+.fourThree {
+    .logoHolder {
+        height: 80px;
+        background: url("./img/logo.png") center/contain no-repeat;
+        margin-left: var(--paddings);
+        margin-right: var(--paddings);
+        .logo{
+            background: url("./img/logo.png") center/contain no-repeat;
+        }
+    }
+    .content{
+        font-size: 0.9em;
+    }
+}
+.fourThreeDuoSplitCam, .fourThreeDuo{
+    .logoHolder {
+        height: calc(100% - 0.04em);
+        margin: 0.02em;
+        .logo{
+            background: url("./img/logo.png") center/contain no-repeat;
+        }
+    }
+    .bottomBar{
+        padding-top: 0.3em;
+        margin-bottom: -2px;
+        gap: 2em
+    }
+    .topBar, .bottomBar{
+        font-size: 0.7em;
+    }
+
+    .gameInfo {
+        .gameData {
+            width: 500px;
+        }
+    }
+    .playerNameBlobLeft, .playerNameBlobRight{
+    }
+    .timer{
+    -webkit-text-stroke: 1.3px var(--darkerPurple);
+    }
+}
+.pause {
+    .logoHolder{
+        height: calc(4.5em);
+        margin: 0.4em;
+        .logo {
+            background: url("./img/logo.png") center/contain no-repeat;
+        }
+    }
+}
+.yapping {
+    .logoHolder{
+        height: calc(4.5em);
+        margin: 0.4em;
+        .logo {
+            background: url("./img/logo.png") center/contain no-repeat;
+        }
+    }
+}
+.yappingDuoCam {
+    .logoHolder{
+        height: calc(4.5em);
+        margin: 0.4em;
+        .logo {
+            background: url("./img/logo.png") center/contain no-repeat;
+        }
+    }
+}
+.pauseFullCam {
+    .yappingImage{
+        justify-content: flex-end;
+        align-items: flex-end;
+        .sponsors{
+            height: 80%;
+            width: 80%;
+        }
+    }
+}
+.nowPlaying {
+    position: absolute;
+    bottom: 0.5em;
+    left: 0.6em;
+    right: 0.6em;
+    text-align: right;
+}
+.logoHolder {
+    position: relative;
+    .logo{
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+    }
+}
+.bottomLeft{
+    --paddings: 0.6em;
+}
+.leftBar {
+    justify-content: space-between;
+    --paddings: 0.6em;
+    text-shadow: 0px 0px 2px var(--lightPurple),  0px 0px 2px var(--purple);
+    gap: 0.8em;
+}
+.mainArea{
+    text-shadow: 0px 0px 2px var(--lightPurple),  0px 0px 2px var(--purple);
+    .sponsors{
+        width: 90%;
+        height: 95%;
+        margin: 2.5% 5%;
+    }
+}
+.mainArea, .leftBar, .midBar, .bottomBar, .topBar, .gameView, .topRight, .bottomLeft, .camera {
+    background: var(--background-purple);
+}
+.topBar {
+    position: relative;
+    .playerNameBlobLeft, .playerNameBlobRight{
+        position: absolute;
+        background: var(--orange);
+        bottom: -0.3em;
+        --paddings: 0.4em;
+        min-width: 8em;
+        & > div {
+            margin: 0 var(--paddings);
+            &:first-child{
+                margin-top: var(--paddings);
+            }
+            &:last-child{
+                margin-bottom: var(--paddings);
+            }
+        }
+    }
+    .playerNameBlobLeft{
+        border-top-right-radius: var(--borderRadius);
+        border-bottom-right-radius: var(--borderRadius);
+        border-left-width: 0;
+        left: 0;
+        & > div {
+            margin-right: calc(var(--paddings) * 1.5);
+        }
+    }
+    .playerNameBlobRight{
+        border-top-left-radius: var(--borderRadius);
+        border-bottom-left-radius: var(--borderRadius);
+        border-right-width: 0;
+        text-align: right;
+        right: 0;
+        .personList{
+            justify-content: right;
+        }
+        & > div {
+            margin-left: calc(var(--paddings) * 1.5);
+        }
+    }
+}
+
+.bottomBar {
+    justify-content: space-around;
+    gap: 1em;
+    text-shadow: 0px 0px 2px var(--lightPurple),  0px 0px 2px var(--purple);
+
+    .camera {
+        height: 100%;
+        flex-grow: 1.7;
+        align-self: flex-end;
+        &:first-child.border{
+            border-left-width: 0;
+            border-bottom-width: 0;
+        }
+        &:last-child.border{
+            border-right-width: 0;
+            border-bottom-width: 0;
+        }
+    }
+}
+.camera {
+    height: 300px;
+    .border{
+        border-left-width: 0;
+        border-bottom-width: 0;
+    }
+}
+.breakCamera {
+    .border {
+        border-right-width: 0;
+        border-top-width: 0;
+    }
+}
+.breakCamera {
+    .border {
+        border-right-width: 0;
+        border-top-width: 0;
+    }
+}
+.breakBigCamera {
+    .border {
+        border-left-width: 0;
+        border-top-width: 0;
+        border-bottom-width: 0;
+
+    }
+}
+.sponsors{
+    flex-grow: 2;
+    font-size: 1.2em;
+}
+.schedule{
+    height: 100%;
+    width: 95%;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    gap: 0.6em;
+    .scheduleTime{
+        font-size: 1.7em;
+        color: var(--secondary);
+    }
+    .scheduleRow{
+        .scheduleIcon{
+            height: 100%;
+            aspect-ratio: 1;
+        }
+        .scheduleGame{
+            font-size: 1.5em;
+        }
+        .scheduleCategory{
+            color: var(--secondary);
+        }
+        .column{
+            .row{
+                gap: 0.1em 1em;
+                flex-wrap: wrap;
+            }
+        }
+    }
+}
+.incentives{
+    height: 100%;
+    width: 100%;
+    position: relative;
+    .incentive{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        .incentiveGameTitle{
+            font-size: 1.1em;
+            color: var(--secondary);
+            line-height: 1;
+
+        }
+        .incentiveTitle{
+            font-size: 1.2em;
+        }
+        .incentiveStatus{
+            width: 100%;
+            text-align: center;
+            .emptyIncentive{
+                color: var(--orange);
+                text-shadow: 0px 0px 3px var(--darkestPurple), 0px 0px 3px var(--darkestPurple);
+            }
+        }
+        .incentiveClosing{
+            padding-top: 0.4em;
+            font-size: 0.8em;
+            color: var(--darkerPurple);
+        }
+        .incentiveMilestoneRow{
+            border-radius: var(--borderRadius);
+            height: 2em;
+            width: 60%;
+            margin: auto;
+            background-color: var(--darkerPurple);
+            --textShadowColor: var(--lightPurple);
+            text-shadow: 1px 1px 1px var(--textShadowColor), 1px -1px 1px var(--textShadowColor), -1px -1px 1px var(--textShadowColor), -1px 1px 1px var(--textShadowColor);
+            .incentiveBarFill{
+                position: absolute;
+                top:0;
+                bottom: 0;
+                left: 0;
+                background-color: var(--orange);
+                border-radius: var(--borderRadius);
+            }
+            &.winningOption {
+                --textShadowColor: var(--darkGreen);
+                text-shadow: 1px 1px 1px var(--textShadowColor), 1px -1px 1px var(--textShadowColor), -1px -1px 1px var(--textShadowColor), -1px 1px 1px var(--textShadowColor);
+                .incentiveBarFill{
+                    background-color: var(--darkGreen);
+                }
+            }
+
+        }
+        .incentiveOptionRow{
+            width: 100%;
+            height: 2.5em;
+            justify-content: center;
+            gap: 0.2em;
+            .incentiveBar{
+                flex: 1;
+                font-size: 0.8em;
+                max-width: 25%;
+                --fillAmount: 0;
+                .incentiveBarFill{
+                    width: 100%;
+                    --borderRad: calc(var(--borderRadius) * 0.5);
+                    border-radius: var(--borderRad) var(--borderRad) calc(var(--borderRad) * 0.5) calc(var(--borderRad) * 0.5);
+                    overflow: hidden;
+                    height: calc(var(--fillAmount) * 100% - 1em);
+                    padding-top: 0.9em;
+                    position: relative;
+                    .incentiveBarAmount {
+                        position: absolute;
+                        text-shadow: none;
+                        line-height: 0.7;
+                        font-size: 0.9em;
+                        bottom: 0;
+                        left: 0;
+                        right: 0;
+                    }
+                }
+                &:nth-of-type(1) .incentiveBarFill{
+                    background-color: var(--orange);
+                }
+                &:nth-of-type(2) .incentiveBarFill{
+                    background-color: var(--forest);
+                }
+                &:nth-of-type(3) .incentiveBarFill{
+                    background-color: var(--green);
+                }
+                &:nth-of-type(4) .incentiveBarFill{
+                    background-color: var(--lightPurple);
+                }
+                &:nth-of-type(5) .incentiveBarFill{
+                    background-color: var(--blue);
+                }
+
+                &.winningOption {
+                    text-shadow: 0px 0px 5px var(--orange), 0px 0px 5px var(--orange);
+                    .incentiveBarAmount{
+                        font-size: 1.1em;
+                        line-height: 1;
+
+                    }
+                }
+                &.emptyOption {
+                    .incentiveBarFill {
+                        filter: saturate(0.5);
+                    }
+                }
+            }
+        }
+    }
+}
+.donateBar{
+    .incentives{
+        height: 100%;
+        width: 100%;
+        position: relative;
+        display: flex;
+        flex-direction: row;
+        overflow: hidden;
+        .incentive{
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            white-space: nowrap;
+
+            .donationDivider{
+                height: 1.2em;
+                width: 1.2em;
+                margin-top: -0.3em;
+                margin-bottom: -0.3em;
+                background: var(--donationDivider) center/contain no-repeat;
+            }
+            .incentiveContent {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: left;
+                gap: 0.5em;
+                height: 1em;
+            }
+            .incentiveGameTitle{
+                font-size: 0.7em;
+                height: 1em;
+                color: unset;
+                line-height: 1;
+            }
+            .incentiveTitle{
+                font-size: 1em;
+                line-height: 0.8;
+            }
+            .incentiveStatus{
+                width: auto;
+                text-align: left;
+            }
+            .incentiveListRow{
+                line-height: 1;
+                font-size: 0.9em;
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                gap: 0.5em
+
+            }
+        }
+    }
+}
+
+.scheduleFallBack{
+    height: 90%;
+    width: 90%;
+    background: var(--scheduleFallBackImage) center/contain no-repeat;
+}
+.overCamInfo {
+    border-top-right-radius: var(--borderRadius);
+    border-bottom-right-radius: var(--borderRadius);
+    text-shadow: none;
+    background: var(--orange);
+    border-left-width: 0;
+    min-height: 60px;
+    padding: 0.4em 0.2em 0.4em var(--paddings);
+}
+.roleHeader {
+    font-size: 0.9em;
+    color: var(--secondary)
+}
+.personList {
+    font-size: 1.1em;
+}
+.clockIcon {
+    height: 5.5em;
+    width: 4.5em;
+    margin-left: -0.4em;
+    background: var(--clockIcon) center/contain no-repeat;
+}
+.mainTimer {
+    .timer {
+        font-size: 2.2em;
+    }
+    .estimate {
+        font-size: 1.2em;
+        color: var(--secondary);
+    }
+}
+.timer{
+    -webkit-text-stroke: 2px var(--darkerPurple);
+    .timeNumber{
+       width: calc(var(--numberWidthMax) * 1px);
+        text-align: center;
+    }
+    .timeNumber.timeF{
+        font-size: 0.8em;
+        width: calc(var(--numberWidthMax) * 0.8px)
+    }
+    &.timerStopped {
+        --timerFlashColor: gold;
+        animation: timerFlash 1.5s 4 ease-in-out;
+        color: var(--DarkBlue);
+    }
+    &.timerRunning {
+        color: var(--darkGreen);
+    }
+    &.timerIdle {
+        color: var(--lightOrange);
+    }
+}
+@keyframes timerFlash {
+    50% {
+        text-shadow: 0px 0px 10px var(--timerFlashColor), 0px 0px 10px var(--timerFlashColor);
+    }
+}
+.gameInfo {
+    .gameData {
+        max-width: 600px;
+    }
+    .gameName {
+        font-size: 2.2em;
+        line-height: 1;
+
+    }
+    .category {
+        font-size: 1.2em;
+        line-height: 1;
+        color: var(--secondary);
+    }
+}
+.deviceInfo {
+}
+.donoRoller{
+    padding: 0 0.5em;
+}
+
+.donateBar {
+    border-top: var(--borderColor) var(--borderStyle, solid) var(--borderWidth, 0);
+    background: var(--background-darkForest);
+    font-size: 1.1em;
+}
+.donationBarFill, .donationBarFill2{
+    border-top-right-radius: var(--borderRadius);
+    border-bottom-right-radius: var(--borderRadius);
+}
+.donationBarFill{
+    background: var(--donateBarFill);
+    transition: right 2s 0.1s ease-in-out;
+}
+.donationBarFill2{
+    background: var(--donateBarFillLoad);
+    transition: right 1s 0s ease-in-out;
+}
+.donoCorner {
+    background: var(--orange);
+    width: 200px;
+    font-size: 1.2em;
+    border: var(--borderColor) var(--borderStyle, solid) var(--borderWidth, 0);
+    z-index: 2;
+}
+.donoLeft {
+    border-radius: 0 var(--borderRadius, 0) var(--borderRadius, 0) 0;
+    border-left: none;
+}
+.donoRight {
+    border-radius: var(--borderRadius, 0) 0 0 var(--borderRadius, 0);
+    border-right: none;
+}
+.donationList{
+    padding-left: 0.2em;
+    gap: 0.5em;
+    height: 100%;
+    .donation{
+        --donationFlashColor: gold;
+        animation-name: donationFlash;
+        animation-duration: 1s;
+        animation-iteration-count: 10;
+        animation-timing-function: ease-in-out;
+        &.old{
+            animation-iteration-count: 0;
+        }
+    }
+    .donationDivider{
+        height: 50%;
+        aspect-ratio: 1;
+        background: var(--donationDivider) center/contain no-repeat;
+        &:last-child {
+            display: none;
+        }
+    }
+}
+@keyframes donationFlash {
+    50% {
+        text-shadow: 0px 0px 10px var(--donationFlashColor), 0px 0px 10px var(--donationFlashColor);
+    }
+}
+
+.donateBar {
+    .divider {
+        background: var(--divider) center/contain no-repeat;
+    }
+    .smallDivider {
+        background: var(--smallDivider) center/contain no-repeat;
+    }
+}

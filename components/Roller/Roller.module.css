@@ -1,0 +1,113 @@
+.roller{
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    --FadeOpacity: 1;
+    animation: show 2s linear;
+}
+
+.rollerDisplay, .rollerHide{
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+@keyframes show {
+    0% {opacity: 0;}
+    75% {opacity: 0;}
+    100% {opacity: 1;}
+}
+
+.rollerHide{
+    .roller {
+        --FadeOpacity: 0;
+    }
+}
+.rollerDisplay {
+    animation-name: rollFromDown;
+    animation-duration: 1.5s;
+    animation-timing-function: ease-out;
+    top: 0;
+}
+.rollerHide {
+    animation-name: rollToUp;
+    animation-duration: 1.5s;
+    animation-timing-function: ease-in;
+    top: -100%;
+    opacity: var(--FadeOpacity)
+}
+.sideways{
+    .rollerDisplay, .rollerHide{
+        top: 0;
+        justify-content: center;
+    }
+    .rollerDisplay {
+        animation-name: rollFromRight;
+        left: 0
+    }
+    .rollerHide {
+        animation-name: rollToLeft;
+        left: -100%;
+        opacity: var(--FadeOpacity)
+    }
+}
+.fade {
+    --FadeOpacity: 0;
+}
+@keyframes rollToUp {
+    0% {
+        top: 0;
+        opacity: 1;
+    }
+    50% {
+        opacity: var(--FadeOpacity, 1);
+    }
+    100% {
+        top: -100%;
+        opacity: 0;
+    }
+}
+@keyframes rollFromDown {
+    0% {
+        top: 100%;
+        opacity: 0;
+    }
+    50% {
+        opacity: var(--FadeOpacity, 1);
+    }
+    100% {
+        top: 0;
+        opacity: 1;
+    }
+}
+@keyframes rollToLeft {
+    0% {
+        left: 0;
+        opacity: 1;
+    }
+    50% {
+        opacity: var(--FadeOpacity, 1);
+    }
+    100% {
+        left: -100%;
+        opacity: 0;
+    }
+}
+@keyframes rollFromRight {
+    0% {
+        left: 100%;
+        opacity: 0;
+    }
+    50% {
+        opacity: var(--FadeOpacity, 1);
+    }
+    100% {
+        left: 0;
+        opacity: 1;
+    }
+}

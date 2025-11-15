@@ -1,0 +1,306 @@
+.root{
+    display: grid;
+    grid-template-areas: "layout" "donateBar";
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr min-content;
+    height: 1080px;
+    width: 1920px;
+    position: absolute;
+}
+.layout {
+    display: grid;
+    width: 100%;
+    height: 100%;
+    grid-area: layout;
+    animation: show 0.5s 1 linear;
+}
+@keyframes show {
+    0% {opacity: 0}
+    80% {opacity: 0}
+    100% {opacity: 1}
+}
+.sixteenNine {
+    grid-template-areas: "leftBar gameView" "leftBar bottomBar";
+    grid-template-columns: 1fr min-content;
+    grid-template-rows: min-content 1fr;
+}
+.sixteenNineDuo, .sixteenNineDuoSplitCam {
+    grid-template-areas: "topBar topBar topBar" "gameView midBar gameView2" "bottomBar bottomBar bottomBar";
+    grid-template-columns: min-content 1fr min-content;
+    grid-template-rows: 100px min-content 1fr;
+}
+.sixteenNineDuoCornered {
+    grid-template-areas: "gameViewA gameViewB topRight" "gameViewC gameViewSUPER gameViewD" "bottomLeft gameViewE gameViewF";
+    grid-template-columns: 1fr 240px 1fr;
+    grid-template-rows: 1fr 216px 1fr;
+    .gameView{
+        grid-area: unset;
+        grid-column-start: gameViewA;
+        grid-column-end: gameViewB;
+        grid-row-start: gameViewA;
+        grid-row-end: gameViewC;
+        background: none;
+    }
+    .gameView2{
+        grid-area: unset;
+        grid-column-start: gameViewSUPER;
+        grid-column-end: gameViewD;
+        grid-row-start: gameViewSUPER;
+        grid-row-end: gameViewF;
+        background: none;
+    }
+    .bottomLeft, .topRight{
+        font-size: 0.8em;
+    }
+    .mainTimer{
+        font-size: 0.8em;
+    }
+    .bottomLeft {
+        border-right: var(--borderColor) var(--borderStyle, solid) var(--borderWidth, 0);
+        border-top: var(--borderColor) var(--borderStyle, solid) var(--borderWidth, 0);
+    }
+    .topRight {
+        border-left: var(--borderColor) var(--borderStyle, solid) var(--borderWidth, 0);
+        border-bottom: var(--borderColor) var(--borderStyle, solid) var(--borderWidth, 0);
+    }
+    .overCamInfo{
+        margin-top: calc(var(--borderRadius) * -0.8);
+
+    }
+    .camera {
+        height: 100%;
+        flex-grow: 2;
+    }
+}
+
+.sixteenNineDuoCornered:not(.sixteenNineDuoCorneredLowerOnTop) {
+    .gameView2{
+        & > div > .border {
+            outline: none;
+        }
+    }
+}
+.sixteenNineDuoCorneredLowerOnTop {
+    .gameView:not(.gameView2){
+        & > div > .border {
+            outline: none;
+        }
+    }
+}
+
+.fourThreeDuo, .fourThreeDuoSplitCam {
+    grid-template-areas: "topBar topBar topBar" "gameView midBar gameView2" "bottomBar bottomBar bottomBar" "donateBar donateBar donateBar";
+    grid-template-columns: min-content 1fr min-content;
+    grid-template-rows: 40px min-content 1fr min-content;
+}
+.fourThree {
+    grid-template-areas: "leftBar gameView" "donateBar donateBar";
+    grid-template-columns: 1fr min-content;
+    grid-template-rows: min-content min-content;
+}
+.pause {
+    grid-template-areas: "topLeft topRight" "bottomLeft bottomRight" "donateBar donateBar";
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1.2fr 1fr min-content;
+}
+.yapping {
+    grid-template-areas: "left mid topRight" "left mid bottomRight" "donateBar donateBar donateBar";
+    grid-template-columns: 1fr 10px 1fr;
+    grid-template-rows: 1fr 1.2fr min-content;
+}
+.yappingDuoCam {
+    grid-template-areas: "left mid topRight" "left mid bottomRight" "donateBar donateBar donateBar";
+    grid-template-columns: 1fr 10px 1fr;
+    grid-template-rows: 1.2fr 1fr min-content;
+}
+.pauseFullCam {
+    grid-template-areas: ". ." ". bottomRight" "donateBar donateBar";
+    grid-template-columns: 1.5fr 1fr;
+    grid-template-rows: 1.5fr 1fr min-content;
+}
+.hideIfEmpty:not(:has(:first-child)){
+    display: none;
+}
+.fontScaler {
+    font-size: calc(max(var(--fontMinScale, 0.1), var(--fontScale, 1)) * 1em)
+}
+.full {
+    width: 100%;
+    height: 100%;
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+}
+.column {
+    display: flex;
+    flex-direction: column;
+}
+
+.gameView > div > .border{
+    outline: var(--borderColor) var(--borderStyle, solid) var(--borderWidth, 0);
+    border: none;
+}
+.border {
+    border: var(--borderColor) var(--borderStyle, solid) var(--borderWidth, 0);
+}
+.leftBar {
+    grid-area: leftBar;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    justify-content: space-between;
+    .content {
+        margin-right: var(--paddings);
+        margin-left: var(--paddings);
+        grid-area: leftBar;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        flex-grow: 2;
+    }
+    .overCamInfo, .camera {
+        margin-right: var(--paddings);
+    }
+}
+
+.gameView {
+    grid-area: gameView;
+}
+.gameView2 {
+    grid-area: gameView2;
+}
+.gameView3 {
+    grid-area: gameView3;
+}
+.gameView4 {
+    grid-area: gameView4;
+}
+.bottomBar {
+    grid-area: bottomBar;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.midBar {
+    width: 100%;
+    height: 100%;
+    grid-area: midBar;
+}
+.topBar {
+    grid-area: topBar;
+}
+.topRight {
+    grid-area: topRight;
+}
+.bottomLeft {
+    grid-area: bottomLeft;
+}
+
+
+.playerNameBlobLeft, .playerNameBlobRight{
+    z-index: 10;
+}
+.overCamInfo {
+    z-index: 10;
+    margin-bottom: calc(var(--borderRadius) * -1.8);
+    min-height: 60px;
+}
+
+.sponsors{
+    .sponsor {
+        width: 100%;
+        height: 100%;
+        padding: 0.2em;
+        display: block;
+        & img {
+            object-fit: contain;
+            width: 100%;
+            height: 100%;
+        }
+    }
+}
+
+
+.mainTimer {
+    .timer {
+        .timeH:not(:last-child){
+            transition: width 0.5s 0s linear, opacity 0.5s 0.3s linear;
+            @starting-style {
+                width: 0;
+                opacity: 0;
+            }
+        }
+    }
+}
+
+
+.donateBar {
+    grid-area: donateBar;
+    height: 80px;
+    overflow: hidden;
+    .donation {
+        white-space: nowrap;
+    }
+}
+.donateBarContent{
+    height: 100%;
+    overflow: hidden;
+    line-height: 1;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    white-space: nowrap;
+    flex-wrap: nowrap;
+    gap: 0.7em;
+    .donateBarSingle{
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        white-space: nowrap;
+        flex-wrap: nowrap;
+        justify-content: center;
+    }
+    .divider{
+        height: 1.5em;
+        aspect-ratio: 1;
+        display: inline-block;
+    }
+    .smallDivider{
+        height: 0.6em;
+        aspect-ratio: 1;
+        display: inline-block;
+    }
+    .donateBarEdge{
+        font-size: 0.7em;
+        height: 0.9em;
+    }
+    .donateBarMain{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 0.4em;
+    }
+}
+.donoCorner {
+    margin-top: calc(var(--borderWidth) * -1);
+    margin-bottom: calc(var(--borderWidth) * -1);
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    & > div {
+        min-height: 1.4em;
+    }
+    .donationNumber {
+        width: calc(var(--numberWidthMax) * 1px);
+        transition: width 0.3s 0s linear;
+        @starting-style {
+            width: 0;
+        }
+
+    }
+}
