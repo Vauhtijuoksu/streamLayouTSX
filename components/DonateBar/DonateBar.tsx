@@ -69,15 +69,20 @@ const DonationTotal = ({
   total
 }:DonationTotalProps) => {
   const [displayTotal, setDisplayTotal] = useState<number>(-1)
+  const [first, setFirst] = useState(true)
   const timeout = useRef<ReturnType<typeof setTimeout>>(null)
   const style = useStyle()
   useEffect(() => {
     if (typeof total != 'undefined' && displayTotal != total) {
-      if (displayTotal == -1){
+      if (first) {
+        console.log("TOTAL: ", total, displayTotal)
+        setDisplayTotal(total)
+        if (total > 0) setFirst(false)
+      } else if (displayTotal == -1){
         setDisplayTotal(total)
       } else {
         if (displayTotal < total - 0.999){
-          timeout.current = setTimeout(() => setDisplayTotal(displayTotal + 1), 200/Math.sqrt(total-displayTotal))
+          timeout.current = setTimeout(() => setDisplayTotal(displayTotal + 1), 1500/Math.pow(total-displayTotal, 1.2))
         } else {
           setDisplayTotal(total)
         }
@@ -86,7 +91,8 @@ const DonationTotal = ({
     return () => {
       if (timeout.current) clearTimeout(timeout.current)
     }
-  }, [total, displayTotal]);
+  }, [total, displayTotal, first]);
+
 
   if (displayTotal == -1) return null
   return (
@@ -123,11 +129,11 @@ const DonateeList = () => {
   return (
     <div className={style.donationList} style={{display: 'flex', flexDirection: 'row', height: '100%', alignItems: 'center'}}>
       {donations.sort((a, b)=> {return b.timestamp - a.timestamp}).map((d, i) => {
-        const old = Date.now() - d.timestamp > 20000
+        const old = Date.now() - d.timestamp > 10000
         return ([
             <div className={[style.donation, old ? style.old : ""].join(" ")} key={d.id}>{d.name} + {d.amount} €</div>
             ,
-            <div key={"b"+d.id} className={style.donationDivider}/>
+            <div key={"b"+d.id} className={style.divider}/>
           ]
         )
       })}

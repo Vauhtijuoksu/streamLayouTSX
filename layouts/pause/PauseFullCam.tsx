@@ -29,7 +29,7 @@ const LayoutComponent = (props:LayoutComponentProps) => {
   return (
     <div className={style.root} style={config.defaultCornerRadius ? {'--borderRadius': config.defaultCornerRadius + "px"} as CSSProperties : {}}>
       <div className={[style.layout, style.pauseFullCam].join(" ")}>
-        <div className={[style.yappingImage, style.column].join(" ")} style={{gridArea: 'bottomRight', height: '100%', gap: '1em'}}>
+        <div className={[style.sponsorHolder, style.column].join(" ")} style={{gridArea: 'bottomRight'}}>
           <div className={style.sponsors}>
             <SponsorDisplay/>
           </div>

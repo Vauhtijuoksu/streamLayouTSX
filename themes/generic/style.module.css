@@ -42,10 +42,8 @@
     --fontMinScale: 0.7;
 
     --clockIcon: url("./img/icon/timer.png");
-    --donationDivider: url("./img/icon.png");
     --divider: url("./img/icon.png");
     --smallDivider: url("./img/icon.png");
-    --scheduleFallBackIcon: none
 }
 
 @font-face {
@@ -461,11 +459,6 @@
 }
 
 
-.scheduleFallBack{
-    height: 90%;
-    width: 90%;
-    background: var(--scheduleFallBackImage) center/contain no-repeat;
-}
 .overCamInfo {
     border-top-right-radius: var(--borderRadius);
     border-bottom-right-radius: var(--borderRadius);
@@ -591,10 +584,9 @@
             animation-iteration-count: 0;
         }
     }
-    .donationDivider{
+    .divider{
         height: 50%;
         aspect-ratio: 1;
-        background: var(--donationDivider) center/contain no-repeat;
         &:last-child {
             display: none;
         }

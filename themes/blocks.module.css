@@ -89,34 +89,38 @@
 }
 
 .fourThreeDuo, .fourThreeDuoSplitCam {
-    grid-template-areas: "topBar topBar topBar" "gameView midBar gameView2" "bottomBar bottomBar bottomBar" "donateBar donateBar donateBar";
+    grid-template-areas: "topBar topBar topBar" "gameView midBar gameView2" "bottomBar bottomBar bottomBar";
     grid-template-columns: min-content 1fr min-content;
-    grid-template-rows: 40px min-content 1fr min-content;
+    grid-template-rows: 40px min-content 1fr;
 }
 .fourThree {
-    grid-template-areas: "leftBar gameView" "donateBar donateBar";
+    grid-template-areas: "leftBar gameView";
     grid-template-columns: 1fr min-content;
-    grid-template-rows: min-content min-content;
+    grid-template-rows: min-content;
 }
 .pause {
-    grid-template-areas: "topLeft topRight" "bottomLeft bottomRight" "donateBar donateBar";
+    grid-template-areas: "topLeft topRight" "bottomLeft bottomRight" ;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1.2fr 1fr min-content;
+    grid-template-rows: 1.2fr 1fr;
 }
 .yapping {
-    grid-template-areas: "left mid topRight" "left mid bottomRight" "donateBar donateBar donateBar";
+    grid-template-areas: "left mid topRight" "left mid bottomRight";
     grid-template-columns: 1fr 10px 1fr;
     grid-template-rows: 1fr 1.2fr min-content;
 }
 .yappingDuoCam {
-    grid-template-areas: "left mid topRight" "left mid bottomRight" "donateBar donateBar donateBar";
+    grid-template-areas: "left mid topRight" "left mid bottomRight";
     grid-template-columns: 1fr 10px 1fr;
-    grid-template-rows: 1.2fr 1fr min-content;
+    grid-template-rows: 1.2fr 1fr;
 }
 .pauseFullCam {
-    grid-template-areas: ". ." ". bottomRight" "donateBar donateBar";
-    grid-template-columns: 1.5fr 1fr;
-    grid-template-rows: 1.5fr 1fr min-content;
+    grid-template-areas: ". ." ". bottomRight";
+    grid-template-columns: 1fr min-content;
+    grid-template-rows: 1fr min-content;
+    .sponsorHolder {
+        height: 500px;
+        width: 500px;
+    }
 }
 .hideIfEmpty:not(:has(:first-child)){
     display: none;
@@ -298,9 +302,21 @@
     .donationNumber {
         width: calc(var(--numberWidthMax) * 1px);
         transition: width 0.3s 0s linear;
+        text-align: center;
         @starting-style {
             width: 0;
         }
 
     }
 }
+.incentiveFallBack, .scheduleFallBack{
+    height: 100%;
+    width: 100%;
+}
+.incentiveFallBack{
+    background: var(--incentiveFallBackBG, none);
+}
+.scheduleFallBack{
+    background: var(--scheduleFallBackBG, none);
+}
+

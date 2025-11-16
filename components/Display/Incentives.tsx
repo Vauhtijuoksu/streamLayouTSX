@@ -50,10 +50,16 @@ export const IncentiveRollerDisplay = ({
     setIncentiveElements(elemGrouped)
   }, [incentives, slides, onSlide]);
   if (incentiveElements.length == 0) return fallBack
+  return fallBack
   return (
-    <div className={style.incentives}>
-      <Roller showOverFlow={true}  sideWays fade delaySeconds={rollDelay} rollElements={incentiveElements}/>
-    </div>
+    <>
+      <div style={{fontSize: '1.2em'}}>
+        Tulevia kannustimia:
+      </div>
+      <div className={style.incentives} style={{flexGrow: 1}}>
+        <Roller showOverFlow={true}  sideWays fade delaySeconds={rollDelay} rollElements={incentiveElements}/>
+      </div>
+    </>
   )
 }
 

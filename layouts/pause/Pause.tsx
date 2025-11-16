@@ -46,12 +46,7 @@ const LayoutComponent = (props:LayoutComponentProps) => {
         </div>
         <div className={style.mainArea} style={{gridArea: 'bottomLeft'}}>
           <div style={{width: "90%", height:"95%", margin:"2.5% 5%", display: 'flex', flexDirection: 'column'}}>
-            <div style={{fontSize: '1.2em'}}>
-              Tulevia kannustimia:
-            </div>
-            <div style={{flexGrow: 1}}>
-              <IncentiveRollerDisplay fallBack={<div className={style.incentiveFallBack}/>}/>
-            </div>
+            <IncentiveRollerDisplay fallBack={<div className={style.incentiveFallBack}/>}/>
           </div>
         </div>
         <div className={style.mainArea} style={{gridArea: 'bottomRight'}}>

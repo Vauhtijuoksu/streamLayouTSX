@@ -1,7 +1,7 @@
 
 .root{
     --lightForest: #49acbc;
-    --lighterpurple: #DE91CC;
+    --lighterPurple: #DE91CC;
     --brokenpurple: #A15C90;
     --background-image: url("img/bg.png");
     --mainBackground: var(--darkForest) fixed var(--background-image) -20px -50px;
@@ -11,9 +11,43 @@
     --donateBarFill: var(--darkGreen) fixed var(--background-image) -10px -170px;
     --donateBarFillLoad: var(--green) fixed var(--background-image) -10px -170px;
     --secondary: var(--darkestPurple);
+    --scheduleFallBackBG: url("./img/tikkaviuhti.png") right/contain no-repeat;
+    --incentiveFallBackBG: url("./img/raakkuviuhti.png") left/contain no-repeat;
+    --smallDivider: url("./img/kolmio.png");
+    --divider: url("./img/kolmio.png");
+    --clockIcon: url("./img/clock.png");
 }
-
-.leftBar {
+.pauseFullCam{
+    .sponsorHeader{
+        display: none;
+    }
+    .sponsorHolder {
+        height: 420px;
+        width: 630px;
+        position: relative;
+        margin-right: -32px;
+        margin-bottom: -26px;
+        &::after{
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            background: url("./img/kehys.png") center/contain no-repeat;
+            z-index: 100;
+        }
+        .sponsors {
+            position: absolute;
+            top: 15%;
+            left: 10%;
+            bottom: 10%;
+            right: 10%;
+            padding: 5%;
+            background: var(--darkerForest)  var(--background-image) center/cover;
+            overflow: hidden;
+        }
+    }
 }
 .mainArea, .leftBar, .midBar, .bottomBar, .topBar, .gameView, .topRight, .bottomLeft, .camera {
     background: var(--mainBackground);
@@ -25,7 +59,7 @@
         }
         .incentiveStatus{
             .emptyIncentive{
-                color: var(--orange);
+                color: var(--lighterPurple);
                 text-shadow: 0px 0px 3px var(--darkestPurple), 0px 0px 3px var(--darkestPurple);
             }
         }

@@ -33,6 +33,7 @@ export const ScheduleDisplay = ({
   const style = useStyle()
 
   if (upcomingGames.length == 0) return fallBack
+  return fallBack
   return (
     <div className={style.schedule}>
       {upcomingGames.slice(0, Math.min(count, upcomingGames.length)).map((g) => {
