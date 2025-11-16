@@ -319,4 +319,16 @@
 .scheduleFallBack{
     background: var(--scheduleFallBackBG, none);
 }
+.logoHolder {
+    height: var(--logoHeight, auto);
+    width: var(--logoWidth, auto);
+    position: relative;
+    .logo{
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+    }
+}
 

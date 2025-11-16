@@ -50,7 +50,6 @@ export const IncentiveRollerDisplay = ({
     setIncentiveElements(elemGrouped)
   }, [incentives, slides, onSlide]);
   if (incentiveElements.length == 0) return fallBack
-  return fallBack
   return (
     <>
       <div style={{fontSize: '1.2em'}}>

@@ -132,19 +132,19 @@ TimerDisplay.Total = function Total({className}:{className?:string}){
   const [timer, setTimer] = useState<Timer>({start: null, end: null})
   const style = useStyle()
   useEffect(() => {
+    const updatedTimer:Timer = {
+      start: null,
+      end: null
+    }
     timers.forEach((t) => {
-      const updatedTimer:Timer = {
-        start: null,
-        end: null
-      }
-      console.log(t)
       if (t.start !== null){
         if (updatedTimer.start == null || updatedTimer.start > t.start) updatedTimer.start = t.start
-        if(t.end == null || (updatedTimer.end !== null && updatedTimer.end < t.end)) updatedTimer.end = t.end
+        if (updatedTimer.end == null || (t.end !== null && updatedTimer.end < t.end)) updatedTimer.end = t.end
       }
-      setTimer(updatedTimer)
     })
+    setTimer(updatedTimer)
   }, [timers]);
+
   return <TimerDisplay {...timer} className={[style.TotalTimer, className].join(" ")}/>
 }
 

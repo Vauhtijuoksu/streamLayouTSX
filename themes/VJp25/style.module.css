@@ -49,6 +49,122 @@
         }
     }
 }
+
+.sixteenNine {
+    .logoHolder {
+        height: 100px;
+        margin-left: var(--paddings);
+        margin-right: var(--paddings);
+        .logo {
+            background: url("./img/logo.png") center/contain no-repeat;
+        }
+    }
+}
+.sixteenNineDuoSplitCam, .sixteenNineDuo {
+    --fontMinScale: 0.75;
+    .logoHolder{
+        height: calc(100% - 0.8em);
+        margin: 0.4em;
+        .logo {
+            background: url("./img/logo.png") center/contain no-repeat;
+        }
+    }
+
+    .gameInfo {
+        .gameData {
+            max-width: 460px;
+            min-width: 400px;
+        }
+        .gameName {
+            max-height: 80px;
+        }
+    }
+    .bottomBar{
+        padding-top: 0.5em;
+        margin-bottom: -2px;
+    }
+}
+
+.sixteenNineDuoCornered{
+    .logoHolder{
+        flex-grow: 1;
+        height: 2.5em;
+        margin: 0.4em;
+        .logo {
+            background: url("./img/logo.png") center/contain no-repeat;
+        }
+    }
+}
+.fourThree {
+    .logoHolder {
+        height: 80px;
+        background: url("./img/logo.png") center/contain no-repeat;
+        margin-left: var(--paddings);
+        margin-right: var(--paddings);
+        .logo{
+            background: url("./img/logo.png") center/contain no-repeat;
+        }
+    }
+    .content{
+        font-size: 0.9em;
+    }
+}
+.fourThreeDuoSplitCam, .fourThreeDuo{
+    .logoHolder {
+        height: calc(100% - 0.04em);
+        margin: 0.02em;
+        .logo{
+            background: url("./img/logo.png") center/contain no-repeat;
+        }
+    }
+    .bottomBar{
+        padding-top: 0.3em;
+        margin-bottom: -2px;
+        gap: 2em
+    }
+    .topBar, .bottomBar{
+        font-size: 0.7em;
+    }
+
+    .gameInfo {
+        .gameData {
+            width: 500px;
+        }
+    }
+    .playerNameBlobLeft, .playerNameBlobRight{
+    }
+    .timer{
+    -webkit-text-stroke: 1.3px var(--darkerPurple);
+    }
+}
+.pause {
+    .logoHolder{
+        height: calc(4.5em);
+        margin: 0.4em;
+        .logo {
+            background: url("./img/logo.png") center/contain no-repeat;
+        }
+    }
+}
+.yapping {
+    .logoHolder{
+        height: calc(4.5em);
+        margin: 0.4em;
+        .logo {
+            background: url("./img/logo.png") center/contain no-repeat;
+        }
+    }
+}
+.yappingDuoCam {
+    .logoHolder{
+        height: calc(4.5em);
+        margin: 0.4em;
+        .logo {
+            background: url("./img/logo.png") center/contain no-repeat;
+        }
+    }
+}
+
 .mainArea, .leftBar, .midBar, .bottomBar, .topBar, .gameView, .topRight, .bottomLeft, .camera {
     background: var(--mainBackground);
 }
@@ -126,4 +242,16 @@
     text-shadow: 1px 1px 1px var(--outline), 1px -1px 1px var(--outline), -1px -1px 1px var(--outline), -1px 1px 1px var(--outline), 0px 0px 2px var(--outline);
     -webkit-text-stroke: 0.5px var(--outline);
     color: var(--LightBlue);
+}
+.timer {
+    &.timerStopped {
+        --timerFlashColor: var(--green);
+        color: var(--darkGreen);
+    }
+    &.timerRunning {
+        color: var(--blue);
+    }
+    &.timerIdle {
+        color: var(--darkerForest);
+    }
 }

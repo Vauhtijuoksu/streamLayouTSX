@@ -77,23 +77,44 @@ const TextSizeTester = ({
 }:TextSizeTesterProps) => {
   const height = useRef<HTMLDivElement>(null)
   const width = useRef<HTMLDivElement>(null)
+  const [heightSize, setHeightSize] = useState<{x: number, y: number}|null>(null)
+  const [widthSize, setWidthSize] = useState<{x: number, y: number}|null>(null)
   const split = text.split('').map((s,i) => {return <div key={i}>{s}</div>})
   useEffect(() => {
     if (height.current && width.current) {
-      const hRect = height.current.getBoundingClientRect()
-      const wRect = width.current.getBoundingClientRect()
+      const heightResizeObserver = new ResizeObserver((entries) => {
+        const domRect = entries[0].contentRect
+        setHeightSize({x: domRect.width, y: domRect.height})
+      });
+      const widthResizeObserver = new ResizeObserver((entries) => {
+        const domRect = entries[0].contentRect
+        setWidthSize({x: domRect.width, y: domRect.height})
+      });
+      heightResizeObserver.observe(height.current);
+      widthResizeObserver.observe(width.current);
+      // Cleanup function
+      return () => {
+        heightResizeObserver.disconnect();
+        widthResizeObserver.disconnect();
+      };
+    }
+  }, [height, width, text]);
+
+
+  useEffect(() => {
+    if (sizeSetter && heightSize && widthSize){
       sizeSetter({
         max: {
-          x: wRect.width,
-          y: hRect.height,
+          x: widthSize.x,
+          y: heightSize.y,
         },
         avg: {
-          x: (hRect.width/text.length),
-          y: (wRect.height/text.length)
+          x: (heightSize.x / text.length),
+          y: (widthSize.y / text.length)
         }
       })
     }
-  }, [height, width, text, sizeSetter]);
+  }, [sizeSetter, heightSize, widthSize, text]);
   return (
     <>
       <div ref={height} className={className} style={{whiteSpace:'nowrap', ...textSizeTesterStyle}}>{text}</div>

@@ -188,16 +188,6 @@
     right: 0.6em;
     text-align: right;
 }
-.logoHolder {
-    position: relative;
-    .logo{
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0;
-    }
-}
 .bottomLeft{
     --paddings: 0.6em;
 }
