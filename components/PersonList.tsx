@@ -52,7 +52,7 @@ export const PersonList = ({
       <div className={style.personList} style={{display: "flex", flexDirection: "row", flexWrap: 'wrap'}}>
         {
           Personlist.map((p, k) => {
-            return [...(k != 0 ? [<>&nbsp;&&nbsp;</>] : []), <PersonDisplay key={k} name={p.displayName} role={role}/>]
+            return [...(k != 0 ? [<span key={"and"+k}>&nbsp;&&nbsp;</span>] : []), <PersonDisplay key={k} name={p.displayName} role={role}/>]
           })
         }
       </div>
@@ -83,7 +83,7 @@ export const PersonListHalf = ({
       <div className={style.personList} style={{display: "flex", flexDirection: "row", flexWrap: 'wrap'}}>
         {
           list.map((p, k) => {
-            return [...(k != 0 ? [<>&nbsp;&&nbsp;</>] : []), <PersonDisplay key={k} name={p.displayName} role={role}/>]
+            return [...(k != 0 ? [<span key={"and"+k}>&nbsp;&&nbsp;</span>] : []), <PersonDisplay key={k} name={p.displayName} role={role}/>]
           })
         }
       </div>

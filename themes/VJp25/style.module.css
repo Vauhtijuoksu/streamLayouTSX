@@ -1,7 +1,95 @@
 
 .root{
-
+    --lightForest: #49acbc;
+    --lighterpurple: #DE91CC;
+    --brokenpurple: #A15C90;
+    --background-image: url("img/bg.png");
+    --mainBackground: var(--darkForest) fixed var(--background-image) -20px -50px;
+    --background-donatebar: var(--darkerForest) fixed var(--background-image) -10px -170px;
+    --background-donatebar-fill: var(--darkGreen) fixed var(--background-image) -10px -170px;
+    --background-detail: var(--blue) fixed var(--background-image) -10px -170px;
+    --donateBarFill: var(--darkGreen) fixed var(--background-image) -10px -170px;
+    --donateBarFillLoad: var(--green) fixed var(--background-image) -10px -170px;
+    --secondary: var(--darkestPurple);
 }
 
 .leftBar {
+}
+.mainArea, .leftBar, .midBar, .bottomBar, .topBar, .gameView, .topRight, .bottomLeft, .camera {
+    background: var(--mainBackground);
+}
+.incentives{
+    .incentive{
+        .incentiveGameTitle{
+            color: var(--secondary);
+        }
+        .incentiveStatus{
+            .emptyIncentive{
+                color: var(--orange);
+                text-shadow: 0px 0px 3px var(--darkestPurple), 0px 0px 3px var(--darkestPurple);
+            }
+        }
+        .incentiveClosing{
+            color: var(--darkerPurple);
+        }
+        .incentiveMilestoneRow{
+            background-color: var(--darkerPurple);
+            --outline: var(--darkerPurple);
+            text-shadow: 1px 1px 1px var(--outline), 1px -1px 1px var(--outline), -1px -1px 1px var(--outline), -1px 1px 1px var(--outline), 0px 0px 2px var(--outline);
+            -webkit-text-stroke: 0.5px var(--outline);
+            color: var(--lightPurple);
+            .incentiveBarFill{
+                background-color: var(--purple);
+            }
+            &.winningOption {
+                --outline: var(--darkerForest);
+                text-shadow: 1px 1px 1px var(--outline), 1px -1px 1px var(--outline), -1px -1px 1px var(--outline), -1px 1px 1px var(--outline), 0px 0px 2px var(--outline);
+                -webkit-text-stroke: 0.5px var(--outline);
+                color: var(--lightGreen);
+                .incentiveBarFill{
+                    background-color: var(--darkGreen);
+                }
+            }
+
+        }
+        .incentiveOptionRow{
+            .incentiveBar{
+                &:nth-of-type(1) .incentiveBarFill{
+                    background-color: var(--green);
+                }
+                &:nth-of-type(2) .incentiveBarFill{
+                    background-color: var(--blue);
+                }
+                &:nth-of-type(3) .incentiveBarFill{
+                    background-color: var(--LightBlue);
+                }
+                &:nth-of-type(4) .incentiveBarFill{
+                    background-color: var(--lightGreen);
+                }
+                &:nth-of-type(5) .incentiveBarFill{
+                    background-color: var(--lightOrange);
+                }
+
+                &.winningOption {
+                    .incentiveBarFill {
+                        color: var(--darkestPurple);
+                        background-color: var(--darkGreen);
+                    }
+                    color: var(--darkGreen);
+                    text-shadow: 0px 0px 3px var(--darkestPurple), 0px 0px 3px var(--darkestPurple);
+                }
+                &.emptyOption {
+                    .incentiveBarFill {
+                        filter: saturate(1);
+                    }
+                }
+            }
+        }
+    }
+}
+.donateBarMain {
+    --outline: var(--darkerForest);
+    text-shadow: 1px 1px 1px var(--outline), 1px -1px 1px var(--outline), -1px -1px 1px var(--outline), -1px 1px 1px var(--outline), 0px 0px 2px var(--outline);
+    -webkit-text-stroke: 0.5px var(--outline);
+    color: var(--LightBlue);
 }

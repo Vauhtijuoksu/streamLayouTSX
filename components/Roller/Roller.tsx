@@ -25,8 +25,6 @@ export const Roller = ({
   const timeout = useRef<ReturnType<typeof setTimeout>>(null)
   useEffect(() => {
     if (rollTo.index >= 0){
-      console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! IT CHANGED")
-      console.log("rolling to: ", rollTo)
       setNextIndex(rollTo.index)
       setRollDelayMultiplier(rollTo.delayMultiplier)
     }

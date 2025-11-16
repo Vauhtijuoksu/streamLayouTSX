@@ -39,7 +39,8 @@
     animation-duration: 1.5s;
     animation-timing-function: ease-in;
     top: -100%;
-    opacity: var(--FadeOpacity)
+    opacity: var(--FadeOpacity);
+    pointer-events: none;
 }
 .sideways{
     .rollerDisplay, .rollerHide{

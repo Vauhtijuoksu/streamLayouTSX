@@ -22,10 +22,10 @@
     --borderColor: var(--darkestPurple);
     --background-image: url("img/bg.png");
     --background-image-faded: url("img/bgFaded.png");
-    --background-purple: var(--purple) fixed var(--background-image) -20px -50px;
+    --main-background: var(--purple) fixed var(--background-image) -20px -50px;
     --background-orange: var(--orange) fixed var(--background-image) -100px -240px;
-    --background-darkForest: var(--darkForest) fixed var(--background-image-faded) -10px -170px;
-    --background-green: var(--darkGreen) fixed var(--background-image-faded) -10px -170px;
+    --background-detail: var(--orange);
+    --background-donatebar: var(--darkForest) fixed var(--background-image-faded) -10px -170px;
     --mainFont: ubuntu;
     --titleFont: mezmerize;
     --textStroke: var(--darkerPurple);
@@ -206,11 +206,9 @@
 .leftBar {
     justify-content: space-between;
     --paddings: 0.6em;
-    text-shadow: 0px 0px 2px var(--lightPurple),  0px 0px 2px var(--purple);
     gap: 0.8em;
 }
 .mainArea{
-    text-shadow: 0px 0px 2px var(--lightPurple),  0px 0px 2px var(--purple);
     .sponsors{
         width: 90%;
         height: 95%;
@@ -218,7 +216,7 @@
     }
 }
 .mainArea, .leftBar, .midBar, .bottomBar, .topBar, .gameView, .topRight, .bottomLeft, .camera {
-    background: var(--background-purple);
+    background: var(--main-background);
 }
 .topBar {
     position: relative;
@@ -265,7 +263,6 @@
 .bottomBar {
     justify-content: space-around;
     gap: 1em;
-    text-shadow: 0px 0px 2px var(--lightPurple),  0px 0px 2px var(--purple);
 
     .camera {
         height: 100%;
@@ -375,9 +372,12 @@
         }
         .incentiveMilestoneRow{
             border-radius: var(--borderRadius);
-            height: 2em;
+            height: 1.5em;
+            & > div > div {
+                padding-bottom: 0.1em;
+            }
             width: 60%;
-            margin: auto;
+            margin: 0.25em auto 0.25em auto;
             background-color: var(--darkerPurple);
             --textShadowColor: var(--lightPurple);
             text-shadow: 1px 1px 1px var(--textShadowColor), 1px -1px 1px var(--textShadowColor), -1px -1px 1px var(--textShadowColor), -1px 1px 1px var(--textShadowColor);
@@ -459,61 +459,7 @@
         }
     }
 }
-.donateBar{
-    .incentives{
-        height: 100%;
-        width: 100%;
-        position: relative;
-        display: flex;
-        flex-direction: row;
-        overflow: hidden;
-        .incentive{
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            white-space: nowrap;
 
-            .donationDivider{
-                height: 1.2em;
-                width: 1.2em;
-                margin-top: -0.3em;
-                margin-bottom: -0.3em;
-                background: var(--donationDivider) center/contain no-repeat;
-            }
-            .incentiveContent {
-                display: flex;
-                flex-direction: row;
-                align-items: center;
-                justify-content: left;
-                gap: 0.5em;
-                height: 1em;
-            }
-            .incentiveGameTitle{
-                font-size: 0.7em;
-                height: 1em;
-                color: unset;
-                line-height: 1;
-            }
-            .incentiveTitle{
-                font-size: 1em;
-                line-height: 0.8;
-            }
-            .incentiveStatus{
-                width: auto;
-                text-align: left;
-            }
-            .incentiveListRow{
-                line-height: 1;
-                font-size: 0.9em;
-                display: flex;
-                flex-direction: row;
-                align-items: center;
-                gap: 0.5em
-
-            }
-        }
-    }
-}
 
 .scheduleFallBack{
     height: 90%;
@@ -524,7 +470,7 @@
     border-top-right-radius: var(--borderRadius);
     border-bottom-right-radius: var(--borderRadius);
     text-shadow: none;
-    background: var(--orange);
+    background: var(--background-detail);
     border-left-width: 0;
     min-height: 60px;
     padding: 0.4em 0.2em 0.4em var(--paddings);
@@ -601,7 +547,7 @@
 
 .donateBar {
     border-top: var(--borderColor) var(--borderStyle, solid) var(--borderWidth, 0);
-    background: var(--background-darkForest);
+    background: var(--background-donatebar);
     font-size: 1.1em;
 }
 .donationBarFill, .donationBarFill2{
@@ -617,7 +563,7 @@
     transition: right 1s 0s ease-in-out;
 }
 .donoCorner {
-    background: var(--orange);
+    background: var(--background-detail);
     width: 200px;
     font-size: 1.2em;
     border: var(--borderColor) var(--borderStyle, solid) var(--borderWidth, 0);

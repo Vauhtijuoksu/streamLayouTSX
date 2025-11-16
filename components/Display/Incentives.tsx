@@ -78,7 +78,7 @@ const IncentiveDisplay = ({...incentive}:(IncentiveOpen|IncentiveOption|Incentiv
         {incentiveStatus()}
       </div>
       <div className={style.incentiveClosing}>
-        Kannustin sulkeutuu: {`${end.getDay()}.${end.getMonth()}. klo ${end.getHours()}:${String(end.getMinutes()).padStart(2, "0")}`}
+        Kannustin sulkeutuu: {`${end.getDate()}.${end.getMonth()+1}. klo ${end.getHours()}:${String(end.getMinutes()).padStart(2, "0")}`}
       </div>
     </div>
   )

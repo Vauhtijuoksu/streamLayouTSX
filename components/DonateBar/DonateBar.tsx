@@ -35,7 +35,7 @@ export const DonateBar = ({
   }, [donationTotal, start]);
 
   const rollElements:ReactNode[] = [<DonateeList key={'DonoList'}/>]
-  if (donatebarInfo.length > 0) rollElements.push(
+  if (donatebarInfo.length > 0 && donatebarInfo[0] != "") rollElements.push(
     <Roller key={'Info'} delaySeconds={10} rollElements={donatebarInfo.map((i, k) => <div key={k} className={style.donateBarInfo}>{i}</div>)}/>
   )
   if (upcomingGames.length >= scheduleStart) rollElements.push(
@@ -50,7 +50,7 @@ export const DonateBar = ({
         <div className={[style.donoLeft, style.donoCorner].join(" ")}>
           <DonationTotal total={donationTotal}/>
         </div>
-        <div className={style.donoMid} style={{flex: 1, position: 'relative'}}>
+        <div className={style.donateBarMain} style={{flex: 1, position: 'relative'}}>
           <DonationBarFiller total={donationTotal} goal={donationGoal}/>
           <div className={style.donoRoller} style={{position: 'absolute', top: 0, left: 0, right: 0, bottom: 0}}>
             <Roller delaySeconds={15} rollElements={rollElements} loopBack={1} rollTo={rollTo}/>
