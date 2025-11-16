@@ -1,5 +1,5 @@
 import {useCurrentGameData} from "@/DataHandler/DataProvider";
-import {useStyle} from "@/themes/ThemeContext";
+import {useStyle, useTheme} from "@/themes/ThemeContext";
 import {Fit2Box} from "@/util/TextSize";
 
 type GameInfoProps = {
@@ -36,9 +36,10 @@ export const GameIcon = () => {
 
 GameIcon.icon = function WithData({icon, className}:{icon:string, className?:string}) {
   const style = useStyle()
+  const {theme} = useTheme()
   return (
     <div className={[style.gameIcon, className].join(" ")}>
-      <img style={{maxHeight: "100%", maxWidth: "100%"}} src={icon} alt={''}/>
+      <img style={{maxHeight: "100%", maxWidth: "100%"}} src={"/char/"+theme+"/"+icon} alt={''}/>
     </div>
   )
 }

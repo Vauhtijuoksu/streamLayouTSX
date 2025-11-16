@@ -137,6 +137,43 @@
     -webkit-text-stroke: 1.3px var(--darkerPurple);
     }
 }
+.scheduleIcon{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+
+    .gameIcon{
+        background-color: var(--darkestPurple);
+        border-radius: 50%;
+        aspect-ratio: 1;
+        height: 90%;
+        width: 90%;
+        & > img {
+            height: 92%;
+            width: 92%;
+            margin-top: 4%;
+            margin-left: 4%;
+            border-radius: 50%;
+        }
+    }
+}
+.gameInfo{
+    .gameIcon{
+        background-color: var(--darkestPurple);
+        border-radius: 50%;
+        aspect-ratio: 1;
+        height: 5em;
+        margin-right: 0.6em;
+        & > img {
+            height: 92%;
+            width: 92%;
+            margin-top: 4%;
+            margin-left: 4%;
+            border-radius: 50%;
+        }
+    }
+}
 .pause {
     .logoHolder{
         height: calc(4.5em);

@@ -72,7 +72,6 @@
         flex-grow: 2;
     }
 }
-
 .sixteenNineDuoCornered:not(.sixteenNineDuoCorneredLowerOnTop) {
     .gameView2{
         & > div > .border {
@@ -140,6 +139,10 @@
 .column {
     display: flex;
     flex-direction: column;
+}
+
+.gameInfo{
+    align-items: center;
 }
 
 .gameView > div > .border{
