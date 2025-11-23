@@ -13,6 +13,7 @@ import {DeviceInfo} from "@/components/Display/DeviceInfo";
 import {SponsorDisplay} from "@/components/Display/Sponsors";
 import {Logo} from "@/components/Display/Logo";
 import {Layout} from "@/layouts/types";
+import {TempRaceTimerDisplay} from "@/components/temp/RaceTimer";
 
 
 export const sixteenNineDuoSplitCam:Layout = {
@@ -40,11 +41,15 @@ const LayoutComponent = (props:LayoutComponentProps) => {
           </div>
         </div>
         <div className={style.gameView}>
-          <GameView id={"1"} ratio={"SixteenNine"} width={955} roundedCorners={{bottomR: true, topR: true}}/>
+          <GameView id={"1"} ratio={"SixteenNine"} width={955} roundedCorners={{bottomR: true, topR: true}}>
+            <TempRaceTimerDisplay id={"t1"} corner={"BL"} others={["t2"]}/>
+          </GameView>
         </div>
         <div className={style.midBar}></div>
         <div className={[style.gameView, style.gameView2].join(" ")}>
-          <GameView id={"2"} ratio={"SixteenNine"} width={955} roundedCorners={{bottomL: true, topL: true}}/>
+          <GameView id={"2"} ratio={"SixteenNine"} width={955} roundedCorners={{bottomL: true, topL: true}}>
+          <TempRaceTimerDisplay id={"t2"} corner={"BR"} others={["t1"]}/>
+          </GameView>
         </div>
         <div className={style.bottomBar}>
           <div style={{height: "100%", width: "300px"}}>

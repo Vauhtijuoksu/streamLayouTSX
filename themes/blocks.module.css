@@ -53,7 +53,8 @@
         font-size: 0.8em;
     }
     .mainTimer{
-        font-size: 0.8em;
+        font-size: 0.9em;
+        margin-bottom: -0.8em;
     }
     .bottomLeft {
         border-right: var(--borderColor) var(--borderStyle, solid) var(--borderWidth, 0);
@@ -66,6 +67,13 @@
     .overCamInfo{
         margin-top: calc(var(--borderRadius) * -0.8);
 
+    }
+    .sponsorHeader{
+        font-size: 0.8em;
+    }
+    .sponsors > div > div:not(.sponsorHeader){
+        margin-left: 4em;
+        margin-top: -0.8em;
     }
     .camera {
         height: 100%;
@@ -142,6 +150,7 @@
 }
 
 .gameInfo{
+    align-items: center;
     align-items: center;
 }
 
@@ -242,7 +251,15 @@
         }
     }
 }
-
+.deviceIcon {
+    height: 4em;
+    width: 4em;
+    & > img {
+        height: 100%;
+        width: 100%;
+        object-fit: contain;
+    }
+}
 
 .donateBar {
     grid-area: donateBar;

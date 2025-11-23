@@ -5,7 +5,8 @@ const theme:ThemeProps = {
   extends: ['blocks'],
   base: css,
   config: {
-    defaultCornerRadius: 30
+    defaultCornerRadius: 30,
+    deviceImgFolder: "generic",
   },
   sponsors: []
 }

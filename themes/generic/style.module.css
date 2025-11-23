@@ -44,6 +44,19 @@
     --clockIcon: url("./img/icon/timer.png");
     --divider: url("./img/icon.png");
     --smallDivider: url("./img/icon.png");
+
+
+}
+.counter{
+    --counterColor0: #EFD57C;
+    --counterColor1: #EC9172;
+    --counterColor2: #A3448D;
+    --counterColor3: #ADB5CA;
+    --counterColor4: #6FC4DF;
+    --counterColor5: #31757E;
+    --counterColor6: #5CBB72;
+    --counterColor7: #E6E6C1;
+
 }
 
 @font-face {
@@ -92,6 +105,14 @@
     }
 }
 
+.deviceIcon {
+    margin: -0.4em;
+    & > img {
+        height: 100%;
+        width: 100%;
+        object-fit: contain;
+    }
+}
 .sixteenNineDuoCornered{
     .logoHolder{
         flex-grow: 1;
@@ -105,7 +126,6 @@
 .fourThree {
     .logoHolder {
         height: 80px;
-        background: url("./img/logo.png") center/contain no-repeat;
         margin-left: var(--paddings);
         margin-right: var(--paddings);
         .logo{
@@ -585,6 +605,34 @@
 @keyframes donationFlash {
     50% {
         text-shadow: 0px 0px 10px var(--donationFlashColor), 0px 0px 10px var(--donationFlashColor);
+    }
+}
+
+.counterRoot{
+    font-size: 15vh;
+}
+.counter {
+    display: flex;
+    flex-direction: row;
+    .counterValue {
+        position: relative;
+        -webkit-text-stroke: 0.075em var(--lightGreen);
+        width: 12vw;
+        text-align: right;
+        paint-order: stroke fill;
+    }
+}
+.counterIcon{
+    height: 1.2em;
+    aspect-ratio: 1;
+
+    --FillColor: unset;
+    & svg {
+        height: 100%;
+        width: 100%;
+    }
+    .fillable{
+        fill: var(--FillColor)
     }
 }
 

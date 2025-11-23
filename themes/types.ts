@@ -14,8 +14,6 @@ export type SinglePluralHeader = ReactNode | {s: ReactNode, p: ReactNode}
 export type ThemeConfig = {
   defaultCornerRadius?: number
   header?: {[K in Role]?: SinglePluralHeader}
-  imagePath?: {
-    default?: string
-    [key:string]: string | null | undefined
-  }
+  charImgFolder?: string,
+  deviceImgFolder?: string
 }

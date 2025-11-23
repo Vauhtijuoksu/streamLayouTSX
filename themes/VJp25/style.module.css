@@ -52,21 +52,22 @@
 
 .sixteenNine {
     .logoHolder {
-        height: 100px;
-        margin-left: var(--paddings);
-        margin-right: var(--paddings);
+        height: 170px;
+        margin-left: 5px;
+        margin-right: 5px;
+        margin-bottom: 30px;
         .logo {
-            background: url("./img/logo.png") center/contain no-repeat;
+            background: url("./img/logo/Text_KolmioYear.svg") center/contain no-repeat;
         }
     }
 }
 .sixteenNineDuoSplitCam, .sixteenNineDuo {
     --fontMinScale: 0.75;
     .logoHolder{
-        height: calc(100% - 0.8em);
-        margin: 0.4em;
+        height: calc(100% - 0.3em);
+        margin: 0.1em;
         .logo {
-            background: url("./img/logo.png") center/contain no-repeat;
+            background: url("./img/logo/TextSKolmioYear.svg") center/contain no-repeat;
         }
     }
 
@@ -91,22 +92,30 @@
         height: 2.5em;
         margin: 0.4em;
         .logo {
-            background: url("./img/logo.png") center/contain no-repeat;
+            background: url("./img/logo/Text.svg") center/contain no-repeat;
         }
     }
 }
 .fourThree {
     .logoHolder {
-        height: 80px;
-        background: url("./img/logo.png") center/contain no-repeat;
+        height: 160px;
         margin-left: var(--paddings);
         margin-right: var(--paddings);
         .logo{
-            background: url("./img/logo.png") center/contain no-repeat;
+            background: url("./img/logo/Text_KolmioYear.svg") center/contain no-repeat;
         }
     }
     .content{
         font-size: 0.9em;
+    }
+    .leftBar {
+        gap: 0;
+    }
+    .sponsorHeader {
+        font-size: 0.9em;
+    }
+    .sponsors > div > div:not(.sponsorHeader){
+        margin-top: -0.3em;
     }
 }
 .fourThreeDuoSplitCam, .fourThreeDuo{
@@ -114,7 +123,7 @@
         height: calc(100% - 0.04em);
         margin: 0.02em;
         .logo{
-            background: url("./img/logo.png") center/contain no-repeat;
+            background: url("./img/logo/TextSKolmioYear.svg") center/contain no-repeat;
         }
     }
     .bottomBar{
@@ -179,7 +188,7 @@
         height: calc(4.5em);
         margin: 0.4em;
         .logo {
-            background: url("./img/logo.png") center/contain no-repeat;
+            background: url("./img/logo/TextKolmioYear.svg") center/contain no-repeat;
         }
     }
 }
@@ -188,16 +197,16 @@
         height: calc(4.5em);
         margin: 0.4em;
         .logo {
-            background: url("./img/logo.png") center/contain no-repeat;
+            background: url("./img/logo/TextKolmioYear.svg") center/contain no-repeat;
         }
     }
 }
 .yappingDuoCam {
     .logoHolder{
         height: calc(4.5em);
-        margin: 0.4em;
+        margin: 0.1em;
         .logo {
-            background: url("./img/logo.png") center/contain no-repeat;
+            background: url("./img/logo/TextKolmioYear.svg") center/contain no-repeat;
         }
     }
 }

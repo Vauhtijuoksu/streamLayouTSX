@@ -15,6 +15,7 @@ import {Logo} from "@/components/Display/Logo";
 import {Layout} from "@/layouts/types";
 import {aspectRatios} from "@/schema/constant";
 import {IncentiveOpen} from "@/DataHandler/api";
+import {TempRaceTimerDisplay} from "@/components/temp/RaceTimer";
 
 
 export const sixteenNineDuoCorneredRightOnTop:Layout = {
@@ -48,7 +49,7 @@ LayoutComponent.alt = function AltComponent(props:LayoutComponentProps){
   const config = useConfig()
   return (
     <div className={style.root} style={config.defaultCornerRadius ? {'--borderRadius': config.defaultCornerRadius + "px"} as CSSProperties : {}}>
-      <div className={[style.layout, style.sixteenNineDuoCornered, style.sixteenNineDuoCorneredLowerOnTop].join(" ")}>
+      <div className={[style.layout, style.sixteenNineDuoCornered, style.sixteenNineDuoCorneredUpperOnTop].join(" ")}>
        <LayoutComponent.content style={style}></LayoutComponent.content>
       </div>
       <DonateBar/>
@@ -64,15 +65,19 @@ LayoutComponent.content = function Content({
   return (
     <>
       <div className={style.gameView}>
-        <GameView id={"1"} ratio={"SixteenNine"} width={1080} roundedCorners={{bottomR: true}}/>
+        <GameView id={"1"} ratio={"SixteenNine"} width={1080} roundedCorners={{bottomR: true}}>
+          <TempRaceTimerDisplay id={"t1"} corner={"BL"} others={["t2"]}/>
+        </GameView>
       </div>
       <div className={style.topRight}></div>
       <div className={[style.gameView, style.gameView2].join(" ")}>
-        <GameView id={"2"} ratio={"SixteenNine"} width={1080} roundedCorners={{topL: true}}/>
+        <GameView id={"2"} ratio={"SixteenNine"} width={1080} roundedCorners={{topL: true}}>
+          <TempRaceTimerDisplay id={"t2"} corner={"BR"} others={["t1"]}/>
+        </GameView>
       </div>
       <div className={style.bottomLeft}>
         <div className={style.column} style={{width: "100%", height: "100%"}}>
-          <div className={style.row} style={{marginRight: "0.8em"}}>
+          <div className={style.row} style={{marginRight: "0.85em"}}>
             <Logo/>
             <MainTimer/>
           </div>
@@ -87,14 +92,14 @@ LayoutComponent.content = function Content({
               </div>
             </div>
             <div className={style.column} style={{flex: 1}}>
-              <div className={style.row} style={{padding: "0.1em 0.8em", justifyContent: 'right'}}>
+              <div className={style.row} style={{padding: "0.1em 0.8em"}}>
                 <GameInfo/>
               </div>
-              <div className={style.row} style={{justifyContent: 'space-between', alignItems: 'center', gap: '2em', padding: "0.1em 0.8em", flex: 1}}>
-                <DeviceInfo/>
+              <div className={style.row} style={{justifyContent: 'space-between', alignItems: 'flex-start', gap: '2em', padding: "0.1em 0.8em", flex: 1}}>
                 <div className={style.sponsors} style={{height: "100%"}}>
                   <SponsorDisplay/>
                 </div>
+                <DeviceInfo/>
               </div>
             </div>
           </div>

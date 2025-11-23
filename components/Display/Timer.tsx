@@ -126,15 +126,14 @@ TimerDisplay.ByIndex = function ByIndex({
   return <TimerDisplay {...timers[index]}/>
 }
 
-
-TimerDisplay.Total = function Total({className}:{className?:string}){
+export const useTotalTimer = () => {
   const timers = useTimer()
-  const [timer, setTimer] = useState<Timer>({start: null, end: null})
-  const style = useStyle()
+  const [timer, setTimer] = useState<Timer>({start: null, end: null, id: 'total'})
   useEffect(() => {
     const updatedTimer:Timer = {
       start: null,
-      end: null
+      end: null,
+      id: 'total'
     }
     timers.forEach((t) => {
       if (t.start !== null){
@@ -144,7 +143,12 @@ TimerDisplay.Total = function Total({className}:{className?:string}){
     })
     setTimer(updatedTimer)
   }, [timers]);
+  return timer
+}
 
+TimerDisplay.Total = function Total({className}:{className?:string}){
+  const timer = useTotalTimer()
+  const style = useStyle()
   return <TimerDisplay {...timer} className={[style.TotalTimer, className].join(" ")}/>
 }
 

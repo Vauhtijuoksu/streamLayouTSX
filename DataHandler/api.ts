@@ -50,7 +50,7 @@ export namespace API {
     donation_goal: null | number,
     current_game_id: string,
     donatebar_info: string[],
-    counters: {value: number, style: number}[],
+    counters: number[],
     heart_rates: number[],
     timers: {
       id: string,
@@ -146,6 +146,7 @@ export type IncentiveMilestone = IncentiveBase & {
 export interface Timer {
   start: number | null
   end: number | null
+  id: string
 }
 export interface Counter {
   value: number,
@@ -311,12 +312,13 @@ export class ApiClient {
           donationGoal: data.donation_goal || undefined,
           currentGame: data.current_game_id,
           donatebarInfo: data.donatebar_info,
-          counter: data.counters,
+          counter: data.counters.map((c) => {return {value: c % 10000, style: Math.floor(Math.abs(c) / 10000)}}),
           heartRate: data.heart_rates,
           timer: data.timers.map((t) => {
             return {
               start: t.start_time ? Date.parse(t.start_time) : null,
               end: t.end_time ? Date.parse(t.end_time) : null,
+              id: t.name
             }
           }),
           nowPlaying: data.now_playing || undefined,

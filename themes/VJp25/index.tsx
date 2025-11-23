@@ -5,7 +5,9 @@ const theme:ThemeProps = {
   extends: ['generic'],
   base: css,
   config: {
-    defaultCornerRadius: 30
+    defaultCornerRadius: 30,
+    deviceImgFolder: "generic",
+    charImgFolder: "vjp25"
   },
   sponsors: [
     "WWF.jpg",
