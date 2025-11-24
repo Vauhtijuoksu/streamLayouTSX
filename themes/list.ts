@@ -19,8 +19,5 @@ export const defaultThemeConfig:ThemeConfig = {
     'PLAYER': {s: 'Juoksija', p: 'Juoksijat'},
     'BACKSEAT': 'Sohvalla',
     'STUDIO': 'Studiossa',
-  },
-  imagePath: {
-    default: "/images/generic/"
   }
 }
