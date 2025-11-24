@@ -11,8 +11,7 @@ export namespace API {
   export type Participant = {
     id: string,
     display_name: string,
-    twitch_channel: string,
-    discord_nick: string
+    social_medias: {platform: string, username: string}[]
   }
   export type Game = {
     id: string,
@@ -21,7 +20,6 @@ export namespace API {
     end_time: string,
     category: string,
     device: string,
-    players: string[]
     published: string,
     img_filename: string,
     meta: string
@@ -93,7 +91,6 @@ export type People = {[key:string]: Person}
 export type Person = {
   id: string,
   displayName: string,
-  twitchChannel: string,
 }
 type Participant = {
   id: string,
@@ -191,14 +188,13 @@ export class ApiClient {
     }
   }
   public async getPeople():Promise<People> {
-    return this.get<API.Participant[]>('players').then(data => {
+    return this.get<API.Participant[]>('participants').then(data => {
       if (data){
         const people:People = {}
         data.forEach((p) => {
           people[p.id] = {
             id: p.id,
-            displayName: p.display_name,
-            twitchChannel: p.twitch_channel
+            displayName: p.display_name
           }
         })
         const update = this.checkObjectDifference(people, this.people)
