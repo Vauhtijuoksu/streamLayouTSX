@@ -83,8 +83,8 @@ const HoleRect = ({corner, ...p}:HoleRectProps) => {
     <rect className={masking.cornerd}
       x={hasCorner ? p.x + (Math.floor(p.w/2) - p.cr -1)*corner.x : p.x}
       y={hasCorner ? p.y + (Math.floor(p.h/2) - p.cr -1)*corner.y : p.y}
-      width={hasCorner ? Math.floor(p.w/2) + p.cr + corner.x : p.w}
-      height={hasCorner ? Math.floor(p.h/2) + p.cr + corner.y : p.h}
+      width={hasCorner ? Math.ceil(p.w/2) + p.cr + corner.x : p.w}
+      height={hasCorner ? Math.ceil(p.h/2) + p.cr + corner.y : p.h}
       rx={p.cr}
       ry={p.cr}
       fill="#000000"

@@ -285,6 +285,13 @@
             border-bottom-width: 0;
         }
     }
+    .cameraRight {
+        .border{
+            border-right-width: 0;
+            border-bottom-width: 0;
+            border-left-width: var(--borderWidth);
+        }
+    }
 }
 .camera {
     height: 300px;
