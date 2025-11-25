@@ -39,9 +39,6 @@ const LayoutComponent = (props:LayoutComponentProps) => {
         </div>
         <div className={style.mainArea} style={{gridArea: 'topRight'}}>
           <DynamicHole id={'camera'} className={style.breakCamera} roundedCorners={{bottomL: true}}>
-            <div style={{position: 'relative', height: "100%", width: "100%"}}>
-              <NowPlaying/>
-            </div>
           </DynamicHole>
         </div>
         <div className={style.mainArea} style={{gridArea: 'bottomLeft'}}>
