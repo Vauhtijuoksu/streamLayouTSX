@@ -131,17 +131,23 @@ export const useTotalTimer = () => {
   const [timer, setTimer] = useState<Timer>({start: null, end: null, id: 'total'})
   useEffect(() => {
     const updatedTimer:Timer = {
-      start: null,
-      end: null,
+      start: -1,
+      end: -1,
       id: 'total'
     }
     timers.forEach((t) => {
+      if (updatedTimer.start == -1) updatedTimer.start = t.start
+      if (updatedTimer.end == -1) updatedTimer.end = t.end
       if (t.start !== null){
         if (updatedTimer.start == null || updatedTimer.start > t.start) updatedTimer.start = t.start
         if (t.end == null) updatedTimer.end = t.end
+        if (t.end !== null && updatedTimer.end == null) updatedTimer.end = t.end
         if (t.end !== null && updatedTimer.end !== null && updatedTimer.end < t.end) updatedTimer.end = t.end
       }
     })
+
+    if (updatedTimer.start == -1) updatedTimer.start = null
+    if (updatedTimer.end == -1) updatedTimer.end = null
     setTimer(updatedTimer)
   }, [timers]);
   return timer
