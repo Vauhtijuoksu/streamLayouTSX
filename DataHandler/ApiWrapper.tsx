@@ -5,7 +5,7 @@ import {useSettings} from "@/DataHandler/BasicSettings";
 import {ApiClient} from "@/DataHandler/api";
 import {usePathname} from "next/navigation";
 
-const METADATA_POLLS_PERMINUTE = 30
+const METADATA_POLLS_PERMINUTE = 120
 
 export const ApiWrapper = ({
   children,
