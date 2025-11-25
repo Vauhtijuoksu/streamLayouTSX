@@ -31,7 +31,10 @@ const LayoutComponent = (props:LayoutComponentProps) => {
   return (
     <div className={style.root} style={config.defaultCornerRadius ? {'--borderRadius': config.defaultCornerRadius + "px"} as CSSProperties : {}}>
       <div className={style.layout}>
-        <div style={{height: "30px"}}>
+        <div style={{width: "900px", border: "1px solid black", padding: "20px"}}>
+          <NowPlaying/>
+        </div>
+        <div style={{width: "1800px", border: "1px solid black", padding: "20px"}}>
           <NowPlaying/>
         </div>
         <div style={{display: 'flex', flexDirection:'row'}}>

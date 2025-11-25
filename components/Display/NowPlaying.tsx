@@ -8,7 +8,11 @@ export const NowPlaying = () => {
   const np = useNowPlaying()
   if (!np) return null
   return (
-    <Fit2Box className={style.nowPlaying}>{np}</Fit2Box>
+    <div className={style.nowPlaying}>
+      <div className={style.nowPlayingContent}>
+        <Fit2Box>{np}</Fit2Box>
+      </div>
+    </div>
   )
 
 }

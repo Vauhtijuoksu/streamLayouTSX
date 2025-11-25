@@ -46,7 +46,7 @@ const LayoutComponent = (props:LayoutComponentProps) => {
             <PersonList role={"PLAYER"}/>
           </div>
           <div className={style.camera}>
-            <DynamicHole id={'camera'} className={style.camera} roundedCorners={{topR: true}}></DynamicHole>
+            <DynamicHole id={'camera'} className={[style.camera, style.cameraLeft].join(" ")} roundedCorners={{topR: true}}></DynamicHole>
           </div>
         </div>
         <div className={style.gameView}>

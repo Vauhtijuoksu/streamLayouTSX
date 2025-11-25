@@ -64,7 +64,7 @@ const LayoutComponent = (props:LayoutComponentProps) => {
           </div>
         </div>
           <div style={{width: "500px", height: "100%"}}>
-            <DynamicHole id={'camera'} className={style.camera} roundedCorners={{topR: true, topL: true}}/>
+            <DynamicHole id={'camera'} className={[style.camera, style.cameraMid].join(" ")} roundedCorners={{topR: true, topL: true}}/>
           </div>
         <div style={{flex: 2, height: '100%'}}>
           <div className={style.sponsors} style={{height: "100%"}}>

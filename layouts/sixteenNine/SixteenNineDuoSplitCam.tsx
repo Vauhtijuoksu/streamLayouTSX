@@ -53,7 +53,7 @@ const LayoutComponent = (props:LayoutComponentProps) => {
         </div>
         <div className={style.bottomBar}>
           <div style={{height: "100%", width: "300px"}}>
-            <DynamicHole id={'cameraLeft'} className={style.camera} roundedCorners={{topR: true}}/>
+            <DynamicHole id={'cameraLeft'} className={[style.camera, style.cameraLeft].join(" ")} roundedCorners={{topR: true}}/>
           </div>
           <div className={style.column} style={{justifyContent: 'space-between', gap: '0.5em', height: '100%'}}>
             <div className={style.row} style={{justifyContent: 'space-between', alignItems: 'center', gap: '2em'}}>
