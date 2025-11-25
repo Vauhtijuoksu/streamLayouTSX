@@ -138,7 +138,8 @@ export const useTotalTimer = () => {
     timers.forEach((t) => {
       if (t.start !== null){
         if (updatedTimer.start == null || updatedTimer.start > t.start) updatedTimer.start = t.start
-        if (updatedTimer.end == null || (t.end !== null && updatedTimer.end < t.end)) updatedTimer.end = t.end
+        if (t.end == null) updatedTimer.end = t.end
+        if (t.end !== null && updatedTimer.end !== null && updatedTimer.end < t.end) updatedTimer.end = t.end
       }
     })
     setTimer(updatedTimer)
