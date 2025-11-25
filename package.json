@@ -13,6 +13,7 @@
     "react-dom": "19.1.0",
     "next": "15.5.0"
   },
+  "browserslist": ["chrome 103"],
   "devDependencies": {
     "typescript": "^5",
     "@types/node": "^20",
