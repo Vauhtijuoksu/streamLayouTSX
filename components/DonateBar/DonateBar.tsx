@@ -28,7 +28,7 @@ export const DonateBar = ({
     donations.forEach((d) => {
       total += d.amount
     })
-    setDonationTotal(total)
+    setDonationTotal(Math.round(total))
   }, [donations]);
   useEffect(() => {
     if (Date.now() > start + 1000) setRollTo({timestamp: Date.now(), index: 0, delayMultiplier: 1.2})
@@ -129,9 +129,9 @@ const DonateeList = () => {
   return (
     <div className={style.donationList} style={{display: 'flex', flexDirection: 'row', height: '100%', alignItems: 'center'}}>
       {donations.sort((a, b)=> {return b.timestamp - a.timestamp}).map((d, i) => {
-        const old = Date.now() - d.timestamp > 10000
+        const old = Date.now() - d.timestamp > 30000
         return ([
-            <div className={[style.donation, old ? style.old : ""].join(" ")} key={d.id}>{d.name} + {d.amount} €</div>
+            <div className={[style.donation, old ? style.old : ""].join(" ")} key={d.id}>{d.name} + {Math.round(d.amount * 10)/10} €</div>
             ,
             <div key={"b"+d.id} className={style.divider}/>
           ]

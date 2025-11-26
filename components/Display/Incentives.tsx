@@ -116,7 +116,7 @@ IncentiveDisplay.optionOrOpen = function OptionOrOpenIncentiveDisplay({max, min,
           </div>
           <div className={style.incentiveBarFill}>
             <div className={style.incentiveBarAmount}>
-              {i.amount} €
+              {Math.round(i.amount * 10)/10} €
             </div>
           </div>
         </div>
@@ -135,7 +135,7 @@ IncentiveDisplay.milestone = function MilestoneIncentiveDisplay({...incentive}:I
       </div>
       <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', position: 'absolute', top: 0, bottom: 0, left: 0, right: 0, padding: "0 1em"}}>
         <div>
-          {incentive.amount} €
+          {Math.round(incentive.amount * 10)/10} €
         </div>
         <div>
           {incentive.status[0].milestoneGoal} €
@@ -214,7 +214,7 @@ DonateBarIncentiveDisplay.optionOrOpen = function DonateBarOptionOrOpenIncentive
       <div key={"b"+k} className={style.smallDivider}/>
       ,
       <div key={k}>
-        {i.option} {i.amount} €
+        {i.option} {Math.round(i.amount * 10)/10} €
       </div>
       ])
   })
@@ -224,7 +224,7 @@ DonateBarIncentiveDisplay.milestone = function DonateBarMilestoneIncentiveDispla
   return ([
       <div key={"d0"} className={style.smallDivider}/>,
       <div key={'i0'}>
-        {incentive.amount} € / {incentive.status[0].milestoneGoal} €
+        {Math.round(incentive.amount * 10)/10} € / {incentive.status[0].milestoneGoal} €
       </div>
     ]
   )
