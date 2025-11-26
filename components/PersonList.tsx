@@ -21,14 +21,11 @@ const usePersonList = (role:Role, isNotDefault:boolean) => {
   useEffect(() => {
     if (gameData){
       switch (role) {
-        case "BACKSEAT":
-          if (isNotDefault || viewSettings.defaultBackseatList) setPersonList(gameData.backseat)
+        case "COUCH":
+          if (isNotDefault || viewSettings.defaultCouchList) setPersonList(gameData.couch)
           break
         case "PLAYER":
           if (isNotDefault || viewSettings.defaultPlayerList) setPersonList(gameData.player)
-          break
-        case "STUDIO":
-          if (isNotDefault || viewSettings.defaultStudioList) setPersonList(gameData.studio)
           break
       }
     }

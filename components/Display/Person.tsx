@@ -14,10 +14,8 @@ const useRoleClassName = (role?:Role) => {
   switch (role){
     case "PLAYER":
       return style.rolePlayer
-    case "BACKSEAT":
-      return style.roleBackseat
-    case "STUDIO":
-      return style.roleStudio
+    case "COUCH":
+      return style.roleCouch
   }
 }
 
@@ -47,10 +45,8 @@ PersonDisplay.ByIndex = function ByIndex({
     switch (role) {
       case "PLAYER":
         return gamedata.player
-      case "BACKSEAT":
-        return gamedata.backseat
-      case "STUDIO":
-        return gamedata.studio
+      case "COUCH":
+        return gamedata.couch
     }
   }
   const people = getPeople()

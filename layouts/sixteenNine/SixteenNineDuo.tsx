@@ -60,7 +60,7 @@ const LayoutComponent = (props:LayoutComponentProps) => {
               </div>
               <GameInfo/>
               <div className={style.row}>
-                <PersonList role={"BACKSEAT"}/>
+                <PersonList role={"COUCH"}/>
               </div>
             </div>
           </div>

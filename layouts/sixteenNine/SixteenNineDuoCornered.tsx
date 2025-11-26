@@ -84,7 +84,7 @@ LayoutComponent.content = function Content({
           <div className={style.row} style={{height: "100%"}}>
             <div className={style.column} style={{width: "300px"}}>
               <div className={[style.overCamInfo, style.hideIfEmpty, style.border, masking.overlay].join(" ")}>
-                <PersonList role={"BACKSEAT"}/>
+                <PersonList role={"COUCH"}/>
                 <PersonList role={"PLAYER"}/>
               </div>
               <div className={style.camera}>

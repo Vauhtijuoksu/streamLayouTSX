@@ -17,7 +17,6 @@ export const defaultTheme = themes.generic
 export const defaultThemeConfig:ThemeConfig = {
   header: {
     'PLAYER': {s: 'Juoksija', p: 'Juoksijat'},
-    'BACKSEAT': 'Sohvalla',
-    'STUDIO': 'Studiossa',
+    'COUCH': 'Sohvalla',
   }
 }

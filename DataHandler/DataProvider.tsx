@@ -20,8 +20,7 @@ type dataProviderInterface = {
   donations: Donation[],
   viewSettings: {
     defaultPlayerList: boolean,
-    defaultBackseatList: boolean,
-    defaultStudioList: boolean,
+    defaultCouchList: boolean,
   }
 }
 const defaultValue:dataProviderInterface = {
@@ -39,8 +38,7 @@ const defaultValue:dataProviderInterface = {
   donations: [],
   viewSettings: {
     defaultPlayerList: true,
-    defaultBackseatList: true,
-    defaultStudioList: false,
+    defaultCouchList: true,
   }
 }
 const DataContext = createContext<dataProviderInterface>(
@@ -195,8 +193,7 @@ type GameData = {
   imgFileName: string,
   meta: string,
   player: Person[],
-  backseat: Person[],
-  studio: Person[]
+  couch: Person[],
 }
 
 export const useCurrentGameData = () => {
@@ -213,10 +210,7 @@ export const useCurrentGameData = () => {
         player: participants.filter((p) => {return (p.role == "PLAYER" && p.id in people)}).map((p) => {
           return people[p.id]
         }),
-        backseat: participants.filter((p) => {return (p.role == "BACKSEAT" && p.id in people)}).map((p) => {
-          return people[p.id]
-        }),
-        studio: participants.filter((p) => {return (p.role == "STUDIO" && p.id in people)}).map((p) => {
+        couch: participants.filter((p) => {return (p.role == "COUCH" && p.id in people)}).map((p) => {
           return people[p.id]
         }),
       })

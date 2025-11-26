@@ -4,7 +4,7 @@ export const v2 = (x:number,y?:number):Vec2 => {
   return {x:x,y:y ?? x}
 }
 
-export type Role = 'PLAYER' | 'BACKSEAT' | 'STUDIO'
+export type Role = 'PLAYER' | 'COUCH'
 
 export const aspectRatios:{[key: string]: Vec2} = {
   SixteenNine: {x: 16, y:9},

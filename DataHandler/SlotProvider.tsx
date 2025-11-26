@@ -10,8 +10,7 @@ export type Slot = {
     counter?: boolean,
     timer?: boolean,
     player?: boolean,
-    backseat?: boolean,
-    studio?: boolean,
+    couch?: boolean,
     heartRate?: boolean,
   }
   data?: {
@@ -19,8 +18,7 @@ export type Slot = {
     counter?: number[],
     timer?: number[],
     player?: number[],
-    backseat?: number[],
-    studio?: number[],
+    couch?: number[],
     heartRate?: number[],
   }
 }
