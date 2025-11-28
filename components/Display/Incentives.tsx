@@ -110,8 +110,8 @@ IncentiveDisplay.optionOrOpen = function OptionOrOpenIncentiveDisplay({max, min,
   return (
     <div className={[style.row, style.incentiveOptionRow].join(" ")}>
       {list.filter((i, index) => index in best).map((i, k) => (
-        <div key={i.option} className={[style.incentiveBar, i.amount == max && max != 0 ? style.winningOption : "", i.amount == 0 ? style.emptyOption : ""].join(' ')} style={{display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', alignItems:'center', '--fillAmount': max > 0 ? (i.amount - min)/(max - min) : 0} as CSSProperties}>
-          <div>
+        <div key={i.option} className={[style.incentiveBar, i.amount == max && max != 0 ? style.winningOption : "", i.amount == 0 ? style.emptyOption : ""].join(' ')} style={{display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', alignItems:'center', '--fillAmount': max > 0 ? (max-min == 0 ? 1 : (i.amount - min)/(max - min)) : 0} as CSSProperties}>
+          <div className={style.incentiveOptionName}>
             {i.option}
           </div>
           <div className={style.incentiveBarFill}>
