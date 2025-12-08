@@ -16,6 +16,7 @@ import {yappingDuoCam} from "@/layouts/pause/YappingDuoCam";
 import {componentList} from "@/layouts/components/ComponentList";
 import {counters} from "@/layouts/components/Counters";
 import {sixteenNineEmpty} from "@/layouts/sixteenNine/SixteenNineEmpty";
+import {sixteenNineFullEmpty} from "@/layouts/sixteenNine/SixteenNineFullEmpty";
 
 export type LayoutComponentProps = object | undefined
 
@@ -33,6 +34,7 @@ export const layouts:{[key: string]:Layout} = {
   yapping,
   yappingDuoCam,
   sixteenNineEmpty,
+  sixteenNineFullEmpty,
   componentList,
   counters,
 }

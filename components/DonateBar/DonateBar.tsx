@@ -9,10 +9,12 @@ import masking from "@/components/Holes/Masking.module.css"
 
 type DonateBarProps = {
   scheduleStart?: number
+  noText?: boolean
 }
 
 export const DonateBar = ({
-  scheduleStart = 1
+  scheduleStart = 1,
+  noText = false
 }:DonateBarProps) => {
   const style = useStyle()
   const donations = useDonations()
@@ -48,16 +50,18 @@ export const DonateBar = ({
   return (
       <div className={[masking.overlay, style.donateBar].join(" ")} style={{display: 'flex', flexDirection: 'row'}}>
         <div className={[style.donoLeft, style.donoCorner].join(" ")}>
-          <DonationTotal total={donationTotal}/>
+          {noText ? null : <DonationTotal total={donationTotal}/> }
         </div>
         <div className={style.donateBarMain} style={{flex: 1, position: 'relative'}}>
-          <DonationBarFiller total={donationTotal} goal={donationGoal}/>
-          <div className={style.donoRoller} style={{position: 'absolute', top: 0, left: 0, right: 0, bottom: 0}}>
-            <Roller delaySeconds={15} rollElements={rollElements} loopBack={1} rollTo={rollTo}/>
-          </div>
+          {noText ? null : <DonationBarFiller total={donationTotal} goal={donationGoal}/> }
+          {noText ? null :
+            <div className={style.donoRoller} style={{position: 'absolute', top: 0, left: 0, right: 0, bottom: 0}}>
+              <Roller delaySeconds={15} rollElements={rollElements} loopBack={1} rollTo={rollTo}/>
+            </div>
+          }
         </div>
         <div className={[style.donoRight, style.donoCorner].join(" ")}>
-          {donationGoal ? <div>{donationGoal}{"\xa0€"}</div> : null}
+          {donationGoal && !noText ? <div>{donationGoal}{"\xa0€"}</div> : null}
         </div>
       </div>
   )
