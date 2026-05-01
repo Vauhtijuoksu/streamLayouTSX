@@ -4,7 +4,7 @@ import {useState} from "react";
 
 
 type SponsorDisplayProps = {
-  sponsorSet: SponsorSet | SponsorSet[]
+  sponsorSet?: SponsorSet | SponsorSet[]
 }
 
 export const SponsorDisplay = ({
