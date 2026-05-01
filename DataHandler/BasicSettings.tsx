@@ -2,7 +2,7 @@ import {useEffect, useState} from "react";
 
 
 const defaultValue:{APIURL: BasicSettings['APIURL'], dataSource: BasicSettings["dataSource"]} = {
-  APIURL: 'https://api.dev.vauhtijuoksu.fi/',
+  APIURL: 'https://api.vauhtijuoksu.fi/',
   dataSource: 'api'
 }
 

@@ -4,7 +4,8 @@ import {defaultThemeConfig, themes} from "@/themes/list";
 import {useParams} from "next/navigation";
 import {layouts} from "@/layouts/list";
 import {dayNightCycle} from "@/schema/constant";
-import {ThemeProps} from "@/themes/types";
+import {Sponsor, ThemeConfig, ThemeProps} from "@/themes/types";
+import {dBottomBarContent} from "@/themes/defaults";
 
 const getTimeString = () => {
   const d = new Date()
@@ -56,14 +57,25 @@ export const useConfig = () => {
   if (typeof styleContext == 'undefined') {
     throw Error
   }
-  return {...(defaultThemeConfig ?? {}), ...(styleContext.config ?? {})}
+  const conf:ThemeConfig = {...(defaultThemeConfig ?? {}), ...(styleContext.config ?? {})}
+  conf.bottomBarContent = {...dBottomBarContent, ...(conf.bottomBarContent ?? {})}
+  return conf
 }
-export const useSponsors = () => {
+export type SponsorSet = "default" | string
+export const useSponsors = (ss: SponsorSet | SponsorSet[] = "default") => {
   const styleContext = useContext(StyleContext)
   if (typeof styleContext == 'undefined') {
     throw Error
   }
-  return styleContext.sponsors ?? []
+  const ssl = Array.isArray(ss) ? ss : [ss]
+  const sponsors:Sponsor[] = []
+  if (typeof styleContext.sponsors != "undefined"){
+    return styleContext.sponsors.filter((s) => {
+      const set = s.set?.selector ?? "default"
+      return ssl.includes(set)
+    })
+  }
+  return sponsors
 }
 
 

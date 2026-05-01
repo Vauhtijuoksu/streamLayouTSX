@@ -10,16 +10,16 @@ const theme:ThemeProps = {
     charImgFolder: "vjp25"
   },
   sponsors: [
-    "WWF.jpg",
-    "azsh_blue.png",
-    "pestipaevat_white.png",
-    "pop_pankki.png",
-    "PSOAS.png",
-    "TEK_white.png",
-    "Tiedot_white.svg",
-    "Tullisali_white.svg",
-    "RattoRadio_orange.png",
-    "vectorama_white.png",
+    {icon: "WWF.jpg", set: {selector: "default", label: "Keräyskohteena"}},
+    {icon: "azsh_blue.png"},
+    {icon: "pestipaevat_white.png"},
+    {icon: "pop_pankki.png"},
+    {icon: "PSOAS.png"},
+    {icon: "TEK_white.png"},
+    {icon: "Tiedot_white.svg"},
+    {icon: "Tullisali_white.svg"},
+    {icon: "RattoRadio_orange.svg"},
+    {icon: "vectorama_white.svg"},
   ],
   excludeLayout: []
 }

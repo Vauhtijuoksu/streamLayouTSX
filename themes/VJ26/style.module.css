@@ -1,0 +1,330 @@
+
+.root{
+    --vj26red0: #2C000B;
+    --vj26red1: #990001;
+    --vj26red2: #DA0000;
+    --vj26red3: #E16F4A;
+    --vj26orange0: #4A2C0B;
+    --vj26orange1: #BE6716;
+    --vj26orange2: #E9A330;
+    --vj26orange3: #F2DDC0;
+    --vj26yellow0: #655002;
+    --vj26yellow1: #DAB203;
+    --vj26yellow2: #FEE600;
+    --vj26yellow3: #FFF486;
+    --vj26blue0: #0B1740;
+    --vj26blue1: #253C90;
+    --vj26blue2: #6991FB;
+    --vj26blue3: #B0C7FD;
+    --vj26green0: #2A4B30;
+    --vj26green1: #4B8556;
+    --vj26green2: #81D69F;
+    --vj26green3: #B6EAD2;
+    --vj26purple0: #480C42;
+    --vj26purple1: #A42291;
+    --vj26purple2: #DC4AB2;
+    --vj26purple3: #F7A9D4;
+    --vj26dark: #1E070B;
+    --vj26light: #FFF6F4;
+
+    --borderWidth: 2px;
+    --borderStyle: dotted;
+    --borderColor: var(--vj26orange3);
+
+
+    --background-image: url("img/bg.png");
+    --mainBackground: var(--vj26orange3);
+    --background-donatebar: var(--vj26blue2);
+    --background-donatebar-fill: var(--vj26green2);
+    --background-detail: var(--vj26orange2);
+    --donateBarFill: var(--darkGreen);
+    --donateBarFillLoad: var(--vj26green3);
+    --secondary: var(--vj26dark);
+    --scheduleFallBackBG: url("./img/tikkaviuhti.png") right/contain no-repeat;
+    --incentiveFallBackBG: url("./img/raakkuviuhti.png") left/contain no-repeat;
+    --smallDivider: url("./img/kolmio.png");
+    --divider: url("./img/kolmio.png");
+    --clockIcon: url("./img/clock.png");
+    --mainFont: poppins;
+    --titleFont: bonny;
+}
+
+
+@font-face {
+    font-family: 'poppins';
+    src: url('./Poppins-Variable.ttf') format('truetype');
+    ascent-override: 102%;
+}
+
+@font-face {
+    font-family: 'bonny';
+    src: url('./Bonny-Variable.ttf') format('truetype');
+}
+
+.pauseFullCam{
+    .sponsorHeader{
+        display: none;
+    }
+    .sponsorHolder {
+        height: 420px;
+        width: 630px;
+        position: relative;
+        margin-right: -32px;
+        margin-bottom: -26px;
+        &::after{
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            background: url("./img/kehys.png") center/contain no-repeat;
+            z-index: 100;
+        }
+        .sponsors {
+            position: absolute;
+            top: 15%;
+            left: 10%;
+            bottom: 10%;
+            right: 10%;
+            padding: 5%;
+            background: var(--darkerForest)  var(--background-image) center/cover;
+            overflow: hidden;
+        }
+    }
+}
+
+.sixteenNine {
+    .logoHolder {
+        height: 170px;
+        margin-left: 5px;
+        margin-right: 5px;
+        margin-bottom: 30px;
+        .logo {
+            background: url("./img/logo/Text_KolmioYear.svg") center/contain no-repeat;
+        }
+    }
+}
+.sixteenNineDuoSplitCam, .sixteenNineDuo {
+    --fontMinScale: 0.75;
+    .logoHolder{
+        height: calc(100% - 0.3em);
+        margin: 0.1em;
+        .logo {
+            background: url("./img/logo/TextSKolmioYear.svg") center/contain no-repeat;
+        }
+    }
+
+    .gameInfo {
+        .gameData {
+            max-width: 460px;
+            min-width: 400px;
+        }
+        .gameName {
+            max-height: 80px;
+        }
+    }
+    .bottomBar{
+        padding-top: 0.5em;
+        margin-bottom: -2px;
+    }
+}
+
+.sixteenNineDuoCornered{
+    .logoHolder{
+        flex-grow: 1;
+        height: 2.5em;
+        margin: 0.4em;
+        .logo {
+            background: url("./img/logo/Text.svg") center/contain no-repeat;
+        }
+    }
+}
+.fourThree {
+    .logoHolder {
+        height: 160px;
+        margin-left: var(--paddings);
+        margin-right: var(--paddings);
+        .logo{
+            background: url("./img/logo/Text_KolmioYear.svg") center/contain no-repeat;
+        }
+    }
+    .content{
+        font-size: 0.9em;
+    }
+    .leftBar {
+        gap: 0;
+    }
+    .sponsorHeader {
+        font-size: 0.9em;
+    }
+    .sponsors > div > div:not(.sponsorHeader){
+        margin-top: -0.3em;
+    }
+}
+.fourThreeDuoSplitCam, .fourThreeDuo{
+    .logoHolder {
+        height: calc(100% - 0.04em);
+        margin: 0.02em;
+        .logo{
+            background: url("./img/logo/TextSKolmioYear.svg") center/contain no-repeat;
+        }
+    }
+    .bottomBar{
+        padding-top: 0.3em;
+        margin-bottom: -2px;
+        gap: 2em
+    }
+    .topBar, .bottomBar{
+        font-size: 0.7em;
+    }
+
+    .gameInfo {
+        .gameData {
+            width: 500px;
+        }
+    }
+    .playerNameBlobLeft, .playerNameBlobRight{
+    }
+    .timer{
+        -webkit-text-stroke: 1.3px var(--vj26blue2);
+    }
+}
+.scheduleIcon{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+
+    .gameIcon{
+        aspect-ratio: 1;
+        height: 90%;
+        width: 90%;
+    }
+}
+.gameInfo{
+    .gameIcon{
+
+        aspect-ratio: 1;
+        height: 5em;
+        margin-right: 0.6em;
+    }
+}
+.pause {
+    .logoHolder{
+        height: calc(4.5em);
+        margin: 0.4em;
+        .logo {
+            background: url("./img/logo/TextKolmioYear.svg") center/contain no-repeat;
+        }
+    }
+}
+.yapping {
+    .logoHolder{
+        height: calc(4.5em);
+        margin: 0.4em;
+        .logo {
+            background: url("./img/logo/TextKolmioYear.svg") center/contain no-repeat;
+        }
+    }
+}
+.yappingDuoCam {
+    .logoHolder{
+        height: calc(4.5em);
+        margin: 0.1em;
+        .logo {
+            background: url("./img/logo/TextKolmioYear.svg") center/contain no-repeat;
+        }
+    }
+}
+
+.mainArea, .leftBar, .midBar, .bottomBar, .topBar, .gameView, .topRight, .bottomLeft, .camera {
+    background: var(--mainBackground);
+}
+.incentives{
+    .incentive{
+        .incentiveGameTitle{
+            color: var(--secondary);
+        }
+        .incentiveStatus{
+            .emptyIncentive{
+                color: var(--vj26light);
+                text-shadow: 0px 0px 3px var(--vj26dark), 0px 0px 3px var(--vj26dark);
+            }
+        }
+        .incentiveClosing{
+            color: var(--vj26purple0);
+        }
+        .incentiveMilestoneRow{
+            background-color: var(--vj26purple0);
+            --outline: var(--vj26purple0);
+            text-shadow: 1px 1px 1px var(--outline), 1px -1px 1px var(--outline), -1px -1px 1px var(--outline), -1px 1px 1px var(--outline), 0px 0px 2px var(--outline);
+            -webkit-text-stroke: 0.5px var(--outline);
+            color: var(--vj26purple3);
+            .incentiveBarFill{
+                background-color: var(--vj26purple2);
+            }
+            &.winningOption {
+                --outline: var(--vj26green2);
+                text-shadow: 1px 1px 1px var(--outline), 1px -1px 1px var(--outline), -1px -1px 1px var(--outline), -1px 1px 1px var(--outline), 0px 0px 2px var(--outline);
+                -webkit-text-stroke: 0.5px var(--outline);
+                color: var(--vj26green3);
+                .incentiveBarFill{
+                    background-color: var(--vj26green1);
+                }
+            }
+
+        }
+        .incentiveOptionRow{
+            .incentiveBar{
+                &:nth-of-type(1) .incentiveBarFill{
+                    background-color: var(--vj26green3);
+                }
+                &:nth-of-type(2) .incentiveBarFill{
+                    background-color: var(--vj26blue3);
+                }
+                &:nth-of-type(3) .incentiveBarFill{
+                    background-color: var(--vj26yellow3);
+                }
+                &:nth-of-type(4) .incentiveBarFill{
+                    background-color: var(--vj26purple3);
+                }
+                &:nth-of-type(5) .incentiveBarFill{
+                    background-color: var(--vj26orange3);
+                }
+
+                &.winningOption {
+                    .incentiveBarFill {
+                        color: var(--vj26dark);
+                        background-color: var(--vj26green1);
+                    }
+                    color: var(--vj26green2);
+                    text-shadow: 0px 0px 3px var(--vj26dark), 0px 0px 3px var(--vj26dark);
+                }
+                &.emptyOption {
+                    .incentiveBarFill {
+                        filter: saturate(1);
+                    }
+                }
+            }
+        }
+    }
+}
+.donateBarMain {
+    --outline: var(--vj26green0);
+    text-shadow: 1px 1px 1px var(--outline), 1px -1px 1px var(--outline), -1px -1px 1px var(--outline), -1px 1px 1px var(--outline), 0px 0px 2px var(--outline);
+    -webkit-text-stroke: 0.5px var(--outline);
+    color: var(--vj26green3);
+}
+.timer {
+    &.timerStopped {
+        --timerFlashColor: var(--vj26green2);
+        color: var(--vj26green1);
+    }
+    &.timerRunning {
+        color: var(--vj26blue2);
+    }
+    &.timerIdle {
+        color: var(--vj26green0);
+    }
+}

@@ -9,6 +9,7 @@ type RollerProps = {
   sideWays?: boolean,
   fade?: boolean,
   loopBack?: number
+  onChange?: (n:number) => void,
 }
 export const Roller = ({
   rollTo = {timestamp: 0, index: -1, delayMultiplier: 1},
@@ -18,6 +19,7 @@ export const Roller = ({
   fade = false,
   showOverFlow = false,
   loopBack = 0,
+  onChange,
   }:RollerProps) => {
   const [index, setIndex] = useState(loopBack)
   const [nextIndex, setNextIndex] = useState(-1)
@@ -48,7 +50,9 @@ export const Roller = ({
       if (timeout.current) clearTimeout(timeout.current)
     }
   }, [index, nextIndex, rollElements, delaySeconds, loopBack, rollDelayMultiplier]);
-
+  useEffect(() => {
+    if (onChange) onChange(index)
+  }, [index, onChange])
   return (
     <div className={[rollerStyle.roller, sideWays ? rollerStyle.sideways : "", fade ? rollerStyle.fade : ""].join(" ")} style={showOverFlow ? {} : {overflow: 'hidden'}}>
       {

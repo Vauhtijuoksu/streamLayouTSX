@@ -121,8 +121,8 @@ const DonationBarFiller = ({
   if (typeof total == 'undefined' || !goal) return null
   return (
     <>
-      <div className={style.donationBarFill2} style={{position: "absolute", zIndex:0, top: 0, left: -20, bottom: 0, right: ((1 - total/goal) * 100)+"%"}}></div>
-      <div className={style.donationBarFill} style={{position: "absolute", zIndex:0, top: 0, left: -20, bottom: 0, right: ((1 - total/goal) * 100)+"%"}}></div>
+      <div className={style.donationBarFill2} style={{position: "absolute", zIndex:0, top: 0, left: -30, bottom: 0, right: ((1 - total/goal) * 100)+"%"}}></div>
+      <div className={style.donationBarFill} style={{position: "absolute", zIndex:0, top: 0, left: -30, bottom: 0, right: ((1 - total/goal) * 100)+"%"}}></div>
     </>
   )
 }
