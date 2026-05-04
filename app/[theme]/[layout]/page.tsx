@@ -2,6 +2,7 @@
 
 import {StyleProvider, useLayout, useTheme} from "@/themes/ThemeContext";
 import {MaskProvider} from "@/components/Holes/Masker";
+import Providers from "@/DataHandler/Providers";
 
 
 
@@ -11,11 +12,13 @@ export default function Layout() {
   if (!theme) return null
   if (!layoutComponent) return <p>Not found</p>
   return (
-    <StyleProvider>
-      <MaskProvider>
-        {layoutComponent(undefined)}
-      </MaskProvider>
-    </StyleProvider>
+    <Providers>
+      <StyleProvider>
+        <MaskProvider>
+          {layoutComponent(undefined)}
+        </MaskProvider>
+      </StyleProvider>
+    </Providers>
   )
 }
 

@@ -48,7 +48,7 @@ const LayoutComponent = (props:LayoutComponentProps) => {
         </div>
         <div className={style.mainArea} style={{gridArea: 'bottomRight'}}>
             <div className={style.sponsors}>
-              <SponsorDisplay/>
+              <SponsorDisplay sponsorSet={['default', 'pause']}/>
             </div>
         </div>
       </div>

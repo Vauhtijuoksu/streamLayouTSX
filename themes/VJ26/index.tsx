@@ -7,19 +7,25 @@ const theme:ThemeProps = {
   config: {
     defaultCornerRadius: 40,
     deviceImgFolder: "vj26",
-    charImgFolder: "vj26"
+    charImgFolder: "vj26",
+    bottomBarContent: {
+      left: "total",
+      mid: ["motd", "schedule", "incentives", "donations"],
+      right: "time"
+    }
   },
   sponsors: [
-    {icon: "WWF.jpg", set: {selector: "default", label: "Keräyskohteena"}},
+    {icon: "sairaalaklovnit.png", set: {selector: "default", label: "Keräyskohde"}},
     {icon: "azsh_blue.png"},
-    {icon: "pestipaevat_white.png"},
-    {icon: "pop_pankki.png"},
-    {icon: "PSOAS.png"},
-    {icon: "TEK_white.png"},
-    {icon: "Tiedot_white.svg"},
-    {icon: "Tullisali_white.svg"},
-    {icon: "RattoRadio_orange.svg"},
-    {icon: "vectorama_white.svg"},
+    {icon: "TEK_rbg.png"},
+    {icon: "pestipaevat_black.png"},
+    {icon: "emuurom.png"},
+    {icon: "dom_ant_games.png"},
+    {icon: "RattoRadio_orange.png"},
+    {icon: "vectorama_white.png"},
+    {icon: "toeimisto.png", set: {selector: "default", label: "Tapahtumapaikka"}},
+    {icon: "kili.png", set: {selector: "pause", label: "Taukosnäksit tarjoaa"}},
+    {icon: "oikia.png", set: {selector: "pause", label: "Taukosnäksit tarjoaa"}},
   ],
   excludeLayout: []
 }

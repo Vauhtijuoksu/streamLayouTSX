@@ -39,7 +39,7 @@ const LayoutComponent = (props:LayoutComponentProps) => {
         </div>
         <div className={[style.mainArea, style.column].join(" ")} style={{gridArea: 'bottomRight', height: '100%', gap: '1em'}}>
           <div className={style.sponsors}>
-            <SponsorDisplay/>
+            <SponsorDisplay sponsorSet={['default', 'pause']}/>
           </div>
         </div>
       </div>

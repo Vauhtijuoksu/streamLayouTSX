@@ -32,16 +32,16 @@
     --borderColor: var(--vj26orange3);
 
 
-    --background-image: url("img/bg.png");
+    --background-image: none;
     --mainBackground: var(--vj26orange3);
     --background-donatebar: var(--vj26blue2);
-    --background-donatebar-fill: var(--vj26green2);
+    --background-donatebar-fill: var(--vj26green1);
     --background-detail: var(--vj26orange2);
-    --donateBarFill: var(--darkGreen);
+    --donateBarFill: var(--vj26green2);
     --donateBarFillLoad: var(--vj26green3);
     --secondary: var(--vj26dark);
-    --scheduleFallBackBG: url("./img/tikkaviuhti.png") right/contain no-repeat;
-    --incentiveFallBackBG: url("./img/raakkuviuhti.png") left/contain no-repeat;
+    --scheduleFallBackBG: url("./img/tirehtoori.png") center/contain no-repeat;
+    --incentiveFallBackBG: url("./img/voimamies.png") center/contain no-repeat;
     --smallDivider: url("./img/kolmio.png");
     --divider: url("./img/kolmio.png");
     --clockIcon: url("./img/clock.png");
@@ -61,6 +61,11 @@
     src: url('./Bonny-Variable.ttf') format('truetype');
 }
 
+.clockIcon {
+    margin-right: 0.4em;
+    margin-left: 0.1em;
+    width: 4em;
+}
 .pauseFullCam{
     .sponsorHeader{
         display: none;
@@ -88,17 +93,16 @@
             bottom: 10%;
             right: 10%;
             padding: 5%;
-            background: var(--darkerForest)  var(--background-image) center/cover;
+            background: var(--vj26orange3)  var(--background-image) center/cover;
             overflow: hidden;
         }
     }
 }
-
 .sixteenNine {
     .logoHolder {
         height: 170px;
-        margin-left: 5px;
-        margin-right: 5px;
+        margin-left: 10px;
+        margin-right: 10px;
         margin-bottom: 30px;
         .logo {
             background: url("./img/logo/Text_KolmioYear.svg") center/contain no-repeat;
@@ -121,7 +125,7 @@
             min-width: 400px;
         }
         .gameName {
-            max-height: 80px;
+            max-height: 86px;
         }
     }
     .bottomBar{
@@ -134,7 +138,7 @@
     .logoHolder{
         flex-grow: 1;
         height: 2.5em;
-        margin: 0.4em;
+        margin: 0.2em;
         .logo {
             background: url("./img/logo/Text.svg") center/contain no-repeat;
         }
@@ -142,6 +146,7 @@
 }
 .fourThree {
     .logoHolder {
+        margin-top: 5px;
         height: 160px;
         margin-left: var(--paddings);
         margin-right: var(--paddings);
@@ -184,7 +189,23 @@
             width: 500px;
         }
     }
-    .playerNameBlobLeft, .playerNameBlobRight{
+    .playerNameBlobRight, .playerNameBlobLeft{
+        & > div:first-child {
+            margin-top: calc(var(--paddings) * 1.2);
+        }
+        & > div:last-child {
+            margin-bottom: calc(var(--paddings) * 0.8);
+        }
+    }
+    .playerNameBlobLeft{
+        & > div:last-child {
+            margin-right: calc(var(--paddings) * 2.5);
+        }
+    }
+    .playerNameBlobRight{
+        & > div:first-child {
+            margin-left: calc(var(--paddings) * 2.5);
+        }
     }
     .timer{
         -webkit-text-stroke: 1.3px var(--vj26blue2);
@@ -217,6 +238,10 @@
         .logo {
             background: url("./img/logo/TextKolmioYear.svg") center/contain no-repeat;
         }
+    }
+
+    .sponsors > div > div:not(.sponsorHeader){
+        margin: 0 2em;
     }
 }
 .yapping {
@@ -290,7 +315,7 @@
                     background-color: var(--vj26purple3);
                 }
                 &:nth-of-type(5) .incentiveBarFill{
-                    background-color: var(--vj26orange3);
+                    background-color: var(--vj26red3);
                 }
 
                 &.winningOption {
@@ -327,4 +352,32 @@
     &.timerIdle {
         color: var(--vj26green0);
     }
+}
+
+
+.donationList{
+    .divider{
+        height: 65%;
+        aspect-ratio: 1;
+        &:last-child {
+            display: none;
+        }
+    }
+}
+.donateBar {
+    .smallDivider {
+        height: 1em;
+    }
+}
+
+.incentiveFallBack{
+    background: var(--incentiveFallBackBG, none);
+}
+.scheduleFallBack{
+    background: var(--scheduleFallBackBG, none);
+}
+
+
+.fontScaler {
+    font-size: calc(max(var(--fontMinScale, 0.1), var(--fontScale, 1)) * 0.96em)
 }

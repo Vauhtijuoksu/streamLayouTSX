@@ -31,7 +31,7 @@ const LayoutComponent = (props:LayoutComponentProps) => {
       <div className={[style.layout, style.pauseFullCam].join(" ")}>
         <div className={[style.sponsorHolder, style.column].join(" ")} style={{gridArea: 'bottomRight'}}>
           <div className={style.sponsors}>
-            <SponsorDisplay/>
+            <SponsorDisplay sponsorSet={['default', 'pause']}/>
           </div>
         </div>
       </div>

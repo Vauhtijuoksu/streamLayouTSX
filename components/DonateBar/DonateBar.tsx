@@ -1,11 +1,12 @@
-import {useStyle} from "@/themes/ThemeContext";
-import {useDonatebarInfo, useDonationGoal, useDonations} from "@/DataHandler/DataProvider";
+import {useConfig, useStyle, useTheme} from "@/themes/ThemeContext";
+import {useDonatebarInfo, useDonationGoal, useDonations, usePeople} from "@/DataHandler/DataProvider";
 import {ReactNode, useEffect, useRef, useState} from "react";
 import {TextSizeCheckComponent} from "@/util/TextSize";
 import {Roller} from "@/components/Roller/Roller";
 import {DonateBarIncentiveRoller, IncentiveRollerDisplay, useUpcomingIncentives} from "@/components/Display/Incentives";
 import {DonateBarScheduleDisplay, useUpcomingGames} from "@/components/Display/Schedule";
 import masking from "@/components/Holes/Masking.module.css"
+import {TimerDisplay} from "@/components/Display/Timer";
 
 type DonateBarProps = {
   scheduleStart?: number
@@ -18,6 +19,8 @@ export const DonateBar = ({
 }:DonateBarProps) => {
   const style = useStyle()
   const donations = useDonations()
+
+  const {bottomBarContent: bbc} = useConfig()
   const incentives = useUpcomingIncentives()
   const upcomingGames = useUpcomingGames()
   const donatebarInfo = useDonatebarInfo()
@@ -61,7 +64,14 @@ export const DonateBar = ({
           }
         </div>
         <div className={[style.donoRight, style.donoCorner].join(" ")}>
-          {donationGoal && !noText ? <div>{donationGoal}{"\xa0€"}</div> : null}
+          {bbc?.right == "total" ?
+            (donationGoal && !noText ? <div>{donationGoal}{"\xa0€"}</div> : null)
+            :
+            (bbc?.right == "time" ?
+              (!noText ? <CurrentTime/> : null)
+            :
+            null)
+          }
         </div>
       </div>
   )
@@ -146,4 +156,32 @@ const DonateeList = () => {
 }
 
 
+const CurrentTime = () => {
+  const [time, setTime] = useState(new Date)
+  const style = useStyle()
 
+  const timeout = useRef<ReturnType<typeof setInterval>>(null)
+
+  useEffect(() => {
+    if (timeout.current) clearInterval(timeout.current)
+    timeout.current = setInterval(() => {
+      setTime(new Date)
+    }, 1000)
+    return () => {
+      if (timeout.current) clearTimeout(timeout.current)
+    }
+  },[])
+  const hours = String(time.getHours()).padStart(2, ' ').split('')
+  const minutes = String(time.getMinutes()).padStart(2, '0').split('')
+  return (
+    <div>
+      <div className={[style.row, style.scheduleTime].join(" ")} style={{width: '2.6em', height:"100%", alignItems: 'center'}}>
+        {hours.map((h, i) => <div key={"h"+i} style={{width: '25%', textAlign: 'center'}}>{h}</div>)}
+        <div>
+          :
+        </div>
+        {minutes.map((m, i) => <div key={"m"+i} style={{width: '25%', textAlign: 'center'}}>{m}</div>)}
+      </div>
+    </div>
+  )
+}

@@ -32,6 +32,13 @@ export const useSettings = ():BasicSettings => {
     readLocalStorage("dataSource", setDataSource, dataSource)
     setIsPending(false)
   }, [])
+
+  useEffect(() => {
+    if (APIURL == 'https://api.dev.vauhtijuoksu.fi/') {
+      localStorage.setItem("APIURL", defaultValue.APIURL)
+      setAPIURL(defaultValue.APIURL)
+    }
+  }, [APIURL])
   return {APIURL, setAPIURL, dataSource, setDataSource, isPending}
 }
 

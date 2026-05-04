@@ -9,12 +9,14 @@ const METADATA_POLLS_PERMINUTE = 60
 
 export const ApiWrapper = ({
   children,
-}:{children:ReactNode}) => {
+  poll = true
+}:{children:ReactNode, poll: boolean}) => {
   const [apiClient, setApiClient] = useState<ApiClient | undefined>(undefined)
   const [startLoop, setStartLoop] = useState(false)
   const timeout = useRef<ReturnType<typeof setTimeout>>(null)
   const {dataSource, APIURL, isPending} = useSettings()
   const pathname = usePathname().split("/")
+  console.log(pathname)
   const isDock = (pathname.length > 0 && pathname[1] == "dock")
   useEffect(() => {
     if (!isPending){
@@ -28,7 +30,7 @@ export const ApiWrapper = ({
   }, [dataSource, APIURL, isPending]);
 
   useEffect(() => {
-    if (startLoop && apiClient){
+    if (poll && startLoop && apiClient){
       apiClient.initData()
       timeout.current = setInterval(() => {
         apiClient.getMetadata()
@@ -38,7 +40,7 @@ export const ApiWrapper = ({
     return () => {
       if (timeout.current) clearInterval(timeout.current)
     }
-  }, [startLoop, apiClient]);
+  }, [startLoop, apiClient, poll]);
 
   return <>{children}</>
 }
