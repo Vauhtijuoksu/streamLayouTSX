@@ -656,6 +656,9 @@
     .fillable{
         fill: var(--FillColor)
     }
+    .outline{
+        fill: white;
+    }
 }
 
 .donateBar {

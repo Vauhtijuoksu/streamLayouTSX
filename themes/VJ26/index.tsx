@@ -26,6 +26,7 @@ const theme:ThemeProps = {
     {icon: "toeimisto.png", set: {selector: "default", label: "Tapahtumapaikka"}},
     {icon: "kili.png", set: {selector: "pause", label: "Taukosnäksit tarjoaa"}},
     {icon: "oikia.png", set: {selector: "pause", label: "Taukosnäksit tarjoaa"}},
+    {icon: "putaan_pulla.png", set: {selector: "pause", label: "Taukosnäksit tarjoaa"}},
   ],
   excludeLayout: []
 }

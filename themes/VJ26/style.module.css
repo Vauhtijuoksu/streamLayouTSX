@@ -25,6 +25,7 @@
     --vj26purple2: #DC4AB2;
     --vj26purple3: #F7A9D4;
     --vj26dark: #1E070B;
+    --vj26gray: #717171;
     --vj26light: #FFF6F4;
 
     --borderWidth: 2px;
@@ -380,4 +381,29 @@
 
 .fontScaler {
     font-size: calc(max(var(--fontMinScale, 0.1), var(--fontScale, 1)) * 0.96em)
+}
+
+
+
+.counter {
+    .counterValue {
+        position: relative;
+        -webkit-text-stroke: 0.075em var(--vj26light);
+    }
+    --counterColor0: var(--vj26yellow3);
+    --counterColor1: var(--vj26red3);
+    --counterColor2: var(--vj26purple3);
+    --counterColor3: var(--vj26light);
+    --counterColor4: var(--vj26blue3);
+    --counterColor5: var(--vj26green3);
+    --counterColor6: var(--vj26orange3);
+    --counterColor7: var(--vj26gray);
+}
+.counterIcon{
+    .fillable{
+        fill: var(--FillColor)
+    }
+    .outline{
+        fill: var(--vj26light);
+    }
 }
