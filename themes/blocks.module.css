@@ -24,6 +24,12 @@
     grid-template-columns: 1fr min-content;
     grid-template-rows: min-content 1fr;
 }
+
+.sixteenNineBigCam {
+    grid-template-areas: "leftBar gameView" "leftBar bottomBar";
+    grid-template-columns: 1fr min-content;
+    grid-template-rows: min-content 1fr;
+}
 .sixteenNineDuo, .sixteenNineDuoSplitCam {
     grid-template-areas: "topBar topBar topBar" "gameView midBar gameView2" "bottomBar bottomBar bottomBar";
     grid-template-columns: min-content 1fr min-content;

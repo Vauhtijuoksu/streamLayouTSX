@@ -110,6 +110,37 @@
         }
     }
 }
+.sixteenNineBigCam {
+    .logoHolder {
+        height: 170px;
+        margin-left: 10px;
+        margin-right: 10px;
+        margin-bottom: 30px;
+        .logo {
+            background: url("./img/logo/Text_KolmioYear.svg") center/contain no-repeat;
+        }
+    }
+    .camOverHolder{
+        width: 100%;
+    }
+    .overCamInfo {
+        z-index: 100;
+        position: absolute;;
+        width: 760px;
+    }
+    .camera {
+        margin-right: -280px;
+        width: 760px;
+        height: 500px;
+    }
+
+.gameView > div > .border{
+    outline: none;
+}
+    .bottomBar {
+        margin-left: 280px;
+    }
+}
 .sixteenNineDuoSplitCam, .sixteenNineDuo {
     --fontMinScale: 0.75;
     .logoHolder{
@@ -337,10 +368,10 @@
     }
 }
 .donateBarMain {
-    --outline: var(--vj26green0);
+    --outline: var(--vj26green3);
     text-shadow: 1px 1px 1px var(--outline), 1px -1px 1px var(--outline), -1px -1px 1px var(--outline), -1px 1px 1px var(--outline), 0px 0px 2px var(--outline);
-    -webkit-text-stroke: 0.5px var(--outline);
-    color: var(--vj26green3);
+    -webkit-text-stroke: 0px var(--outline);
+    color: var(--vj26green0);
 }
 .timer {
     &.timerStopped {

@@ -17,11 +17,13 @@ import {componentList} from "@/layouts/components/ComponentList";
 import {counters} from "@/layouts/components/Counters";
 import {sixteenNineEmpty} from "@/layouts/sixteenNine/SixteenNineEmpty";
 import {sixteenNineFullEmpty} from "@/layouts/sixteenNine/SixteenNineFullEmpty";
+import {sixteenNineBigCam} from "@/layouts/sixteenNine/SixteenNineBigCam";
 
 export type LayoutComponentProps = object | undefined
 
 export const layouts:{[key: string]:Layout} = {
   sixteenNine,
+  sixteenNineBigCam,
   sixteenNineDuo,
   sixteenNineDuoSplitCam,
   sixteenNineDuoCorneredRightOnTop,
