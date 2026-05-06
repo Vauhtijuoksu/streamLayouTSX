@@ -28,6 +28,9 @@
     --vj26gray: #717171;
     --vj26light: #FFF6F4;
 
+
+
+    --vj26light2: rgba(255, 246, 244, 0.54);
     --borderWidth: 2px;
     --borderStyle: dotted;
     --borderColor: var(--vj26orange3);
@@ -368,7 +371,7 @@
     }
 }
 .donateBarMain {
-    --outline: var(--vj26green3);
+    --outline: var(--vj26light2);
     text-shadow: 1px 1px 1px var(--outline), 1px -1px 1px var(--outline), -1px -1px 1px var(--outline), -1px 1px 1px var(--outline), 0px 0px 2px var(--outline);
     -webkit-text-stroke: 0px var(--outline);
     color: var(--vj26green0);
