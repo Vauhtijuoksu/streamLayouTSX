@@ -138,8 +138,8 @@ export const GameView = ({
   return (
     <HoleAdder id={viewID} roundedCorners={cr}>
       <div className={[style.border, masking.overlay].join(" ")} style={{
-        width: width + "px",
-        height: height + "px",
+        width: Math.ceil(width) + "px",
+        height: Math.ceil(height) + "px",
         display: "grid",
         gridGap: gap.x + "px " + gap.y + "px",
         gridTemplateAreas: `"${template.join(`" "`)}"`, ...borderRadius

@@ -12,6 +12,7 @@ body {
 main {
   width: 1920px;
   height: 1080px;
+  overflow: clip;
 }
 
 * {

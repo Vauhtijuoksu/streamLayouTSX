@@ -321,6 +321,10 @@
             text-shadow: 1px 1px 1px var(--outline), 1px -1px 1px var(--outline), -1px -1px 1px var(--outline), -1px 1px 1px var(--outline), 0px 0px 2px var(--outline);
             -webkit-text-stroke: 0.5px var(--outline);
             color: var(--vj26purple3);
+            & > div > div {
+                padding-bottom: 0;
+                padding-top: 0.1em;
+            }
             .incentiveBarFill{
                 background-color: var(--vj26purple2);
             }
@@ -356,10 +360,11 @@
                 &.winningOption {
                     .incentiveBarFill {
                         color: var(--vj26dark);
-                        background-color: var(--vj26green1);
+                        background-color: var(--vj26orange2);
+
                     }
-                    color: var(--vj26green2);
-                    text-shadow: 0px 0px 3px var(--vj26dark), 0px 0px 3px var(--vj26dark);
+                    color: var(--vj26dark);
+                    text-shadow: 0px 0px 3px var(--vj26yellow3), 0px 0px 3px var(--vj26yellow3);
                 }
                 &.emptyOption {
                     .incentiveBarFill {

@@ -405,6 +405,7 @@
             & > div > div {
                 padding-bottom: 0.1em;
             }
+            overflow: hidden;
             width: 60%;
             margin: 0.25em auto 0.25em auto;
             background-color: var(--darkerPurple);
