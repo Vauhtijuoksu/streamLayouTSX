@@ -3,9 +3,6 @@
     .overlay {
         visibility: hidden;
     }
-    width: inherit;
-    height: inherit;
-    overflow: clip;
 
 }
 .unmasked {
@@ -13,6 +10,9 @@
     .overlay {
         visibility: visible;
     }
+}
+
+main > .masked, main > .unmasked {
     width: inherit;
     height: inherit;
     overflow: clip;
