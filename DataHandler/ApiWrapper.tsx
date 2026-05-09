@@ -6,6 +6,7 @@ import {ApiClient} from "@/DataHandler/api";
 import {usePathname} from "next/navigation";
 
 const METADATA_POLLS_PERMINUTE = 60
+const INCENTIVE_POLLS_PERMINUTE = 6
 
 export const ApiWrapper = ({
   children,
@@ -14,6 +15,7 @@ export const ApiWrapper = ({
   const [apiClient, setApiClient] = useState<ApiClient | undefined>(undefined)
   const [startLoop, setStartLoop] = useState(false)
   const timeout = useRef<ReturnType<typeof setTimeout>>(null)
+  const incentiveTimeout = useRef<ReturnType<typeof setTimeout>>(null)
   const {dataSource, APIURL, isPending} = useSettings()
   const pathname = usePathname().split("/")
   console.log(pathname)
@@ -36,9 +38,13 @@ export const ApiWrapper = ({
         apiClient.getMetadata()
         apiClient.getDonations()
       }, (60/METADATA_POLLS_PERMINUTE) * 1000)
+      incentiveTimeout.current = setInterval(() => {
+        apiClient.getIncentives()
+      }, (60/INCENTIVE_POLLS_PERMINUTE) * 1000)
     }
     return () => {
       if (timeout.current) clearInterval(timeout.current)
+      if (incentiveTimeout.current) clearInterval(incentiveTimeout.current)
     }
   }, [startLoop, apiClient, poll]);
 

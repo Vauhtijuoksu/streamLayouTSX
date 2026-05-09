@@ -59,11 +59,20 @@ export namespace API {
     now_playing:null | string,
     server_time:string
   }
+  export type DonationIncentiveChoice = {
+    incentive_id: string,
+    parameter: string | null,
+  }
+  export type DonationIncentive = {
+    code: string,
+    chosen_incentives: DonationIncentiveChoice[],
+  }
   export type Donation = {
     id: string,
     timestamp: string,
     name: string,
     amount: number,
+    incentives?: DonationIncentive[],
   }
 
 }
@@ -158,11 +167,20 @@ type MetaData = {
   timer: Timer[],
   nowPlaying?: string,
 }
+export type DonationIncentiveChoice = {
+  incentiveId: string,
+  parameter: string | null,
+}
+export type DonationIncentive = {
+  code: string,
+  chosenIncentives: DonationIncentiveChoice[],
+}
 export type Donation = {
   id: string,
   timestamp: number,
   name: string,
   amount: number,
+  incentives: DonationIncentive[],
 }
 
 export class ApiClient {
@@ -336,6 +354,13 @@ export class ApiClient {
             timestamp: Date.parse(d.timestamp),
             name: d.name,
             amount: roundAmount(d.amount),
+            incentives: (d.incentives ?? []).map((i) => ({
+              code: i.code,
+              chosenIncentives: (i.chosen_incentives ?? []).map((c) => ({
+                incentiveId: c.incentive_id,
+                parameter: c.parameter,
+              })),
+            })),
           }
         })
         const update = this.checkObjectDifference(donations, this.donations)
