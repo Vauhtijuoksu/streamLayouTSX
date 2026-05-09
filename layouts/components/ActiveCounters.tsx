@@ -17,7 +17,7 @@ import {Logo} from "@/components/Display/Logo";
 import {NowPlaying} from "@/components/Display/NowPlaying";
 import {Layout} from "@/layouts/types";
 import {aspectRatios} from "@/schema/constant";
-import {CounterDisplay} from "@/components/Display/Counter";
+import {CounterDisplay, SpacedCounterDisplay} from "@/components/Display/Counter";
 
 export const activeCounters:Layout = {
   displayName: 'activeCounters',
@@ -30,35 +30,15 @@ const LayoutComponent = (props:LayoutComponentProps) => {
   const style = useStyle()
 
   return (
-    <div className={[style.root, style.counterRoot].join(" ")} style={{width: '100vw', height: '100vh', display: 'flex', flexDirection: 'column'}}>
-      <div style={{display: 'flex', flexDirection: 'row', height: '50%'}}>
-        <div style={{display: 'flex', flexDirection: 'row', height: '100%', alignItems: 'center', justifyContent: 'center', flexGrow: 1}}>
-          <CounterDisplay index={0}/>
-        </div>
-        <div style={{display: 'flex', flexDirection: 'row', height: '100%', alignItems: 'center', justifyContent: 'center', flexGrow: 1}}>
-          <CounterDisplay index={1}/>
-        </div>
-        <div style={{display: 'flex', flexDirection: 'row', height: '100%', alignItems: 'center', justifyContent: 'center', flexGrow: 1}}>
-          <CounterDisplay index={2}/>
-        </div>
-        <div style={{display: 'flex', flexDirection: 'row', height: '100%', alignItems: 'center', justifyContent: 'center', flexGrow: 1}}>
-          <CounterDisplay index={3}/>
-        </div>
-      </div>
-      <div style={{display: 'flex', flexDirection: 'row', height: '50%'}}>
-        <div style={{display: 'flex', flexDirection: 'row', height: '100%', alignItems: 'center', justifyContent: 'center', flexGrow: 1}}>
-          <CounterDisplay index={4}/>
-        </div>
-        <div style={{display: 'flex', flexDirection: 'row', height: '100%', alignItems: 'center', justifyContent: 'center', flexGrow: 1}}>
-          <CounterDisplay index={5}/>
-        </div>
-        <div style={{display: 'flex', flexDirection: 'row', height: '100%', alignItems: 'center', justifyContent: 'center', flexGrow: 1}}>
-          <CounterDisplay index={6}/>
-        </div>
-        <div style={{display: 'flex', flexDirection: 'row', height: '100%', alignItems: 'center', justifyContent: 'center', flexGrow: 1}}>
-          <CounterDisplay index={7}/>
-        </div>
-      </div>
+    <div className={[style.root, style.counterRoot].join(" ")} style={{width: '100vw', height: '100vh', display: 'flex', flexDirection: 'row', flexWrap: "wrap"}}>
+      <SpacedCounterDisplay index={0} height={"50vh"} width={"25vw"}/>
+      <SpacedCounterDisplay index={1} height={"50vh"} width={"25vw"}/>
+      <SpacedCounterDisplay index={2} height={"50vh"} width={"25vw"}/>
+      <SpacedCounterDisplay index={3} height={"50vh"} width={"25vw"}/>
+      <SpacedCounterDisplay index={4} height={"50vh"} width={"25vw"}/>
+      <SpacedCounterDisplay index={5} height={"50vh"} width={"25vw"}/>
+      <SpacedCounterDisplay index={6} height={"50vh"} width={"25vw"}/>
+      <SpacedCounterDisplay index={7} height={"50vh"} width={"25vw"}/>
     </div>
   );
 }
