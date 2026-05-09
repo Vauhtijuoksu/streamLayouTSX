@@ -40,7 +40,8 @@ export const IncentiveRollerDisplay = ({
   useEffect(() => {
     const elem:ReactNode[] = incentives.slice(0, Math.min(incentives.length, slides*onSlide)).map((i) => <IncentiveDisplay key={i.id} {...i}/>)
     const elemGrouped:ReactNode[] = []
-    for (let g = 0; g < slides; g++) {
+    const groupCount = Math.min(slides, Math.ceil(elem.length / onSlide))
+    for (let g = 0; g < groupCount; g++) {
       const group:ReactNode[] = []
       for (let i = 0; i < onSlide; i++) {
         if (elem.length > g*onSlide+i) group.push(elem[g*onSlide+i])
