@@ -3,10 +3,17 @@
     .overlay {
         visibility: hidden;
     }
+    width: inherit;
+    height: inherit;
+    overflow: clip;
+
 }
 .unmasked {
     visibility: hidden;
     .overlay {
         visibility: visible;
     }
+    width: inherit;
+    height: inherit;
+    overflow: clip;
 }
