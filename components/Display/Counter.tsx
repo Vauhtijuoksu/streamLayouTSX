@@ -24,6 +24,34 @@ export const CounterDisplay = ({
   )
 }
 
+type SpacedCounterDisplayProps = {
+  index: number
+  forceRender?: boolean,
+  height?: string,
+  width?: string
+}
+export const SpacedCounterDisplay = ({
+  index,
+  forceRender = false,
+  height,
+  width,
+}:SpacedCounterDisplayProps) => {
+  const style = useStyle()
+  const counters = useCounter()
+  const counter =  counters.length > index ? counters[index] : {value: -1, style: 0}
+  if (!forceRender && counter.value == -1) return null
+  const s = {display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', flexGrow: 1, ...(height ? {"height": height} : {}), ...(width ? {"width": width} : {})}
+  return (
+    <div style={s as CSSProperties}>
+      <div className={style.counter}>
+        <div className={style.counterValue}>{counter.value < 0 ? "-" : counter.value}</div>
+        <CounterIcon className={style.counterIcon} type={counter.style} colorValue={index}/>
+      </div>
+    </div>
+  )
+}
+
+
 
 type CounterIconProps = {
   colorValue: number
