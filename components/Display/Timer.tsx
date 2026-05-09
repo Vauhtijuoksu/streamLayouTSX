@@ -27,12 +27,13 @@ const getHours = (n: number) => {
 }
 
 const getDisplayTime = (start:number, end:number):DisplayTime => {
-  const duration = new Date(end - start)
+  const ms = end - start
+  const totalSec = Math.floor(ms / 1000)
   return {
-    hour: getHours(duration.getTime()),
-    minute: splitTimeSegment(duration.getUTCMinutes()),
-    second: splitTimeSegment(duration.getUTCSeconds()),
-    hundredths: splitTimeSegment(duration.getUTCMilliseconds()/10)
+    hour: getHours(ms),
+    minute: splitTimeSegment(Math.floor(totalSec / 60) % 60),
+    second: splitTimeSegment(totalSec % 60),
+    hundredths: splitTimeSegment(Math.floor((ms % 1000) / 10))
   }
 }
 
@@ -77,7 +78,7 @@ export const TimerDisplay = ({
       setState(TimerState.STOPPED)
     }
     return () => {
-      if (timeout.current) clearTimeout(timeout.current)
+      if (timeout.current) clearInterval(timeout.current)
     }
   }, [start, end, timeOffset, decimals]);
 
