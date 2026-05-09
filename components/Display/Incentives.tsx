@@ -45,7 +45,7 @@ export const IncentiveRollerDisplay = ({
       for (let i = 0; i < onSlide; i++) {
         if (elem.length > g*onSlide+i) group.push(elem[g*onSlide+i])
       }
-      elemGrouped.push(<div style={{display:'flex', flexDirection: 'column', justifyContent:'space-around', height: '100%', width: '90%'}}>{group}</div>)
+      if (group.length > 0) elemGrouped.push(<div style={{display:'flex', flexDirection: 'column', justifyContent:'space-around', height: '100%', width: '90%'}}>{group}</div>)
     }
     setIncentiveElements(elemGrouped)
   }, [incentives, slides, onSlide]);
