@@ -3,6 +3,7 @@ import blocksCss from "./blocks.module.css"
 import generic from "./generic/"
 import vjp25 from "./VJp25/"
 import vj26 from "./VJ26/"
+import vj26p from "./VJ26p/"
 import {ThemeConfig, ThemeProps} from "@/themes/types";
 
 
@@ -12,6 +13,7 @@ export const themes:{[key: string]: ThemeProps} = {
   generic: generic,
   vjp25: vjp25,
   vj26: vj26,
+  vj26p: vj26p,
 }
 
 export const defaultTheme = themes.generic
