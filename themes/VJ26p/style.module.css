@@ -1,0 +1,588 @@
+
+.root{
+    --v_viininpunainen: #C8385A;
+    --v_punainen: #EE204D;
+    --v_vesimeloni: #FC6C85;
+    --v_malva: #EF98AA;
+    --v_seepia: #A5694F;
+    --v_appelsiini: #FF7538;
+    --v_porkkana: #FFA343;
+    --v_persikka: #FFCFAB;
+    --v_varjo: #8A795D;
+    --v_auringonkajo: #FFCF48;
+    --v_sitruuna: #FDFC74;
+    --v_banaani: #FAE7B5;
+    --v_sademetsa: #17806D;
+    --v_vihrea: #1CAC78;
+    --v_minttu: #45CEA2;
+    --v_omena: #A8E4A0;
+    --v_keskiyo: #1A4876;
+    --v_farkku: #2B6CC4;
+    --v_taivaansini: #1DACD6;
+    --v_vaaleansininen: #80DAEB;
+    --v_munakoiso: #6E5160;
+    --v_luumu: #8E4584;
+    --v_verenpisara: #C364C5;
+    --v_sinisade: #CDA4DE;
+    --v_musta: #232323;
+    --v_avaruus: #414A4C;
+    --v_manaatti: #979AAA;
+    --v_talvio: #C5D0E6;
+    --v_valkoinen: #EDEDED;
+
+
+    --borderWidth: 2px;
+    --borderStyle: dotted;
+    --borderColor: transparent;
+
+
+    --background-image: url("./img/background_gs.png") fixed;
+    --mainBackground: var(--background-image);
+    --scrible: url("./img/bg_scrible_anti.png");
+    --highlightColor: var(--v_vaaleansininen);
+    --background-donatebar: var(--v_manaatti) var(--scrible);
+    --background-donatebar-fill: var(--v_sademetsa);
+    --background-detail: var(--highlightColor) var(--scrible);
+    --donateBarFill: var(--v_vihrea);
+    --donateBarFillLoad: var(--v_omena);
+    --secondary: var(--v_musta);
+    --scheduleFallBackBG: url("./img/tirehtoori.png") center/contain no-repeat;
+    --incentiveFallBackBG: url("./img/voimamies.png") center/contain no-repeat;
+    --smallDivider: url("./img/divider.png");
+    --divider: url("./img/divider.png");
+    --clockIcon: url("./img/clock.png");
+    --mainFont: comis;
+    --titleFont: schoolBell;
+    image-rendering: pixelated;
+  --border_offset: -5px;
+  --border_off: -100px;
+}
+
+.playerNameBlobRight, .playerNameBlobLeft{
+    background: var(--highlightColor) url("./img/bg_scrible_anti.png") !important;
+}
+.sponsor img{
+  image-rendering: auto;
+}
+
+
+@font-face {
+    font-family: 'comis';
+    src: url('./comicSansMs.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'schoolBell';
+    src: url('./schoolbell.ttf') format('truetype');
+}
+
+.clockIcon {
+    margin-right: 0.4em;
+    margin-left: 0.1em;
+    width: 4em;
+}
+.pauseFullCam{
+    .sponsorHeader{
+        display: none;
+    }
+    .sponsorHolder {
+        height: 420px;
+        width: 630px;
+        position: relative;
+        margin-right: -32px;
+        margin-bottom: -26px;
+        &::after{
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            background: url("./img/kehys.png") center/contain no-repeat;
+            z-index: 100;
+        }
+        .sponsors {
+            position: absolute;
+            top: 14%;
+            left: 9%;
+            bottom: 9%;
+            right: 9%;
+            padding: 5%;
+            background: var(--v_malva)  var(--scrible) center/cover;
+            overflow: hidden;
+        }
+    }
+}
+.sixteenNine {
+    .logoHolder {
+        height: 170px;
+        margin-left: 10px;
+        margin-right: 10px;
+        margin-bottom: 30px;
+        .logo {
+            background: url("./img/logo/Text_KolmioYear.svg") center/contain no-repeat;
+        }
+    }
+}
+.overCamInfo, .donoLeft, .donoRight,  .donateBar, .layout{
+  position: relative;
+}
+.overCamInfo:after, .camera .border:after, .breakCamera .border:after, .breakBigCamera .border:after, .donoLeft:after, .donoRight:after, .donateBar:after, .gameView .border:after, .playerNameBlobRight:after, .playerNameBlobLeft:after {
+  position: absolute;
+  top: var(--border_offset);
+  left: var(--border_off);
+  right: var(--border_offset);
+  bottom: var(--border_offset);
+  content: "";
+  border-image: url("./img/border.png") 25 / 32px round;
+}
+.donateBar{
+  overflow: visible;
+}
+.donateBar:after{
+  right: var(--border_off);
+  bottom: var(--border_off);
+  overflow: visible;
+}
+.camera .border:after {
+  bottom: -20px;
+
+}
+.gameView .border:after {
+  top: var(--border_off);
+  left: var(--border_offset);
+  right: var(--border_off);
+  bottom: var(--border_offset);
+
+}
+
+.playerNameBlobRight:after {
+  top: var(--border_offset);
+  left: var(--border_offset);
+  right: var(--border_off);
+  bottom: var(--border_offset);
+}
+
+.sixteenNineBigCam {
+  .gameView .border:after {
+    --xClip: 18.5%;
+    --yClip: 66%;
+    clip-path: polygon(0% 0%, 0% var(--yClip), var(--xClip) var(--yClip), var(--xClip) 100%, 100% 100%, 100% 0%);
+  }
+}
+.sixteenNineDuo, .sixteenNineDuoSplitCam, .fourThreeDuo, .fourThreeDuoSplitCam {
+  .gameView .border:after {
+    top: var(--border_offset);
+    left: var(--border_off);
+    right: var(--border_offset);
+    bottom: var(--border_offset);
+  }
+  .gameView2 .border:after {
+    top: var(--border_offset);
+    left: var(--border_offset);
+    right: var(--border_off);
+    bottom: var(--border_offset);
+  }
+  .camera .border:after {
+    left: var(--border_offset);
+  }
+}
+.sixteenNineDuoSplitCam, .fourThreeDuoSplitCam  {
+  .camera .border:after {
+    left: var(--border_off);
+  }
+  .cameraRight .border:after {
+    left: var(--border_offset);
+    right: var(--border_off);
+  }
+
+}
+
+.breakCamera .border:after {
+  top: var(--border_off);
+  left: var(--border_offset);
+  right: var(--border_off);
+  bottom: var(--border_offset);
+}
+.breakBigCamera .border:after {
+  top: var(--border_off);
+  left: var(--border_off);
+  right: var(--border_offset);
+  bottom: var(--border_off);
+}
+
+.fourThree{
+  .gameView .border:after {
+    bottom: var(--border_off)
+  }
+
+}
+.sixteenNineDuoCornered {
+  .gameView .border:after {
+    top: var(--border_off);
+    left: var(--border_off);
+    right: var(--border_offset);
+    bottom: var(--border_offset);
+  }
+  .gameView2 .border:after {
+    top: var(--border_offset);
+    left: var(--border_offset);
+    right: var(--border_off);
+    bottom: var(--border_off);
+    --xClip: 21%;
+    --yClip: 31%;
+    clip-path: polygon(var(--xClip) 0%, var(--xClip) var(--yClip), 0% var(--yClip), 0% 100%, 100% 100%, 100% 0%);
+  }
+}
+.sixteenNineDuoCorneredLowerOnTop {
+  .gameView .border:after {
+    --xClip: 79%;
+    --yClip: 69%;
+    clip-path: polygon(0% 0%, 0% 100%, var(--xClip) 100%, var(--xClip) var(--yClip), 100% var(--yClip), 100% 100%, 100% 0%);
+  }
+  .gameView2 .border:after {
+    clip-path: none;
+  }
+}
+.donoRight:after {
+  left: var(--border_offset);
+  right: var(--border_off);
+}
+
+.sixteenNineBigCam {
+  .logoHolder {
+    height: 170px;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 30px;
+    .logo {
+      background: url("./img/logo/Text_KolmioYear.svg") center/contain no-repeat;
+    }
+  }
+  .camOverHolder{
+    width: 100%;
+  }
+  .overCamInfo {
+    z-index: 100;
+    position: absolute;;
+    width: 760px;
+  }
+  .camera {
+    margin-right: -280px;
+    width: 760px;
+    height: 500px;
+  }
+
+  .gameView > div > .border{
+    outline: none;
+  }
+  .bottomBar {
+    margin-left: 280px;
+  }
+}
+.sixteenNineDuoSplitCam, .sixteenNineDuo {
+  --fontMinScale: 0.75;
+  .logoHolder{
+    height: calc(100% - 0.3em);
+    margin: 0.1em;
+    .logo {
+      background: url("./img/logo/TextSKolmioYear.svg") center/contain no-repeat;
+    }
+  }
+
+  .gameInfo {
+    .gameData {
+      max-width: 460px;
+      min-width: 400px;
+    }
+    .gameName {
+      max-height: 86px;
+    }
+  }
+  .bottomBar{
+    padding-top: 0.5em;
+    margin-bottom: -2px;
+  }
+}
+
+.sixteenNineDuoCornered{
+  .logoHolder{
+    flex-grow: 1;
+    height: 2.5em;
+    margin: 0.2em;
+    .logo {
+      background: url("./img/logo/Text.svg") center/contain no-repeat;
+    }
+  }
+}
+.fourThree {
+  .logoHolder {
+    margin-top: 5px;
+    height: 160px;
+    margin-left: var(--paddings);
+    margin-right: var(--paddings);
+    .logo{
+      background: url("./img/logo/Text_KolmioYear.svg") center/contain no-repeat;
+    }
+  }
+  .content{
+    font-size: 0.9em;
+  }
+  .leftBar {
+    gap: 0;
+  }
+  .sponsorHeader {
+    font-size: 0.9em;
+  }
+  .sponsors > div > div:not(.sponsorHeader){
+    margin-top: -0.3em;
+  }
+}
+.fourThreeDuoSplitCam, .fourThreeDuo{
+  .logoHolder {
+    height: calc(100% - 0.04em);
+    margin: 0.02em;
+    .logo{
+      background: url("./img/logo/TextSKolmioYear.svg") center/contain no-repeat;
+    }
+  }
+  .bottomBar{
+    padding-top: 0.3em;
+    margin-bottom: -2px;
+    gap: 2em
+  }
+  .topBar, .bottomBar{
+    font-size: 0.7em;
+  }
+
+  .gameInfo {
+    .gameData {
+      width: 500px;
+    }
+  }
+  .playerNameBlobRight, .playerNameBlobLeft{
+    & > div:first-child {
+      margin-top: calc(var(--paddings) * 1.2);
+    }
+    & > div:last-child {
+      margin-bottom: calc(var(--paddings) * 0.8);
+    }
+  }
+  .playerNameBlobLeft{
+    & > div:last-child {
+      margin-right: calc(var(--paddings) * 2.5);
+    }
+  }
+  .playerNameBlobRight{
+    & > div:first-child {
+      margin-left: calc(var(--paddings) * 2.5);
+    }
+  }
+  .timer{
+    -webkit-text-stroke: 1.3px var(--v_farkku);
+  }
+}
+.scheduleIcon{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+
+  .gameIcon{
+    aspect-ratio: 1;
+    height: 90%;
+    width: 90%;
+  }
+}
+.gameInfo{
+  .gameIcon{
+
+    aspect-ratio: 1;
+    height: 5em;
+    margin-right: 0.6em;
+  }
+}
+.pause {
+  .logoHolder{
+    height: calc(4.5em);
+    margin: 0.4em;
+    .logo {
+      background: url("./img/logo/TextKolmioYear.svg") center/contain no-repeat;
+    }
+  }
+
+  .sponsors > div > div:not(.sponsorHeader){
+    margin: 0 2em;
+  }
+}
+.yapping {
+  .logoHolder{
+    height: calc(4.5em);
+    margin: 0.4em;
+    .logo {
+      background: url("./img/logo/TextKolmioYear.svg") center/contain no-repeat;
+    }
+  }
+}
+.yappingDuoCam {
+  .logoHolder{
+    height: calc(4.5em);
+    margin: 0.1em;
+    .logo {
+      background: url("./img/logo/TextKolmioYear.svg") center/contain no-repeat;
+    }
+  }
+}
+
+.mainArea, .leftBar, .midBar, .bottomBar, .topBar, .gameView, .topRight, .bottomLeft, .camera {
+  background: var(--mainBackground);
+}
+.incentives{
+  .incentive{
+    .incentiveGameTitle{
+      color: var(--secondary);
+    }
+    .incentiveStatus{
+      .emptyIncentive{
+        color: var(--v_valkoinen);
+        text-shadow: 0px 0px 3px var(--v_musta), 0px 0px 3px var(--vj26dark);
+      }
+    }
+    .incentiveClosing{
+      color: var(--v_munakoiso);
+    }
+    .incentiveMilestoneRow{
+      background-color: var(--v_munakoiso);
+      --outline: var(--v_munakoiso);
+      text-shadow: 1px 1px 1px var(--outline), 1px -1px 1px var(--outline), -1px -1px 1px var(--outline), -1px 1px 1px var(--outline), 0px 0px 2px var(--outline);
+      -webkit-text-stroke: 0.5px var(--outline);
+      color: var(--v_sinisade);
+      & > div > div {
+        padding-bottom: 0;
+        padding-top: 0.1em;
+      }
+      .incentiveBarFill{
+        background-color: var(--v_verenpisara);
+      }
+      &.winningOption {
+        --outline: var(--v_minttu);
+        text-shadow: 1px 1px 1px var(--outline), 1px -1px 1px var(--outline), -1px -1px 1px var(--outline), -1px 1px 1px var(--outline), 0px 0px 2px var(--outline);
+        -webkit-text-stroke: 0.5px var(--outline);
+        color: var(--v_omena);
+        .incentiveBarFill{
+          background-color: var(--v_vihrea);
+        }
+      }
+
+    }
+    .incentiveOptionRow{
+      .incentiveBar{
+        &:nth-of-type(1) .incentiveBarFill{
+          background-color: var(--v_omena);
+        }
+        &:nth-of-type(2) .incentiveBarFill{
+          background-color: var(--v_vaaleansininen);
+        }
+        &:nth-of-type(3) .incentiveBarFill{
+          background-color: var(--v_banaani);
+        }
+        &:nth-of-type(4) .incentiveBarFill{
+          background-color: var(--v_sinisade);
+        }
+        &:nth-of-type(5) .incentiveBarFill{
+          background-color: var(--v_persikka);
+        }
+
+        &.winningOption {
+          .incentiveBarFill {
+            color: var(--v_musta);
+            background-color: var(--v_vihrea);
+
+          }
+          color: var(--v_musta);
+          text-shadow: 0px 0px 3px var(--v_sitruuna), 0px 0px 3px var(--vj26yellow3);
+        }
+        &.emptyOption {
+          .incentiveBarFill {
+            filter: saturate(1);
+          }
+        }
+      }
+    }
+  }
+}
+.donateBarMain {
+  --outline: var(--v_musta);
+  text-shadow: 1px 1px 1px var(--outline), 1px -1px 1px var(--outline), -1px -1px 1px var(--outline), -1px 1px 1px var(--outline), 0px 0px 2px var(--outline);
+  -webkit-text-stroke: 0px var(--outline);
+  color: var(--v_vaaleansininen);
+  .donoRoller > div > div > div, .donoRoller > div > div > div > div > div {
+    padding-left: 2px;
+  }
+}
+.timer {
+  &.timerStopped {
+    --timerFlashColor: var(--v_sademetsa);
+    color: var(--v_sademetsa);
+  }
+  &.timerRunning {
+    color: var(--v_taivaansini);
+  }
+  &.timerIdle {
+    color: var(--v_seepia);
+  }
+}
+
+
+.donationList{
+  .divider{
+    height: 65%;
+    aspect-ratio: 1;
+    &:last-child {
+      display: none;
+    }
+  }
+}
+.donateBar {
+  .smallDivider {
+    height: 1em;
+  }
+}
+
+.incentiveFallBack{
+  background: var(--incentiveFallBackBG, none);
+}
+.scheduleFallBack{
+  background: var(--scheduleFallBackBG, none);
+}
+
+
+.fontScaler {
+  font-size: calc(max(var(--fontMinScale, 0.1), var(--fontScale, 1)) * 0.96em)
+}
+
+
+
+.counter {
+  .counterValue {
+    position: relative;
+    -webkit-text-stroke: 0.075em var(--v_valkoinen);
+  }
+  --counterColor0: var(--v_sitruuna);
+  --counterColor1: var(--v_vesimeloni);
+  --counterColor2: var(--v_malva);
+  --counterColor3: var(--v_valkoinen);
+  --counterColor4: var(--v_taivaansini);
+  --counterColor5: var(--v_minttu);
+  --counterColor6: var(--v_porkkana);
+  --counterColor7: var(--v_manaatti);
+}
+.counterIcon{
+  .fillable{
+    fill: var(--FillColor)
+  }
+  .outline{
+    fill: var(--v_avaruus);
+  }
+}
+

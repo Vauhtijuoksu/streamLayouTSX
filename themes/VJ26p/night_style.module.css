@@ -1,0 +1,17 @@
+
+.root{
+    --background-image: url("./img/background_darker.png") fixed;
+    --mainBackground: var(--background-image);
+    --scrible: url("./img/bg_scrible_anti_dark.png");
+    --highlightColor: var(--v_luumu);
+    --background-donatebar: var(--v_manaatti) var(--scrible);
+    --background-donatebar-fill: var(--v_sademetsa);
+    --background-detail: var(--highlightColor) var(--scrible);
+    --donateBarFill: var(--v_vihrea);
+    --donateBarFillLoad: var(--v_omena);
+    --secondary: var(--v_musta);
+}
+
+.donateBarMain {
+  color: var(--v_verenpisara)
+}
