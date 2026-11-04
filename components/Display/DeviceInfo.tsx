@@ -11,6 +11,7 @@ const deviceNames:{[key: string]: [string, string]} = {
   Puzzle: ["Lautapeli", ""],
   Retro: ["Joku\xa0Retro", ""],
   N64: ["Nintendo\xa064", "N64"],
+  N64_GB: ["Nintendo\xa064 & Game Boy", "N64 & GB"],
   PSP: ["Playstation\xa0Portable", "PSP"],
   PSVita: ["Playstation\xa0Vita", "PSVita"],
   PS1: ["Playstation", "PS1"],

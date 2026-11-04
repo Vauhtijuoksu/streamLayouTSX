@@ -1,13 +1,15 @@
 import css from "./style.module.css"
+import night_css from "./night_style.module.css"
 import {ThemeProps} from "@/themes/types";
 
 const theme:ThemeProps = {
   extends: ['generic'],
   base: css,
+  night: night_css,
   config: {
-    defaultCornerRadius: 20,
-    deviceImgFolder: "vj26",
-    charImgFolder: "vj26",
+    defaultCornerRadius: 26,
+    deviceImgFolder: "vj26p",
+    charImgFolder: "vj26p",
     bottomBarContent: {
       left: "total",
       mid: ["motd", "schedule", "incentives", "donations"],
