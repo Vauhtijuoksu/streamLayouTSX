@@ -111,6 +111,57 @@
     grid-template-columns: 1fr min-content;
     grid-template-rows: min-content;
 }
+.pregame {
+    grid-template-areas: "top top" "left right";
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 0.28fr 1fr;
+  .pregameInfo{
+    padding: 10px 50px;
+    display: flex;
+    flex-direction: column;
+  }
+  .iconHolder{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .gameIcon{
+    max-height: 630px;
+    max-width: 630px;
+  }
+  .roleHeader{
+    color: unset;
+    font-size: 1.5em;
+  }
+  .personList{
+    font-size: 1.5em;
+  }
+  .roleHeader:after{
+    content: ":";
+  }
+  .camera{
+    height: 350px;
+  }
+  .gameInfo{
+    justify-content: center;
+    font-size: 1.3em;
+    .gameData{
+      max-width: 700px;
+      .gameName{
+        width: 100%;
+        line-height: 1.3;
+
+      }
+    }
+  }
+  .estimate{
+    font-size: 2em;
+    justify-content: flex-end;
+  }
+}
 .pause {
     grid-template-areas: "topLeft topRight" "bottomLeft bottomRight" ;
     grid-template-columns: 1fr 1fr;

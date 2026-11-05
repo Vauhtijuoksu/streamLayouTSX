@@ -61,10 +61,10 @@
 .playerNameBlobRight, .playerNameBlobLeft{
     background: var(--highlightColor) url("./img/bg_scrible_anti.png") !important;
 }
-.sponsor img{
+
+.sponsor img, .gameIcon, .deviceIcon{
   image-rendering: auto;
 }
-
 
 @font-face {
     font-family: 'comis';
@@ -124,6 +124,15 @@
         }
     }
 }
+.pregame {
+    .logoHolder {
+      margin: 10px;
+        height: 100%;
+        .logo {
+            background: url("./img/logo/KolmioTextYear.svg") center/contain no-repeat;
+        }
+    }
+  }
 .overCamInfo, .donoLeft, .donoRight,  .donateBar, .layout{
   position: relative;
 }
@@ -163,6 +172,28 @@
   bottom: var(--border_offset);
 }
 
+.pregame {
+  .camera .border:after {
+    border-image: url("./img/border2.png") 25 / 32px round;
+    left: var(--border_offset);
+    bottom: var(--border_offset)
+  }
+  .iconHolder{
+    position: relative;
+    background: url("./img/paper.png") center/contain no-repeat;
+  }
+  .iconHolder:after{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    content: "";
+    background: url("./img/paperBorder.png") center/contain no-repeat;
+
+  }
+
+}
 .sixteenNineBigCam {
   .gameView .border:after {
     --xClip: 18.5%;
