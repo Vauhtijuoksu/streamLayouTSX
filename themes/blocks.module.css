@@ -184,11 +184,11 @@
   }
 }
 .pregameOverlay.ended{
-  animation: fadeOut 2s 0s 1 forwards;
+  animation: fadeOut 1.5s 0s 1 forwards;
 }
 @keyframes fadeOut {
-  0% {opacity: 1}
-  100% {opacity: 0}
+  0% {filter: opacity(1) brightness(1)}
+  100% {filter: opacity(0) brightness(1.1)}
 }
 .hidden{
     visibility: hidden;
