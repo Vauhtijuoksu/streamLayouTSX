@@ -73,6 +73,14 @@ export namespace API {
     name: string,
     amount: number,
     incentives?: DonationIncentive[],
+    charity?: string | null,
+  }
+  export type Charity = {
+    id: string,
+    name: string,
+    url: string,
+    goal: number | null,
+    img_filename: string | null,
   }
 
 }
@@ -181,6 +189,15 @@ export type Donation = {
   name: string,
   amount: number,
   incentives: DonationIncentive[],
+  charity?: string,
+}
+export type Charities = {[key: string]: Charity}
+export type Charity = {
+  id: string,
+  name: string,
+  url: string,
+  goal?: number,
+  imgFileName?: string,
 }
 
 export class ApiClient {
@@ -189,6 +206,7 @@ export class ApiClient {
   people: People = {}
   incentives: Incentives = {}
   donations: Donation[] = []
+  charities: Charities = {}
   metadata: MetaData | undefined = undefined
   standAlone: boolean = false
   timeOffset: number = 0
@@ -298,6 +316,7 @@ export class ApiClient {
   }
   public async initData() {
     this.getMetadata()
+    this.getCharities()
   }
   public async setTimeOffset() {
     const fetchStart = Date.now()
@@ -361,6 +380,7 @@ export class ApiClient {
                 parameter: c.parameter,
               })),
             })),
+            charity: d.charity ?? undefined,
           }
         })
         const update = this.checkObjectDifference(donations, this.donations)
@@ -369,6 +389,26 @@ export class ApiClient {
         return donations
       }
       return this.donations
+    })
+  }
+  public async getCharities():Promise<Charities> {
+    return this.get<API.Charity[]>('charities').then((data) => {
+      if (data) {
+        const charities:Charities = {}
+        data.forEach((c) => {
+          charities[c.id] = {
+            id: c.id,
+            name: c.name,
+            url: c.url,
+            goal: c.goal ?? undefined,
+            imgFileName: c.img_filename ?? undefined,
+          }
+        })
+        const update = this.checkObjectDifference(charities, this.charities)
+        this.charities = charities
+        if (update) this.triggerUpdate('charities')
+      }
+      return this.charities
     })
   }
   checkUpdates(NEW:object, OLD?:object) {
@@ -471,6 +511,9 @@ export class ApiClient {
       case 'donations':
         this.updateLocalStorage(update, this.donations)
         this.getIncentives()
+        break
+      case 'charities':
+        this.updateLocalStorage(update, this.charities)
         break
       default:
         console.log("Unhandled update trigger '" + update + "'!")

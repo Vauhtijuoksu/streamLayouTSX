@@ -40,6 +40,7 @@ export const ApiWrapper = ({
       }, (60/METADATA_POLLS_PERMINUTE) * 1000)
       incentiveTimeout.current = setInterval(() => {
         apiClient.getIncentives()
+        apiClient.getCharities() 
       }, (60/INCENTIVE_POLLS_PERMINUTE) * 1000)
     }
     return () => {
