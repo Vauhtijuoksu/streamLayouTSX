@@ -151,6 +151,11 @@ export const Fit2Box = ({
   }, [children]);
 
   useEffect(() => {
+    setReScale(Date.now())
+    setScale(1)
+  }, []);
+
+  useEffect(() => {
     if (sizeTester.current && sizeTesterLine.current) {
       const line = sizeTesterLine.current.getBoundingClientRect()
       const nonline = sizeTester.current.getBoundingClientRect()
