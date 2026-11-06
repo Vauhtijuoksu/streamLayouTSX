@@ -184,11 +184,16 @@
   }
 }
 .pregameOverlay.ended{
-  animation: fadeOut 1.5s 0s 1 forwards;
+  .gameIcon{
+    animation: fadeOut 1s 0s 1 ease-in-out forwards;
+  }
+  .iconHolder{
+    animation: fadeOut 1s 0.5s 1 ease-in-out forwards;
+  }
 }
 @keyframes fadeOut {
-  0% {filter: opacity(1) brightness(1)}
-  100% {filter: opacity(0) brightness(1.5)}
+  0% {opacity: 1}
+  100% {opacity: 0}
 }
 .hidden{
     visibility: hidden;
