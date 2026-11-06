@@ -2,10 +2,10 @@
 import {LayoutComponentProps} from "@/layouts/list";
 import {GameView} from "@/components/GameView";
 import {DynamicHole} from "@/components/Holes/Hole";
-import {PersonList} from "@/components/PersonList";
+import {PersonList, usePersonList} from "@/components/PersonList";
 import masking from "@/components/Holes/Masking.module.css";
 import {useConfig, useStyle} from "@/themes/ThemeContext";
-import {CSSProperties} from "react";
+import {CSSProperties, useEffect, useState} from "react";
 import {DonateBar} from "@/components/DonateBar/DonateBar";
 import {Estimate, MainTimer} from "@/components/Display/Timer";
 import {GameIcon, GameInfo} from "@/components/Display/GameInfo";
@@ -17,6 +17,7 @@ import {Logo} from "@/components/Display/Logo";
 import {NowPlaying} from "@/components/Display/NowPlaying";
 import {Layout} from "@/layouts/types";
 import {aspectRatios} from "@/schema/constant";
+import {Fit2Box} from "@/util/TextSize";
 
 export const pregame:Layout = {
   displayName: 'Pre Game',
@@ -28,6 +29,11 @@ export const pregame:Layout = {
 const LayoutComponent = (props:LayoutComponentProps) => {
   const style = useStyle()
   const config = useConfig()
+  const [upd, setUpd] = useState(0)
+  const personList = usePersonList("PLAYER", false)
+  useEffect(() => {
+    setUpd(Date.now)
+  }, [personList, personList.length])
   return (
     <div className={style.root} style={config.defaultCornerRadius ? {'--borderRadius': config.defaultCornerRadius + "px"} as CSSProperties : {}}>
       <div className={[style.layout, style.pregame].join(" ")}>
@@ -35,8 +41,9 @@ const LayoutComponent = (props:LayoutComponentProps) => {
           <Logo/>
         </div>
         <div className={[style.mainArea, style.pregameInfo].join(" ")} style={{gridArea: 'left'}}>
+          <div style={{height: "370px"}}>
           <div style={{fontSize: "2em"}}>Seuraavaksi:</div>
-          <div className={style.row} style={{justifyContent: 'space-between', paddingRight: "2em", alignItems: "center"}}>
+          <div className={style.row} style={{justifyContent: 'space-between', paddingRight: "1em", alignItems: "center"}}>
             <div className={style.column}>
             <GameInfo hideIcon={true}/>
             <Estimate/>
@@ -44,8 +51,13 @@ const LayoutComponent = (props:LayoutComponentProps) => {
               <DeviceInfo/>
           </div>
           <div style={{height: "1.5em"}}></div>
-          <div className={style.row} style={{justifyContent: 'space-between'}}>
-            <PersonList role={"PLAYER"}/>
+            <div className={style.prePlayerRow}>
+            <Fit2Box className={style.prePlayers} update={upd}>
+              <div className={style.row} style={{justifyContent: 'space-between'}}>
+                <PersonList role={"PLAYER"}/>
+              </div>
+            </Fit2Box>
+              </div>
           </div>
           <div style={{height: "0.5em"}}></div>
             <div className={style.camera}>

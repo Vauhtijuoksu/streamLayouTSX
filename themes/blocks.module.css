@@ -114,7 +114,7 @@
 .pregame {
     grid-template-areas: "top top" "left right";
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: 0.28fr 1fr;
+    grid-template-rows: 210px 1fr;
   .pregameInfo{
     padding: 10px 50px;
     display: flex;
@@ -134,13 +134,16 @@
   }
   .roleHeader{
     color: unset;
-    font-size: 1.5em;
-  }
-  .personList{
-    font-size: 1.5em;
+    font-size: 1em;
   }
   .roleHeader:after{
     content: ":";
+    padding-right: 0.8em;
+  }
+  .personList{
+    font-size: 1em;
+    flex-flow: nowrap !important;
+    align-items: flex-end;
   }
   .camera{
     height: 350px;
@@ -148,20 +151,49 @@
   .gameInfo{
     justify-content: center;
     font-size: 1.3em;
+    width: 100%;
     .gameData{
-      max-width: 700px;
+      width: 670px;
+      height: 120px;
       .gameName{
+        --fontMinScale: 0.2;
         width: 100%;
-        line-height: 1.3;
+        max-height: 72px;
 
       }
+      .category{
+        color: var(--secondary);
+        max-height: 40px;
+      }
     }
+  }
+  .prePlayers{
+    width: 860px !important;
+    height: 56px;
+    --fontMinScale: 0.6;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+  .prePlayerRow{
+    font-size: 1.5em;
   }
   .estimate{
     font-size: 2em;
     justify-content: flex-end;
   }
 }
+.pregameOverlay.ended{
+  animation: fadeOut 2s 0s 1 forwards;
+}
+@keyframes fadeOut {
+  0% {opacity: 1}
+  100% {opacity: 0}
+}
+.hidden{
+    visibility: hidden;
+}
+
 .pause {
     grid-template-areas: "topLeft topRight" "bottomLeft bottomRight" ;
     grid-template-columns: 1fr 1fr;
@@ -190,6 +222,7 @@
     display: none;
 }
 .fontScaler {
+    --scaled-font-size: calc(max(var(--fontMinScale, 0.1), var(--fontScale, 1)) * 1em);
     font-size: calc(max(var(--fontMinScale, 0.1), var(--fontScale, 1)) * 1em)
 }
 .full {

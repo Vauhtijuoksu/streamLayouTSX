@@ -28,9 +28,13 @@ export const GameInfo = ({
 }
 
 
-export const GameIcon = () => {
+export const GameIcon = ({animated}:{animated?:boolean}) => {
   const gameData = useCurrentGameData()
   if (typeof gameData == 'undefined') return null
+  if (animated){
+    let file = gameData.imgFileName.split(".")[0]
+    return <GameIcon.icon icon={"anim/" + file + ".gif"}/>
+  }
   return <GameIcon.icon icon={gameData.imgFileName}/>
 }
 

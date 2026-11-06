@@ -14,7 +14,7 @@ interface PersonListProps {
   role: Role
   header?: SinglePluralHeader | null
 }
-const usePersonList = (role:Role, isNotDefault:boolean) => {
+export const usePersonList = (role:Role, isNotDefault:boolean) => {
   const viewSettings = useViewSettings()
   const gameData = useCurrentGameData()
   const [personList, setPersonList] = useState<Person[]>([])

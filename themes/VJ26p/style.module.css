@@ -182,6 +182,10 @@
     position: relative;
     background: url("./img/paper.png") center/contain no-repeat;
   }
+  .gameIcon{
+
+    clip-path: polygon(0% 0%, 0% 100%, 100% 100%, 100% 5%, 95% 0%);
+  }
   .iconHolder:after{
     position: absolute;
     top: 0;
