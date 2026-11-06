@@ -205,6 +205,12 @@
     clip-path: polygon(0% 0%, 0% var(--yClip), var(--xClip) var(--yClip), var(--xClip) 100%, 100% 100%, 100% 0%);
   }
 }
+.pregameOverlay {
+  .iconHolder{
+    position: relative;
+    background: url("./img/paper_white.png") center/contain no-repeat;
+  }
+}
 .sixteenNineDuo, .sixteenNineDuoSplitCam, .fourThreeDuo, .fourThreeDuoSplitCam {
   .gameView .border:after {
     top: var(--border_offset);
