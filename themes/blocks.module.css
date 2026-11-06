@@ -188,7 +188,7 @@
 }
 @keyframes fadeOut {
   0% {filter: opacity(1) brightness(1)}
-  100% {filter: opacity(0) brightness(1.1)}
+  100% {filter: opacity(0) brightness(1.5)}
 }
 .hidden{
     visibility: hidden;
