@@ -46,8 +46,8 @@
     --donateBarFill: var(--v_vihrea);
     --donateBarFillLoad: var(--v_omena);
     --secondary: var(--v_musta);
-    --scheduleFallBackBG: url("./img/tirehtoori.png") center/contain no-repeat;
-    --incentiveFallBackBG: url("./img/voimamies.png") center/contain no-repeat;
+    --scheduleFallBackBG: url("./img/pystyviuhti.png") center/contain no-repeat;
+    --incentiveFallBackBG: url("./img/vaakaviuhti.png") center/contain no-repeat;
     --smallDivider: url("./img/divider.png");
     --divider: url("./img/divider.png");
     --clockIcon: url("./img/clock.png");
