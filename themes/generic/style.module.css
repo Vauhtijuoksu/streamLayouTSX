@@ -588,34 +588,49 @@
     background: var(--donateBarFillLoad);
     transition: right 1s 0s ease-in-out;
 }
-.charitySegment {
-    flex: 1;
+.charityFill {
+    position: absolute;
+    z-index: 0;
+    top: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: row;
+    overflow: hidden;
+    background: var(--donateBarFill); /* only visible if no charity has money yet */
+    border-top-right-radius: var(--borderRadius);
+    border-bottom-right-radius: var(--borderRadius);
+}
+.charityPart {
+    min-width: 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.3em;
+    padding-right: 0.3em;
+    overflow: hidden;
     position: relative;
-    & + .charitySegment {
+    & + .charityPart {
         border-left: 2px solid var(--secondary, black);
     }
 }
-.charitySlide {
+.charityLabel {
     position: absolute;
-    inset: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
     display: flex;
     flex-direction: row;
-}
-.charityLabel {
-    flex: 1;
-    min-width: 0;
-    display: grid;
-    grid-template: "img name" 1fr "img amount" 1fr / auto 1fr;
-    column-gap: 0.3em;
     align-items: center;
+    gap: 0.3em;
+    padding-left: 0.4em;
     padding-right: 0.3em;
-    line-height: 1;
+    overflow: hidden;
 }
 .charityImgPlaceholder {
-    grid-area: img;
-    position: relative;
+    flex-shrink: 0;
     height: 1.6em;
     aspect-ratio: 1;
+    margin-left: 0.3em;
     border-radius: 50%;
     background: var(--secondary, black);
     color: white;
@@ -623,25 +638,12 @@
     align-items: center;
     justify-content: center;
 }
-.charityName, .charityAmount {
-    position: relative;
+.charityPartText {
+    min-width: 0;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-}
-.charityName {
-    grid-area: name;
-    align-self: end;
-    font-size: 0.8em;
-}
-.charityHighlight {
-    --donationFlashColor: gold;
-    animation: donationFlash 1s ease-in-out 10;
-}
-.charityAmount {
-    grid-area: amount;
-    align-self: start;
-    font-size: 0.7em;
+    transition: opacity 0.5s;
 }
 .donoCorner {
     background: var(--background-detail);

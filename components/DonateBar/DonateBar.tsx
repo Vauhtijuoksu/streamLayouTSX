@@ -1,6 +1,6 @@
 import {useConfig, useStyle, useTheme} from "@/themes/ThemeContext";
-import {useCharities, useCharityTotals, useDonatebarInfo, useDonationGoal, useDonations, usePeople} from "@/DataHandler/DataProvider";
-import {isValidElement, ReactNode, useEffect, useRef, useState} from "react";
+import {useCharities, useCharityTotals, useDonatebarInfo, useDonationGoal, useDonations, usePeople, useTimeOffset} from "@/DataHandler/DataProvider";
+import {ReactNode, useEffect, useRef, useState} from "react";
 import {TextSizeCheckComponent} from "@/util/TextSize";
 import {Donation} from "@/DataHandler/api";
 import {Roller} from "@/components/Roller/Roller";
@@ -9,7 +9,14 @@ import {DonateBarScheduleDisplay, useUpcomingGames} from "@/components/Display/S
 import masking from "@/components/Holes/Masking.module.css"
 import {TimerDisplay} from "@/components/Display/Timer";
 
-const ROLLER_LOOP_BACK = 1
+const GROW_MS = 1000
+const SHOW_MS = 6000
+const ANIMATE_MAX_AGE_MS = 2 * 60 * 1000
+const PART_MIN = '1em'
+const EXPANDED = '22em'
+const LABELED_MIN = '9em'
+const UNDER_CORNER = '30px'
+type ShownDonation = {donation: Donation, open: boolean}
 
 type DonateBarProps = {
   scheduleStart?: number
@@ -29,13 +36,14 @@ export const DonateBar = ({
   const donatebarInfo = useDonatebarInfo()
   const donationGoal = useDonationGoal()
   const charities = useCharities()
-  const [rollIndex, setRollIndex] = useState(ROLLER_LOOP_BACK)
+  const timeOffset = useTimeOffset()
   const [start] = useState(Date.now())
   const [donationTotal, setDonationTotal] = useState<number|undefined>(undefined)
   const [rollTo, setRollTo] = useState<{timestamp: number, index: number, delayMultiplier: number}>({timestamp: 0, index: -1, delayMultiplier: 1})
-  const [highlight, setHighlight] = useState<CharityHighlight>({})
-  const [highlightIndex, setHighlightIndex] = useState(-1)
   const seenDonationIds = useRef<Set<string>>(new Set())
+  const [queue, setQueue] = useState<Donation[]>([])
+  const [shown, setShown] = useState<ShownDonation | undefined>(undefined)
+  const [rollIndex, setRollIndex] = useState(1)
   useEffect(() => {
     let total = 0
     donations.forEach((d) => {
@@ -43,46 +51,46 @@ export const DonateBar = ({
     })
     setDonationTotal(Math.round(total))
   }, [donations]);
-  const slides:ReactNode[] = []
-  if (donatebarInfo.length > 0 && donatebarInfo[0] != "") slides.push(
-    <Roller key={'Info'} delaySeconds={10} rollElements={donatebarInfo.map((i, k) => <div key={k} className={style.donateBarInfo}>{i}</div>)}/>
-  )
-  if (upcomingGames.length >= scheduleStart) slides.push(
-    <DonateBarScheduleDisplay start={scheduleStart}/>
-  )
-  if (incentives.length > 0) slides.push(
-    <DonateBarIncentiveRoller rollDelay={10} key={"Incentives"} slides={5}/>
-  )
-
-  const hasCharities = Object.keys(charities).length > 0
-  const rollElements:ReactNode[] = [<DonateeList key={'DonoList'}/>]
-  if (hasCharities && slides.length == 0) rollElements.push(<CharitySlide key={'Charities'} highlight={highlight}/>)
-  slides.forEach((s, i) => {
-    if (hasCharities) rollElements.push(<CharitySlide key={'Charities' + i} highlight={highlight}/>)
-    rollElements.push(s)
-  })
-  const current = rollElements[rollIndex]
-  const charitySlideShown = isValidElement(current) && current.type === CharitySlide
-
   useEffect(() => {
     const fresh = donations.filter((d) => !seenDonationIds.current.has(d.id))
     seenDonationIds.current = new Set(donations.map((d) => d.id))
     if (fresh.length == 0 || Date.now() <= start + 1000) return
     const withCharity = fresh.filter((d) => d.charity && charities[d.charity])
-    if (withCharity.length > 0) {
-      const h:CharityHighlight = {}
-      withCharity.sort((a, b) => a.timestamp - b.timestamp).forEach((d) => h[d.charity!] = d)
-      const target = charitySlideShown ? rollIndex : ROLLER_LOOP_BACK
-      setHighlight(h)
-      setHighlightIndex(target)
-      setRollTo({timestamp: Date.now(), index: target, delayMultiplier: 1.2})
-    } else {
-      setRollTo({timestamp: Date.now(), index: 0, delayMultiplier: 1.2})
-    }
-  }, [donations, charities, start, charitySlideShown, rollIndex]);
+    const serverNow = Date.now() - timeOffset
+    const recent = withCharity.filter((d) => serverNow - d.timestamp < ANIMATE_MAX_AGE_MS)
+    if (recent.length > 0) setQueue((q) => [...q, ...recent.sort((a, b) => a.timestamp - b.timestamp)])
+    if (withCharity.length < fresh.length) setRollTo({timestamp: Date.now(), index: 0, delayMultiplier: 1.2})
+  }, [donations, charities, start, timeOffset]);
   useEffect(() => {
-    if (rollIndex != highlightIndex) setHighlight({})
-  }, [rollIndex]);
+    if (shown || queue.length == 0) return
+    setShown({donation: queue[0], open: true})
+    setQueue(queue.slice(1))
+  }, [shown, queue]);
+  useEffect(() => {
+    if (!shown) return
+    const t = setTimeout(
+      () => setShown(shown.open ? {...shown, open: false} : undefined),
+      shown.open ? GROW_MS + SHOW_MS : GROW_MS
+    )
+    return () => clearTimeout(t)
+  }, [shown]);
+
+  const rollElements:ReactNode[] = [<DonateeList key={'DonoList'}/>]
+  if (donatebarInfo.length > 0 && donatebarInfo[0] != "") rollElements.push(
+    <Roller key={'Info'} delaySeconds={10} rollElements={donatebarInfo.map((i, k) => <div key={k} className={style.donateBarInfo}>{i}</div>)}/>
+  )
+  if (upcomingGames.length >= scheduleStart) rollElements.push(
+    <DonateBarScheduleDisplay start={scheduleStart}/>
+  )
+  if (incentives.length > 0) rollElements.push(
+    <DonateBarIncentiveRoller rollDelay={10} key={"Incentives"} slides={5}/>
+  )
+  const hasCharities = Object.keys(charities).length > 0
+  let charitySlideIndex = -1
+  if (hasCharities) {
+    charitySlideIndex = rollElements.length
+    rollElements.push(<div key={"Charities"}/>)
+  }
 
   return (
       <div className={[masking.overlay, style.donateBar].join(" ")} style={{display: 'flex', flexDirection: 'row'}}>
@@ -90,19 +98,14 @@ export const DonateBar = ({
           {noText ? null : <DonationTotal total={donationTotal}/> }
         </div>
         <div className={style.donateBarMain} style={{flex: 1, position: 'relative'}}>
+          {noText ? null : (hasCharities ?
+            <CharityFill total={donationTotal} goal={donationGoal} shown={shown} labeled={rollIndex == charitySlideIndex}/>
+            :
+            <DonationBarFiller total={donationTotal} goal={donationGoal}/>
+          )}
           {noText ? null :
-            <div style={{opacity: charitySlideShown ? 0 : 1, transition: 'opacity 1s'}}>
-              <DonationBarFiller total={donationTotal} goal={donationGoal}/>
-            </div>
-          }
-          {noText || !hasCharities ? null :
-            <div style={{opacity: charitySlideShown ? 1 : 0, transition: 'opacity 1s'}}>
-              <CharityBarFiller/>
-            </div>
-          }
-          {noText ? null :
-            <div className={style.donoRoller} style={{position: 'absolute', top: 0, left: 0, right: 0, bottom: 0}}>
-              <Roller delaySeconds={5} rollElements={rollElements} loopBack={ROLLER_LOOP_BACK} rollTo={rollTo} onChange={setRollIndex}/>
+            <div className={style.donoRoller} style={{position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, opacity: shown ? 0 : 1, transition: 'opacity 0.5s'}}>
+              <Roller delaySeconds={15} rollElements={rollElements} loopBack={1} rollTo={rollTo} onChange={setRollIndex}/>
             </div>
           }
         </div>
@@ -180,49 +183,64 @@ const DonationBarFiller = ({
   )
 }
 
-const CharityBarFiller = () => {
-  const style = useStyle()
-  const charities = useCharities()
-  const totals = useCharityTotals()
-
-  return (
-    <div style={{position: "absolute", zIndex: 0, top: 0, left: 0, bottom: 0, right: 0, display: 'flex', flexDirection: 'row'}}>
-      {Object.values(charities).map((c, i) => {
-        const filled = c.goal ? Math.min(1, Math.round(totals[c.id] ?? 0) / c.goal) : 0
-        const right = ((1 - filled) * 100) + "%"
-        const left = i == 0 ? -30 : 0
-        const n = i % 5 + 1
-        return (
-          <div key={c.id} className={style.charitySegment}>
-            <div className={style.donationBarFill2} style={{position: "absolute", top: 0, left, bottom: 0, right, background: `var(--charityFillLoad${n}, var(--donateBarFillLoad))`}}></div>
-            <div className={style.donationBarFill} style={{position: "absolute", top: 0, left, bottom: 0, right, background: `var(--charityFill${n}, var(--donateBarFill))`}}></div>
-          </div>
-        )
-      })}
-    </div>
-  )
+type CharityFillProps = {
+  total?: number
+  goal?: number
+  shown?: ShownDonation
+  labeled?: boolean
 }
-
-type CharityHighlight = {[charityId: string]: Donation}
-const CharitySlide = ({highlight}:{highlight: CharityHighlight}) => {
+const CharityFill = ({
+  total,
+  goal,
+  shown,
+  labeled = false,
+}:CharityFillProps) => {
   const style = useStyle()
-  const charities = useCharities()
+  const charities = Object.values(useCharities())
   const totals = useCharityTotals()
 
+  if (typeof total == 'undefined' || !goal) return null
+  const open = shown?.open ?? false
+  const showLabels = labeled && !shown
+  const realWidth = showLabels ? "100%" : Math.min(1, total / goal) * 100 + "%"
+  const moneySum = charities.reduce((sum, c) => sum + (totals[c.id] ?? 0), 0)
+  const minWidth = open
+    ? `(${EXPANDED} + ${charities.length - 1} * ${PART_MIN})`
+    : `(${charities.length} * ${showLabels ? LABELED_MIN : PART_MIN})`
   return (
-    <div className={style.charitySlide}>
-      {Object.values(charities).map((c) => {
-        const total = Math.round(totals[c.id] ?? 0)
-        const d = highlight[c.id]
+    <div className={style.charityFill} style={{
+      left: `-${UNDER_CORNER}`,
+      width: `calc(max(${realWidth}, ${minWidth}) + ${UNDER_CORNER})`,
+      transition: `width ${GROW_MS}ms ease-in-out`,
+    }}>
+      {charities.map((c, i) => {
+        const isShown = shown?.donation.charity == c.id
+        const grows = open && isShown
+        const grow = open ? (grows ? 1 : 0)
+          : showLabels ? 1 / charities.length
+          : moneySum > 0 ? (totals[c.id] ?? 0) / moneySum : 0
+        const basis = grows ? EXPANDED : (showLabels ? LABELED_MIN : PART_MIN)
+        const extra = i == 0 ? ` + ${UNDER_CORNER}` : ""
         return (
-          <div key={c.id} className={style.charityLabel}>
-            <div className={style.charityImgPlaceholder}>{c.name.charAt(0)}</div>
-            {d ?
-              <div className={[style.charityName, style.charityHighlight].join(" ")}>{d.name} +{Math.round(d.amount * 10)/10}{"\xa0€"}</div>
-              :
-              <div className={style.charityName}>{c.name.split(" - ")[0]}</div>
-            }
-            <div className={style.charityAmount}>{total}{c.goal ? " / " + c.goal : ""}{"\xa0€"}</div>
+          <div key={c.id} className={style.charityPart} style={{
+            flex: `${grow} 0 calc(${basis}${extra})`,
+            paddingLeft: i == 0 ? UNDER_CORNER : 0,
+            background: `var(--charityFill${i % 5 + 1}, var(--donateBarFill))`,
+            transition: `flex ${GROW_MS}ms ease-in-out`,
+          }}>
+            <div className={style.charityLabel} style={{
+              left: i == 0 ? UNDER_CORNER : 0,
+              opacity: showLabels ? 1 : 0,
+              transition: showLabels ? 'opacity 0.5s 1s' : 'opacity 0.3s',
+            }}>
+              <div className={style.charityImgPlaceholder}>{c.name.charAt(0)}</div>
+              <div className={style.charityPartText}>{c.name.split(" - ")[0]}</div>
+            </div>
+            {isShown && shown ?
+              <div className={style.charityPartText} style={{opacity: grows ? 1 : 0, paddingLeft: '0.4em'}}>
+                {c.name.split(" - ")[0]} – {shown.donation.name} +{Math.round(shown.donation.amount * 10)/10}{"\xa0€"}
+              </div>
+              : null}
           </div>
         )
       })}
