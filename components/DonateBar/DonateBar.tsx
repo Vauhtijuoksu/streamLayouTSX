@@ -1,6 +1,6 @@
 import {useConfig, useStyle, useTheme} from "@/themes/ThemeContext";
 import {useCharities, useCharityTotals, useDonatebarInfo, useDonationGoal, useDonations, usePeople, useTimeOffset} from "@/DataHandler/DataProvider";
-import {ReactNode, useEffect, useRef, useState} from "react";
+import {CSSProperties, ReactNode, useEffect, useRef, useState} from "react";
 import {TextSizeCheckComponent} from "@/util/TextSize";
 import {Donation} from "@/DataHandler/api";
 import {Roller} from "@/components/Roller/Roller";
@@ -12,10 +12,9 @@ import {TimerDisplay} from "@/components/Display/Timer";
 const GROW_MS = 1000
 const SHOW_MS = 6000
 const ANIMATE_MAX_AGE_MS = 2 * 60 * 1000
-const PART_MIN = '1em'
-const EXPANDED = '22em'
-const LABELED_MIN = '9em'
-const UNDER_CORNER = '30px'
+const PART_MIN_EM = 1
+const EXPANDED_SHARE = 0.35
+const UNDER_CORNER = 30
 type ShownDonation = {donation: Donation, open: boolean}
 
 type DonateBarProps = {
@@ -99,7 +98,7 @@ export const DonateBar = ({
         </div>
         <div className={style.donateBarMain} style={{flex: 1, position: 'relative'}}>
           {noText ? null : (hasCharities ?
-            <CharityFill total={donationTotal} goal={donationGoal} shown={shown} labeled={rollIndex == charitySlideIndex}/>
+            <CharityFill goal={donationGoal} shown={shown} labeled={rollIndex == charitySlideIndex}/>
             :
             <DonationBarFiller total={donationTotal} goal={donationGoal}/>
           )}
@@ -184,13 +183,11 @@ const DonationBarFiller = ({
 }
 
 type CharityFillProps = {
-  total?: number
   goal?: number
   shown?: ShownDonation
   labeled?: boolean
 }
 const CharityFill = ({
-  total,
   goal,
   shown,
   labeled = false,
@@ -198,47 +195,69 @@ const CharityFill = ({
   const style = useStyle()
   const charities = Object.values(useCharities())
   const totals = useCharityTotals()
+  const ref = useRef<HTMLDivElement>(null)
+  const [bar, setBar] = useState({width: 0, em: 16})
+  useEffect(() => {
+    const parent = ref.current?.parentElement
+    if (!parent) return
+    const measure = () => setBar({width: parent.clientWidth, em: parseFloat(getComputedStyle(parent).fontSize)})
+    const observer = new ResizeObserver(measure)
+    observer.observe(parent)
+    return () => observer.disconnect()
+  }, [])
 
-  if (typeof total == 'undefined' || !goal) return null
+  const n = charities.length
+  const slot = bar.width / n
+  const minPx = PART_MIN_EM * bar.em
+  const progress = charities.map((c) => {
+    const charityGoal = c.goal ?? (goal ? goal / n : 0)
+    return charityGoal > 0 ? Math.min(1, (totals[c.id] ?? 0) / charityGoal) : 0
+  })
+  const normal = progress.map((p) => Math.max(minPx, p * slot))
+  const fillLength = normal.reduce((sum, w) => sum + w, 0)
   const open = shown?.open ?? false
   const showLabels = labeled && !shown
-  const realWidth = showLabels ? "100%" : Math.min(1, total / goal) * 100 + "%"
-  const moneySum = charities.reduce((sum, c) => sum + (totals[c.id] ?? 0), 0)
-  const minWidth = open
-    ? `(${EXPANDED} + ${charities.length - 1} * ${PART_MIN})`
-    : `(${charities.length} * ${showLabels ? LABELED_MIN : PART_MIN})`
+  const shownIndex = open ? charities.findIndex((c) => c.id == shown?.donation.charity) : -1
+  const expandedPx = EXPANDED_SHARE * bar.width
+  const othersExtra = normal.reduce((sum, w, i) => i == shownIndex ? sum : sum + (w - minPx), 0)
+  const k = othersExtra > 0 ? Math.max(0, Math.min(1, (fillLength - expandedPx - (n - 1) * minPx) / othersExtra)) : 0
+  const widths = normal.map((w, i) => {
+    if (showLabels) return slot
+    if (shownIndex == -1) return w
+    return i == shownIndex ? expandedPx : minPx + (w - minPx) * k
+  })
+  const totalWidth = widths.reduce((sum, w) => sum + w, 0)
+
   return (
-    <div className={style.charityFill} style={{
-      left: `-${UNDER_CORNER}`,
-      width: `calc(max(${realWidth}, ${minWidth}) + ${UNDER_CORNER})`,
+    <div ref={ref} className={style.charityFill} style={{
+      left: -UNDER_CORNER,
+      width: totalWidth + UNDER_CORNER,
       transition: `width ${GROW_MS}ms ease-in-out`,
     }}>
       {charities.map((c, i) => {
         const isShown = shown?.donation.charity == c.id
         const grows = open && isShown
-        const grow = open ? (grows ? 1 : 0)
-          : showLabels ? 1 / charities.length
-          : moneySum > 0 ? (totals[c.id] ?? 0) / moneySum : 0
-        const basis = grows ? EXPANDED : (showLabels ? LABELED_MIN : PART_MIN)
-        const extra = i == 0 ? ` + ${UNDER_CORNER}` : ""
+        const color = i % 5 + 1
         return (
-          <div key={c.id} className={style.charityPart} style={{
-            flex: `${grow} 0 calc(${basis}${extra})`,
+          <div key={c.id} className={[style.charityPart, progress[i] >= 1 ? style.charityPartFull : ""].join(" ")} style={{
+            flex: `0 0 ${widths[i] + (i == 0 ? UNDER_CORNER : 0)}px`,
             paddingLeft: i == 0 ? UNDER_CORNER : 0,
-            background: `var(--charityFill${i % 5 + 1}, var(--donateBarFill))`,
+            "--partFill": `var(--charityFill${color}, var(--donateBarFill))`,
+            "--partFillFull": `var(--charityFillLoad${color}, var(--partFill))`,
             transition: `flex ${GROW_MS}ms ease-in-out`,
-          }}>
+          } as CSSProperties}>
             <div className={style.charityLabel} style={{
               left: i == 0 ? UNDER_CORNER : 0,
               opacity: showLabels ? 1 : 0,
               transition: showLabels ? 'opacity 0.5s 1s' : 'opacity 0.3s',
             }}>
-              <div className={style.charityImgPlaceholder}>{c.name.charAt(0)}</div>
               <div className={style.charityPartText}>{c.name.split(" - ")[0]}</div>
             </div>
             {isShown && shown ?
               <div className={style.charityPartText} style={{opacity: grows ? 1 : 0, paddingLeft: '0.4em'}}>
-                {c.name.split(" - ")[0]} – {shown.donation.name} +{Math.round(shown.donation.amount * 10)/10}{"\xa0€"}
+                {c.name.split(" - ")[0]}
+                <span className={style.divider} style={{display: 'inline-block', height: '1em', aspectRatio: 1, verticalAlign: 'middle', margin: '0 0.3em'}}/>
+                {shown.donation.name} +{Math.round(shown.donation.amount * 10)/10}{"\xa0€\xa0"}
               </div>
               : null}
           </div>

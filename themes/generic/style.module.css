@@ -609,9 +609,13 @@
     padding-right: 0.3em;
     overflow: hidden;
     position: relative;
+    background: var(--partFill);
     & + .charityPart {
         border-left: 2px solid var(--secondary, black);
     }
+}
+.charityPartFull {
+    background: var(--partFillFull);
 }
 .charityLabel {
     position: absolute;
