@@ -207,8 +207,8 @@ const CharityFill = ({
   }, [])
 
   const n = charities.length
-  const slot = bar.width / n
-  const minPx = PART_MIN_EM * bar.em
+  const slot = bar.width / n // width of one charity slot
+  const minPx = PART_MIN_EM * bar.em // min width of the slot (if no donos yet)
   const progress = charities.map((c) => {
     const charityGoal = c.goal ?? (goal ? goal / n : 0)
     return charityGoal > 0 ? Math.min(1, (totals[c.id] ?? 0) / charityGoal) : 0
@@ -251,7 +251,12 @@ const CharityFill = ({
               opacity: showLabels ? 1 : 0,
               transition: showLabels ? 'opacity 0.5s 1s' : 'opacity 0.3s',
             }}>
-              <div className={style.charityPartText}>{c.name.split(" - ")[0]}</div>
+              <div className={style.donateBarContent}>
+                <div className={style.donateBarSingle}>
+                  <div className={style.donateBarEdge}>{c.name.split(" - ")[0]}</div>
+                  <div>{Math.round(totals[c.id] ?? 0)}{c.goal ? ` / ${c.goal}` : ""}{"\xa0€"}</div>
+                </div>
+              </div>
             </div>
             {isShown && shown ?
               <div className={style.charityPartText} style={{opacity: grows ? 1 : 0, paddingLeft: '0.4em'}}>
