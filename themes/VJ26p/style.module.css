@@ -378,6 +378,9 @@
   .sponsors > div > div:not(.sponsorHeader){
     margin-top: -0.3em;
   }
+  .gameIcon{
+    font-size: 0.85em
+  }
 }
 .fourThreeDuoSplitCam, .fourThreeDuo{
   .logoHolder {
@@ -559,6 +562,7 @@
   color: var(--v_vaaleansininen);
   .donoRoller > div > div > div, .donoRoller > div > div > div > div > div {
     padding-left: 2px;
+    padding-right: 2px;
   }
 }
 .timer {
@@ -601,7 +605,9 @@
 .fontScaler {
   font-size: calc(max(var(--fontMinScale, 0.1), var(--fontScale, 1)) * 0.96em)
 }
-
+.personList.longlist{
+  font-size: 0.8em;
+}
 
 
 .counter {
