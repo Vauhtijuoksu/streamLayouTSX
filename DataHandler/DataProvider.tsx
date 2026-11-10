@@ -2,7 +2,7 @@
 
 import {createContext, ReactNode, useContext, useEffect, useState} from "react";
 import {usePathname} from "next/navigation";
-import {API, Counter, Games, People, Person, Timer, Donation, Incentives} from "@/DataHandler/api";
+import {API, Counter, Games, People, Person, Timer, Donation, Incentives, Charities} from "@/DataHandler/api";
 
 
 type dataProviderInterface = {
@@ -18,6 +18,7 @@ type dataProviderInterface = {
   nowPlaying?: string,
   timeOffset: number,
   donations: Donation[],
+  charities: Charities,
   viewSettings: {
     defaultPlayerList: boolean,
     defaultCouchList: boolean,
@@ -36,6 +37,7 @@ const defaultValue:dataProviderInterface = {
   nowPlaying: undefined,
   timeOffset: 0,
   donations: [],
+  charities: {},
   viewSettings: {
     defaultPlayerList: true,
     defaultCouchList: true,
@@ -60,6 +62,7 @@ export const DataProvider = ({
   const [timer, setTimer] = useState<dataProviderInterface['timer']>(defaultValue.timer)
   const [nowPlaying, setNowPlaying] = useState<dataProviderInterface['nowPlaying']>(defaultValue.nowPlaying)
   const [donations, setDonations] = useState<dataProviderInterface['donations']>(defaultValue.donations)
+  const [charities, setCharities] = useState<dataProviderInterface['charities']>(defaultValue.charities)
   const [timeOffset, setTimeOffset] = useState<dataProviderInterface['timeOffset']>(defaultValue.timeOffset)
   const [viewSettings, setViewSettings] = useState<dataProviderInterface['viewSettings']>(defaultValue.viewSettings)
 
@@ -104,6 +107,9 @@ export const DataProvider = ({
       case prefix+'donations':
           readLocalStorage(prefix+'donations', setDonations)
         break
+      case prefix+'charities':
+          readLocalStorage(prefix+'charities', setCharities)
+        break
       case prefix+'viewSettings':
           readLocalStorage(prefix+'viewSettings', setViewSettings)
         break
@@ -131,7 +137,7 @@ export const DataProvider = ({
 
 
   return (
-    <DataContext.Provider value={{games, people, incentives, donatebarInfo, donationGoal, currentGame, counter, timer, heartRate, nowPlaying, timeOffset, donations, viewSettings}}>
+    <DataContext.Provider value={{games, people, incentives, donatebarInfo, donationGoal, currentGame, counter, timer, heartRate, nowPlaying, timeOffset, donations, charities, viewSettings}}>
       {children}
     </DataContext.Provider>
   )
@@ -275,6 +281,24 @@ export const useDonations = () => {
     setS(v)
   }, [v]);
   return s
+}
+
+export const useCharities = () => {
+  const [s, setS] = useState<dataProviderInterface['charities']>(defaultValue.charities)
+  const {charities:v} = useContext(DataContext)
+  useEffect(() => {
+    setS(v)
+  }, [v]);
+  return s
+}
+// per charity
+export const useCharityTotals = () => {
+  const {donations} = useContext(DataContext)
+  const totals:{[charityId: string]: number} = {}
+  donations.forEach((d) => {
+    if (d.charity) totals[d.charity] = (totals[d.charity] ?? 0) + d.amount
+  })
+  return totals
 }
 
 export const useTimeOffset = () => {
