@@ -14,6 +14,7 @@ export const themes:{[key: string]: ThemeProps} = {
   vjp25: vjp25,
   vj26: vj26,
   vj26p: vj26p,
+  latest: vj26p
 }
 
 export const defaultTheme = themes.generic

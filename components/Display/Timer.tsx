@@ -181,3 +181,21 @@ export const MainTimer = () => {
     </div>
   )
 }
+
+export const Estimate = () => {
+  const gameData = useCurrentGameData()
+  const [estimate, setEstimate] = useState<DisplayTime | undefined>(undefined)
+  const style = useStyle()
+  useEffect(() => {
+    if (gameData) setEstimate(getDisplayTime(gameData.startTime, gameData.endTime))
+  }, [gameData]);
+  if (typeof estimate == 'undefined') {
+    return null
+  }
+  return (
+    <div className={style.estimate} style={{display: 'flex', flexDirection: 'row', width: "100%"}}>
+      <div style={{flexGrow: 1, textAlign: 'left'}}>Arvio:</div>
+      <div style={{flexGrow: 1, textAlign: 'right'}}>{estimate.hour.length > 0 ? <>{estimate.hour}h </> : null}{estimate.minute[0] > 0 ? estimate.minute : estimate.minute[1]}min</div>
+    </div>
+  )
+}

@@ -19,6 +19,8 @@ import {activeCounters} from "@/layouts/components/ActiveCounters";
 import {sixteenNineEmpty} from "@/layouts/sixteenNine/SixteenNineEmpty";
 import {sixteenNineFullEmpty} from "@/layouts/sixteenNine/SixteenNineFullEmpty";
 import {sixteenNineBigCam} from "@/layouts/sixteenNine/SixteenNineBigCam";
+import {pregame} from "@/layouts/misc/pregame";
+import {pregameOverlay} from "@/layouts/misc/pregameOverlay";
 
 export type LayoutComponentProps = object | undefined
 
@@ -32,6 +34,7 @@ export const layouts:{[key: string]:Layout} = {
   fourThree,
   fourThreeDuo,
   fourThreeDuoSplitCam,
+  pregame,
   pause,
   pauseFullCam,
   yapping,
@@ -40,5 +43,6 @@ export const layouts:{[key: string]:Layout} = {
   sixteenNineFullEmpty,
   componentList,
   counters,
-  activeCounters
+  activeCounters,
+  pregameOverlay,
 }

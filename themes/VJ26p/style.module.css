@@ -46,8 +46,8 @@
     --donateBarFill: var(--v_vihrea);
     --donateBarFillLoad: var(--v_omena);
     --secondary: var(--v_musta);
-    --scheduleFallBackBG: url("./img/tirehtoori.png") center/contain no-repeat;
-    --incentiveFallBackBG: url("./img/voimamies.png") center/contain no-repeat;
+    --scheduleFallBackBG: url("./img/pystyviuhti.png") center/contain no-repeat;
+    --incentiveFallBackBG: url("./img/vaakaviuhti.png") center/contain no-repeat;
     --smallDivider: url("./img/divider.png");
     --divider: url("./img/divider.png");
     --clockIcon: url("./img/clock.png");
@@ -61,10 +61,10 @@
 .playerNameBlobRight, .playerNameBlobLeft{
     background: var(--highlightColor) url("./img/bg_scrible_anti.png") !important;
 }
-.sponsor img{
+
+.sponsor img, .gameIcon, .deviceIcon{
   image-rendering: auto;
 }
-
 
 @font-face {
     font-family: 'comis';
@@ -124,6 +124,15 @@
         }
     }
 }
+.pregame {
+    .logoHolder {
+      margin: 10px;
+        height: 100%;
+        .logo {
+            background: url("./img/logo/KolmioTextYear.svg") center/contain no-repeat;
+        }
+    }
+  }
 .overCamInfo, .donoLeft, .donoRight,  .donateBar, .layout{
   position: relative;
 }
@@ -163,11 +172,43 @@
   bottom: var(--border_offset);
 }
 
+.pregame {
+  .camera .border:after {
+    border-image: url("./img/border2.png") 25 / 32px round;
+    left: var(--border_offset);
+    bottom: var(--border_offset)
+  }
+  .iconHolder{
+    position: relative;
+    background: url("./img/paper.png") center/contain no-repeat;
+  }
+  .gameIcon{
+
+    clip-path: polygon(0% 0%, 0% 100%, 100% 100%, 100% 5%, 95% 0%);
+  }
+  .iconHolder:after{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    content: "";
+    background: url("./img/paperBorder.png") center/contain no-repeat;
+
+  }
+
+}
 .sixteenNineBigCam {
   .gameView .border:after {
     --xClip: 18.5%;
     --yClip: 66%;
     clip-path: polygon(0% 0%, 0% var(--yClip), var(--xClip) var(--yClip), var(--xClip) 100%, 100% 100%, 100% 0%);
+  }
+}
+.pregameOverlay {
+  .iconHolder{
+    position: relative;
+    background: url("./img/paper_white.png") center/contain no-repeat;
   }
 }
 .sixteenNineDuo, .sixteenNineDuoSplitCam, .fourThreeDuo, .fourThreeDuoSplitCam {
@@ -336,6 +377,9 @@
   }
   .sponsors > div > div:not(.sponsorHeader){
     margin-top: -0.3em;
+  }
+  .gameIcon{
+    font-size: 0.85em
   }
 }
 .fourThreeDuoSplitCam, .fourThreeDuo{
@@ -518,6 +562,7 @@
   color: var(--v_vaaleansininen);
   .donoRoller > div > div > div, .donoRoller > div > div > div > div > div {
     padding-left: 2px;
+    padding-right: 2px;
   }
 }
 .timer {
@@ -560,7 +605,9 @@
 .fontScaler {
   font-size: calc(max(var(--fontMinScale, 0.1), var(--fontScale, 1)) * 0.96em)
 }
-
+.personList.longlist{
+  font-size: 0.8em;
+}
 
 
 .counter {

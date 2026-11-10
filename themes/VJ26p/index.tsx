@@ -17,18 +17,12 @@ const theme:ThemeProps = {
     }
   },
   sponsors: [
-    {icon: "sairaalaklovnit.png", set: {selector: "default", label: "Keräyskohde"}},
     {icon: "azsh_blue.png"},
-    {icon: "TEK_rbg.png"},
     {icon: "pestipaevat_black.png"},
-    {icon: "emuurom.png"},
-    {icon: "dom_ant_games.png"},
     {icon: "RattoRadio_orange.png"},
-    {icon: "vectorama_white.png"},
+    {icon: "Vectorama_vaaka_positiivinen.png"},
+    {icon: "retrocon.png"},
     {icon: "toeimisto.png", set: {selector: "default", label: "Tapahtumapaikka"}},
-    {icon: "kili.png", set: {selector: "pause", label: "Taukosnäksit tarjoaa"}},
-    {icon: "oikia.png", set: {selector: "pause", label: "Taukosnäksit tarjoaa"}},
-    {icon: "putaan_pulla.png", set: {selector: "pause", label: "Taukosnäksit tarjoaa"}},
   ],
   excludeLayout: []
 }

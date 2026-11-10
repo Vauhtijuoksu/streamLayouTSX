@@ -124,14 +124,16 @@ const TextSizeTester = ({
 }
 
 type Fit2BoxProps = {
-  children: string
+  children: string | ReactNode
   minScale?: number
   className?: string
+  update?: number
 }
 
 export const Fit2Box = ({
   children,
   className,
+  update
 }:Fit2BoxProps) => {
   const sizeTester = useRef<HTMLDivElement>(null)
   const sizeTesterLine = useRef<HTMLDivElement>(null)
@@ -140,17 +142,26 @@ export const Fit2Box = ({
   const [reScale, setReScale] = useState(0)
 
 
+
+  useEffect(() => {
+    if (typeof children == "string"){
+      setReScale(Date.now())
+      setScale(1)
+    }
+  }, [children]);
+
   useEffect(() => {
     setReScale(Date.now())
     setScale(1)
-  }, [children]);
+  }, []);
+
   useEffect(() => {
-     if (sizeTester.current && sizeTesterLine.current) {
-        const line = sizeTesterLine.current.getBoundingClientRect()
-        const nonline = sizeTester.current.getBoundingClientRect()
-        setScale(Math.min(1, nonline.width / line.width))
-     }
-  }, [reScale]);
+    if (sizeTester.current && sizeTesterLine.current) {
+      const line = sizeTesterLine.current.getBoundingClientRect()
+      const nonline = sizeTester.current.getBoundingClientRect()
+      setScale(Math.min(1, nonline.width / line.width))
+    }
+  }, [reScale, update]);
 
   return (
     <div className={className} style={{width: "100%", position: 'relative'}}>

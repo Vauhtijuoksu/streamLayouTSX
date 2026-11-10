@@ -14,7 +14,7 @@ interface PersonListProps {
   role: Role
   header?: SinglePluralHeader | null
 }
-const usePersonList = (role:Role, isNotDefault:boolean) => {
+export const usePersonList = (role:Role, isNotDefault:boolean) => {
   const viewSettings = useViewSettings()
   const gameData = useCurrentGameData()
   const [personList, setPersonList] = useState<Person[]>([])
@@ -46,7 +46,7 @@ export const PersonList = ({
   return (
     <>
       {header ? (typeof header == 'object' && header && "s" in header && "p" in header ? Personlist.length == 1 ? <div className={style.roleHeader}>{header.s}</div> : <div className={style.roleHeader}>{header.p}</div> : <div className={style.roleHeader}>{header}</div>) : null}
-      <div className={style.personList} style={{display: "flex", flexDirection: "row", flexWrap: 'wrap'}}>
+      <div className={[style.personList, Personlist.length > 4 ? style.longlist : ""].join(" ")} style={{display: "flex", flexDirection: "row", flexWrap: 'wrap'}}>
         {
           Personlist.map((p, k) => {
             return [...(k != 0 ? [<span key={"and"+k}>&nbsp;&&nbsp;</span>] : []), <PersonDisplay key={k} name={p.displayName} role={role}/>]
