@@ -1,5 +1,7 @@
-import {ReactNode, useEffect, useRef, useState} from "react";
+import {createContext, ReactNode, useContext, useEffect, useRef, useState} from "react";
 import rollerStyle from "./Roller.module.css";
+
+const RollerActive = createContext(true)
 
 type RollerProps = {
   rollTo?: {timestamp: number, index: number, delayMultiplier: number}
@@ -25,6 +27,7 @@ export const Roller = ({
   const [nextIndex, setNextIndex] = useState(-1)
   const [rollDelayMultiplier, setRollDelayMultiplier] = useState(1)
   const timeout = useRef<ReturnType<typeof setTimeout>>(null)
+  const active = useContext(RollerActive)
   useEffect(() => {
     if (rollTo.index >= 0){
       setNextIndex(rollTo.index)
@@ -37,6 +40,7 @@ export const Roller = ({
       setNextIndex(-1)
     }
     if (timeout.current) clearTimeout(timeout.current)
+    if (!active) return
     timeout.current = setTimeout(() => {
       if (index < rollElements.length -1) {
         setIndex(index+1)
@@ -49,7 +53,7 @@ export const Roller = ({
     return () => {
       if (timeout.current) clearTimeout(timeout.current)
     }
-  }, [index, nextIndex, rollElements, delaySeconds, loopBack, rollDelayMultiplier]);
+  }, [index, nextIndex, rollElements, delaySeconds, loopBack, rollDelayMultiplier, active]);
   useEffect(() => {
     if (onChange) onChange(index)
   }, [index, onChange])
@@ -57,7 +61,9 @@ export const Roller = ({
     <div className={[rollerStyle.roller, sideWays ? rollerStyle.sideways : "", fade ? rollerStyle.fade : ""].join(" ")} style={showOverFlow ? {} : {overflow: 'hidden'}}>
       {
         rollElements.map((e,i) => {
-          return <div key={i} className={(i == index ? rollerStyle.rollerDisplay : rollerStyle.rollerHide)}>{e}</div>
+          return <div key={i} className={(i == index ? rollerStyle.rollerDisplay : rollerStyle.rollerHide)}>
+            <RollerActive.Provider value={active && i == index}>{e}</RollerActive.Provider>
+          </div>
         })
       }
     </div>

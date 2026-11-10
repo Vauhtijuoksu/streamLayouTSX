@@ -588,6 +588,67 @@
     background: var(--donateBarFillLoad);
     transition: right 1s 0s ease-in-out;
 }
+.charityFill {
+    position: absolute;
+    z-index: 0;
+    top: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: row;
+    overflow: hidden;
+    background: var(--donateBarFill); /* only visible if no charity has money yet */
+    border-top-right-radius: var(--borderRadius);
+    border-bottom-right-radius: var(--borderRadius);
+}
+.charityPart {
+    min-width: 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.3em;
+    padding-right: 0.3em;
+    overflow: hidden;
+    position: relative;
+    background: var(--partFill);
+    & + .charityPart {
+        border-left: 2px solid var(--secondary, black);
+    }
+}
+.charityPartFull {
+    background: var(--partFillFull);
+}
+.charityLabel {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.3em;
+    padding-left: 0.4em;
+    padding-right: 0.3em;
+    overflow: hidden;
+}
+.charityImgPlaceholder {
+    flex-shrink: 0;
+    height: 1.6em;
+    aspect-ratio: 1;
+    margin-left: 0.3em;
+    border-radius: 50%;
+    background: var(--secondary, black);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.charityPartText {
+    min-width: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: opacity 0.5s;
+}
 .donoCorner {
     background: var(--background-detail);
     width: 200px;

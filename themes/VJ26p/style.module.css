@@ -43,8 +43,18 @@
     --background-donatebar: var(--v_manaatti) var(--scrible);
     --background-donatebar-fill: var(--v_sademetsa);
     --background-detail: var(--highlightColor) var(--scrible);
-    --donateBarFill: var(--v_vihrea);
-    --donateBarFillLoad: var(--v_omena);
+    --donateBarFillLoad: var(--v_vihrea);
+    --donateBarFill: var(--v_omena);
+    --charityFillLoad1: var(--v_vesimeloni);
+    --charityFill1: var(--v_malva);
+    --charityFillLoad2: var(--v_appelsiini);
+    --charityFill2: var(--v_porkkana);
+    --charityFillLoad3: var(--v_sitruuna);
+    --charityFill3: var(--v_banaani);
+    --charityFillLoad4: var(--v_minttu);
+    --charityFill4: var(--v_omena);
+    --charityFillLoad5: var(--v_taivaansini);
+    --charityFill5: var(--v_vaaleansininen);
     --secondary: var(--v_musta);
     --scheduleFallBackBG: url("./img/pystyviuhti.png") center/contain no-repeat;
     --incentiveFallBackBG: url("./img/vaakaviuhti.png") center/contain no-repeat;
@@ -149,6 +159,7 @@
   overflow: visible;
 }
 .donateBar:after{
+  z-index: 1; /* keep the border above fills/slides */
   right: var(--border_off);
   bottom: var(--border_off);
   overflow: visible;

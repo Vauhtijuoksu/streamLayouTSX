@@ -1,12 +1,21 @@
 import {useConfig, useStyle, useTheme} from "@/themes/ThemeContext";
-import {useDonatebarInfo, useDonationGoal, useDonations, usePeople} from "@/DataHandler/DataProvider";
-import {ReactNode, useEffect, useRef, useState} from "react";
+import {useCharities, useCharityTotals, useDonatebarInfo, useDonationGoal, useDonations, usePeople, useTimeOffset} from "@/DataHandler/DataProvider";
+import {CSSProperties, ReactNode, useEffect, useRef, useState} from "react";
 import {TextSizeCheckComponent} from "@/util/TextSize";
+import {Donation} from "@/DataHandler/api";
 import {Roller} from "@/components/Roller/Roller";
 import {DonateBarIncentiveRoller, IncentiveRollerDisplay, useUpcomingIncentives} from "@/components/Display/Incentives";
 import {DonateBarScheduleDisplay, useUpcomingGames} from "@/components/Display/Schedule";
 import masking from "@/components/Holes/Masking.module.css"
 import {TimerDisplay} from "@/components/Display/Timer";
+
+const GROW_MS = 1000
+const SHOW_MS = 6000
+const ANIMATE_MAX_AGE_MS = 2 * 60 * 1000
+const PART_MIN_EM = 1
+const EXPANDED_SHARE = 0.35
+const UNDER_CORNER = 30
+type ShownDonation = {donation: Donation, open: boolean}
 
 type DonateBarProps = {
   scheduleStart?: number
@@ -25,9 +34,15 @@ export const DonateBar = ({
   const upcomingGames = useUpcomingGames()
   const donatebarInfo = useDonatebarInfo()
   const donationGoal = useDonationGoal()
+  const charities = useCharities()
+  const timeOffset = useTimeOffset()
   const [start] = useState(Date.now())
   const [donationTotal, setDonationTotal] = useState<number|undefined>(undefined)
   const [rollTo, setRollTo] = useState<{timestamp: number, index: number, delayMultiplier: number}>({timestamp: 0, index: -1, delayMultiplier: 1})
+  const seenDonationIds = useRef<Set<string>>(new Set())
+  const [queue, setQueue] = useState<Donation[]>([])
+  const [shown, setShown] = useState<ShownDonation | undefined>(undefined)
+  const [rollIndex, setRollIndex] = useState(1)
   useEffect(() => {
     let total = 0
     donations.forEach((d) => {
@@ -36,8 +51,28 @@ export const DonateBar = ({
     setDonationTotal(Math.round(total))
   }, [donations]);
   useEffect(() => {
-    if (Date.now() > start + 1000) setRollTo({timestamp: Date.now(), index: 0, delayMultiplier: 1.2})
-  }, [donationTotal, start]);
+    const fresh = donations.filter((d) => !seenDonationIds.current.has(d.id))
+    seenDonationIds.current = new Set(donations.map((d) => d.id))
+    if (fresh.length == 0 || Date.now() <= start + 1000) return
+    const withCharity = fresh.filter((d) => d.charity && charities[d.charity])
+    const serverNow = Date.now() - timeOffset
+    const recent = withCharity.filter((d) => serverNow - d.timestamp < ANIMATE_MAX_AGE_MS)
+    if (recent.length > 0) setQueue((q) => [...q, ...recent.sort((a, b) => a.timestamp - b.timestamp)])
+    if (withCharity.length < fresh.length) setRollTo({timestamp: Date.now(), index: 0, delayMultiplier: 1.2})
+  }, [donations, charities, start, timeOffset]);
+  useEffect(() => {
+    if (shown || queue.length == 0) return
+    setShown({donation: queue[0], open: true})
+    setQueue(queue.slice(1))
+  }, [shown, queue]);
+  useEffect(() => {
+    if (!shown) return
+    const t = setTimeout(
+      () => setShown(shown.open ? {...shown, open: false} : undefined),
+      shown.open ? GROW_MS + SHOW_MS : GROW_MS
+    )
+    return () => clearTimeout(t)
+  }, [shown]);
 
   const rollElements:ReactNode[] = [<DonateeList key={'DonoList'}/>]
   if (donatebarInfo.length > 0 && donatebarInfo[0] != "") rollElements.push(
@@ -49,6 +84,12 @@ export const DonateBar = ({
   if (incentives.length > 0) rollElements.push(
     <DonateBarIncentiveRoller rollDelay={10} key={"Incentives"} slides={5}/>
   )
+  const hasCharities = Object.keys(charities).length > 0
+  let charitySlideIndex = -1
+  if (hasCharities) {
+    charitySlideIndex = rollElements.length
+    rollElements.push(<div key={"Charities"}/>)
+  }
 
   return (
       <div className={[masking.overlay, style.donateBar].join(" ")} style={{display: 'flex', flexDirection: 'row'}}>
@@ -56,10 +97,14 @@ export const DonateBar = ({
           {noText ? null : <DonationTotal total={donationTotal}/> }
         </div>
         <div className={style.donateBarMain} style={{flex: 1, position: 'relative'}}>
-          {noText ? null : <DonationBarFiller total={donationTotal} goal={donationGoal}/> }
+          {noText ? null : (hasCharities ?
+            <CharityFill goal={donationGoal} shown={shown} labeled={rollIndex == charitySlideIndex}/>
+            :
+            <DonationBarFiller total={donationTotal} goal={donationGoal}/>
+          )}
           {noText ? null :
-            <div className={style.donoRoller} style={{position: 'absolute', top: 0, left: 0, right: 0, bottom: 0}}>
-              <Roller delaySeconds={15} rollElements={rollElements} loopBack={1} rollTo={rollTo}/>
+            <div className={style.donoRoller} style={{position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, opacity: shown ? 0 : 1, transition: 'opacity 0.5s'}}>
+              <Roller delaySeconds={15} rollElements={rollElements} loopBack={1} rollTo={rollTo} onChange={setRollIndex}/>
             </div>
           }
         </div>
@@ -134,6 +179,96 @@ const DonationBarFiller = ({
       <div className={style.donationBarFill2} style={{position: "absolute", zIndex:0, top: 0, left: -30, bottom: 0, right: ((1 - total/goal) * 100)+"%"}}></div>
       <div className={style.donationBarFill} style={{position: "absolute", zIndex:0, top: 0, left: -30, bottom: 0, right: ((1 - total/goal) * 100)+"%"}}></div>
     </>
+  )
+}
+
+type CharityFillProps = {
+  goal?: number
+  shown?: ShownDonation
+  labeled?: boolean
+}
+const CharityFill = ({
+  goal,
+  shown,
+  labeled = false,
+}:CharityFillProps) => {
+  const style = useStyle()
+  const charities = Object.values(useCharities())
+  const totals = useCharityTotals()
+  const ref = useRef<HTMLDivElement>(null)
+  const [bar, setBar] = useState({width: 0, em: 16})
+  useEffect(() => {
+    const parent = ref.current?.parentElement
+    if (!parent) return
+    const measure = () => setBar({width: parent.clientWidth, em: parseFloat(getComputedStyle(parent).fontSize)})
+    const observer = new ResizeObserver(measure)
+    observer.observe(parent)
+    return () => observer.disconnect()
+  }, [])
+
+  const n = charities.length
+  const slot = bar.width / n // width of one charity slot
+  const minPx = PART_MIN_EM * bar.em // min width of the slot (if no donos yet)
+  const progress = charities.map((c) => {
+    const charityGoal = c.goal ?? (goal ? goal / n : 0)
+    return charityGoal > 0 ? Math.min(1, (totals[c.id] ?? 0) / charityGoal) : 0
+  })
+  const normal = progress.map((p) => Math.max(minPx, p * slot))
+  const fillLength = normal.reduce((sum, w) => sum + w, 0)
+  const open = shown?.open ?? false
+  const showLabels = labeled && !shown
+  const shownIndex = open ? charities.findIndex((c) => c.id == shown?.donation.charity) : -1
+  const expandedPx = EXPANDED_SHARE * bar.width
+  const othersExtra = normal.reduce((sum, w, i) => i == shownIndex ? sum : sum + (w - minPx), 0)
+  const k = othersExtra > 0 ? Math.max(0, Math.min(1, (fillLength - expandedPx - (n - 1) * minPx) / othersExtra)) : 0
+  const widths = normal.map((w, i) => {
+    if (showLabels) return slot
+    if (shownIndex == -1) return w
+    return i == shownIndex ? expandedPx : minPx + (w - minPx) * k
+  })
+  const totalWidth = widths.reduce((sum, w) => sum + w, 0)
+
+  return (
+    <div ref={ref} className={style.charityFill} style={{
+      left: -UNDER_CORNER,
+      width: totalWidth + UNDER_CORNER,
+      transition: `width ${GROW_MS}ms ease-in-out`,
+    }}>
+      {charities.map((c, i) => {
+        const isShown = shown?.donation.charity == c.id
+        const grows = open && isShown
+        const color = i % 5 + 1
+        return (
+          <div key={c.id} className={[style.charityPart, progress[i] >= 1 ? style.charityPartFull : ""].join(" ")} style={{
+            flex: `0 0 ${widths[i] + (i == 0 ? UNDER_CORNER : 0)}px`,
+            paddingLeft: i == 0 ? UNDER_CORNER : 0,
+            "--partFill": `var(--charityFill${color}, var(--donateBarFill))`,
+            "--partFillFull": `var(--charityFillLoad${color}, var(--partFill))`,
+            transition: `flex ${GROW_MS}ms ease-in-out`,
+          } as CSSProperties}>
+            <div className={style.charityLabel} style={{
+              left: i == 0 ? UNDER_CORNER : 0,
+              opacity: showLabels ? 1 : 0,
+              transition: showLabels ? 'opacity 0.5s 1s' : 'opacity 0.3s',
+            }}>
+              <div className={style.donateBarContent}>
+                <div className={style.donateBarSingle}>
+                  <div className={style.donateBarEdge}>{c.name.split(" - ")[0]}</div>
+                  <div>{Math.round(totals[c.id] ?? 0)}{c.goal ? ` / ${c.goal}` : ""}{"\xa0€"}</div>
+                </div>
+              </div>
+            </div>
+            {isShown && shown ?
+              <div className={style.charityPartText} style={{opacity: grows ? 1 : 0, paddingLeft: '0.4em'}}>
+                {c.name.split(" - ")[0]}
+                <span className={style.divider} style={{display: 'inline-block', height: '1em', aspectRatio: 1, verticalAlign: 'middle', margin: '0 0.3em'}}/>
+                {shown.donation.name} +{Math.round(shown.donation.amount * 10)/10}{"\xa0€\xa0"}
+              </div>
+              : null}
+          </div>
+        )
+      })}
+    </div>
   )
 }
 
