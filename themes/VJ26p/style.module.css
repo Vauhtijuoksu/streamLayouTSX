@@ -512,10 +512,9 @@
   }
 }
 .donateBarMain {
-  --outline: var(--v_musta);
   text-shadow: 1px 1px 1px var(--outline), 1px -1px 1px var(--outline), -1px -1px 1px var(--outline), -1px 1px 1px var(--outline), 0px 0px 2px var(--outline);
   -webkit-text-stroke: 0px var(--outline);
-  color: var(--v_vaaleansininen);
+  color: var(--v_musta);
   .donoRoller > div > div > div, .donoRoller > div > div > div > div > div {
     padding-left: 2px;
   }
