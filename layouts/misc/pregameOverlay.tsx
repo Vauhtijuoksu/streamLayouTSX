@@ -32,7 +32,7 @@ const LayoutComponent = (props:LayoutComponentProps) => {
   const style = useStyle()
   const config = useConfig()
   const gameData = useCurrentGameData()
-  const sceneLive = useObsSceneLive()
+  const {count:sceneLive, hidden} = useObsSceneLive()
   const replayKey = gameData ? gameData.id + "-" + sceneLive : undefined
   const ended = useGifEnded(replayKey, gameData?.imgFileName)
   return (
@@ -44,7 +44,9 @@ const LayoutComponent = (props:LayoutComponentProps) => {
         </div>
         <div style={{gridArea: 'right'}}>
           <div className={style.iconHolder}>
+            {hidden ? null :
             <GameIcon animated replay={replayKey}></GameIcon>
+            }
           </div>
         </div>
       </div>
@@ -55,6 +57,7 @@ const LayoutComponent = (props:LayoutComponentProps) => {
 
 const useObsSceneLive = () => {
   const [count, setCount] = useState(0)
+  const [hidden, setHidden] = useState(false)
   useEffect(() => {
     const params = new URLSearchParams(window.location.search)
     const scenes = params.get('obsScene')?.split(',').map((s) => s.trim())
@@ -72,16 +75,22 @@ const useObsSceneLive = () => {
       if (!stopped) retry = setTimeout(connect, 5000)
     })
     obs.on('CurrentProgramSceneChanged', ({sceneName}) => {
-      if (scenes.includes(sceneName)) setCount((c) => c + 1)
+      if (scenes.includes(sceneName)) {
+        setCount((c) => c + 1)
+        setHidden(false)
+      } else {
+        setHidden(true)
+      }
     })
     connect()
+
     return () => {
       stopped = true
       clearTimeout(retry)
       obs.disconnect()
     }
   }, [])
-  return count
+  return {count, hidden}
 }
 
 const useGifEnded = (replayKey?: string, imgFileName?: string) => {
