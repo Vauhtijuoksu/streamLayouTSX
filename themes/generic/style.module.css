@@ -610,9 +610,7 @@
     overflow: hidden;
     position: relative;
     background: var(--partFill);
-    & + .charityPart {
-        border-left: 2px solid var(--secondary, black);
-    }
+    & + .charityPart {}
 }
 .charityPartFull {
     background: var(--partFillFull);
