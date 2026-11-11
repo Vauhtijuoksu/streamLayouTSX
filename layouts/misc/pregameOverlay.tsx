@@ -19,6 +19,7 @@ import {Layout} from "@/layouts/types";
 import {aspectRatios} from "@/schema/constant";
 import {Fit2Box} from "@/util/TextSize";
 import {useCurrentGameData} from "@/DataHandler/DataProvider";
+import OBSWebSocket from "obs-websocket-js";
 
 export const pregameOverlay:Layout = {
   displayName: 'Pre Game Overlay',
@@ -30,7 +31,10 @@ export const pregameOverlay:Layout = {
 const LayoutComponent = (props:LayoutComponentProps) => {
   const style = useStyle()
   const config = useConfig()
-  const ended = useGifEnded()
+  const gameData = useCurrentGameData()
+  const {count:sceneLive, hidden} = useObsSceneLive()
+  const replayKey = gameData ? gameData.id + "-" + sceneLive : undefined
+  const ended = useGifEnded(replayKey, gameData?.imgFileName)
   return (
     <div className={style.root} style={config.defaultCornerRadius ? {'--borderRadius': config.defaultCornerRadius + "px"} as CSSProperties : {}}>
       <div className={[style.layout, style.pregame, style.pregameOverlay, ended ? style.ended : ""].join(" ")}>
@@ -40,7 +44,9 @@ const LayoutComponent = (props:LayoutComponentProps) => {
         </div>
         <div style={{gridArea: 'right'}}>
           <div className={style.iconHolder}>
-            <GameIcon animated></GameIcon>
+            {hidden ? null :
+            <GameIcon animated replay={replayKey}></GameIcon>
+            }
           </div>
         </div>
       </div>
@@ -49,38 +55,65 @@ const LayoutComponent = (props:LayoutComponentProps) => {
   );
 }
 
+const useObsSceneLive = () => {
+  const [count, setCount] = useState(0)
+  const [hidden, setHidden] = useState(false)
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search)
+    const scenes = params.get('obsScene')?.split(',').map((s) => s.trim())
+    if (!scenes) return
+    const obs = new OBSWebSocket()
+    let stopped = false
+    let retry: ReturnType<typeof setTimeout> | undefined
+    const connect = () => {
+      obs.connect(params.get('obsUrl') ?? 'ws://localhost:4455', params.get('obsPassword') ?? process.env.NEXT_PUBLIC_OBS_PASSWORD)
+        .then(() => { if (stopped) obs.disconnect() })
+        .catch((e) => console.warn("OBS websocket:", e.message))
+    }
+    obs.on('ConnectionClosed', () => {
+      clearTimeout(retry)
+      if (!stopped) retry = setTimeout(connect, 5000)
+    })
+    obs.on('CurrentProgramSceneChanged', ({sceneName}) => {
+      if (scenes.includes(sceneName)) {
+        setCount((c) => c + 1)
+        setHidden(false)
+      } else {
+        setHidden(true)
+      }
+    })
+    connect()
 
-const useGifEnded = () => {
-  const gameData = useCurrentGameData()
-  const [duration, setDuration] = useState<number | undefined>(undefined)
+    return () => {
+      stopped = true
+      clearTimeout(retry)
+      obs.disconnect()
+    }
+  }, [])
+  return {count, hidden}
+}
 
+const useGifEnded = (replayKey?: string, imgFileName?: string) => {
   const conf = useConfig()
   const {theme} = useTheme()
   const path = conf.charImgFolder ?? theme ?? 'generic'
   const [ended, setEnded] = useState(false)
   useEffect(() => {
-    if (gameData?.imgFileName){
-      const url = "/char/"+path+"/anim/" + gameData.imgFileName.split(".")[0] + ".gif"
-      fetch(url).then((res) => {
-        if (res.ok) {
-          res.arrayBuffer().then(ab => isGifAnimated(new Uint8Array(ab))).then(d => setDuration(d + 1.5))
-        } else {
-          setDuration(0.1)
-        }
+    if (!replayKey || !imgFileName) return
+    setEnded(false)
+    let cancelled = false
+    let to: ReturnType<typeof setTimeout> | undefined
+    const url = "/char/" + path + "/anim/" + imgFileName.split(".")[0] + ".gif?g=" + replayKey
+    fetch(url)
+      .then((res) => res.ok ? res.arrayBuffer().then(ab => isGifAnimated(new Uint8Array(ab)) + 1.5) : 0.1)
+      .then((duration) => {
+        if (!cancelled) to = setTimeout(() => setEnded(true), duration * 1000)
       })
-    }
-  },[gameData, gameData?.imgFileName])
-  useEffect(() => {
-    let to = null
-    if (duration){
-      to = setTimeout(() => {setEnded(true)}, (duration) *1000)
-    }
     return () => {
-      if (to){
-        clearTimeout(to)
-      }
+      cancelled = true
+      if (to) clearTimeout(to)
     }
-  }, [duration])
+  }, [replayKey, imgFileName, path])
   return ended
 }
 
