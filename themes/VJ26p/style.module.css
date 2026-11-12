@@ -499,7 +499,7 @@
     }
     .incentiveStatus{
       .emptyIncentive{
-        color: var(--v_valkoinen);
+        color: var(--v_vesimeloni);
         text-shadow: 0px 0px 3px var(--v_musta), 0px 0px 3px var(--vj26dark);
       }
     }
@@ -567,12 +567,40 @@
   }
 }
 .donateBarMain {
-  text-shadow: 1px 1px 1px var(--outline), 1px -1px 1px var(--outline), -1px -1px 1px var(--outline), -1px 1px 1px var(--outline), 0px 0px 2px var(--outline);
-  -webkit-text-stroke: 0px var(--outline);
+  --outline: var(--v_valkoinen);
+  --outlineBlur: 0.1em;
+  animation: roll_outline 120s infinite ease-in-out forwards;
+  text-shadow: 0 0 calc(var(--outlineBlur) * 4) var(--outline), 0 0 var(--outlineBlur) var(--outline);
   color: var(--v_musta);
   .donoRoller > div > div > div, .donoRoller > div > div > div > div > div {
     padding-left: 2px;
     padding-right: 2px;
+  }
+}
+.charityPart{
+  animation: none;
+  --outline: var(--v_valkoinen);
+  text-shadow: 0 0 calc(var(--outlineBlur) * 4) var(--outline), 0 0 var(--outlineBlur) var(--outline);
+
+}
+@keyframes roll_outline {
+  0% {
+    text-shadow: 0 0 calc(var(--outlineBlur) * 4) var(--v_malva), 0 0 var(--outlineBlur) var(--v_malva);
+  }
+  20% {
+    text-shadow: 0 0 calc(var(--outlineBlur) * 4) var(--v_persikka), 0 0 var(--outlineBlur) var(--v_persikka);
+  }
+  40% {
+    text-shadow: 0 0 calc(var(--outlineBlur) * 4) var(--v_banaani), 0 0 var(--outlineBlur) var(--v_banaani);
+  }
+  60% {
+    text-shadow: 0 0 calc(var(--outlineBlur) * 4) var(--v_omena), 0 0 var(--outlineBlur) var(--v_omena);
+  }
+  80% {
+    text-shadow: 0 0 calc(var(--outlineBlur) * 4) var(--v_vaaleansininen), 0 0 var(--outlineBlur) var(--v_vaaleansininen);
+  }
+  100% {
+    text-shadow: 0 0 calc(var(--outlineBlur) * 4) var(--v_malva), 0 0 var(--outlineBlur) var(--v_malva);
   }
 }
 .timer {
